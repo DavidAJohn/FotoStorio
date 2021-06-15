@@ -1,0 +1,194 @@
+[
+    {
+        "Name": "Nikon D7500",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 929,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 2,
+        "CategoryId": 1
+    },
+    {
+        "Name": "Nikon D850",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 2999,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 2,
+        "CategoryId": 1
+    },
+    {
+        "Name": "Nikon Z6",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 1959,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 2,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Nikon Z7",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 2999,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 2,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Fujifilm X-T4",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 1929,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 4,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Fujifilm X-T3",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 1299,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 4,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Fujifilm X-T30",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 899,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 4,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Fujifilm X-E3",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 599,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 4,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Sony a6600",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 1929,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 3,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Sony a7R III",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 2699,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 3,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Sony a7R IV",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 3299,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 3,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Sony a9 II",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 4299,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 3,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Canon EOS 800D",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 849,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 1,
+        "CategoryId": 1
+    },
+    {
+        "Name": "Canon EOS 5D Mark IV",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 2199,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 1,
+        "CategoryId": 1
+    },
+    {
+        "Name": "Canon EOS R",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 1499,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 1,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Canon EOS M5",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 499,
+        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "BrandId": 1,
+        "CategoryId": 2
+    },
+    {
+        "Name": "Nikon 50mm f/1.8",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 299,
+        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "BrandId": 2,
+        "CategoryId": 3
+    },
+    {
+        "Name": "Nikon 24-70mm f/2.8",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 1099,
+        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "BrandId": 2,
+        "CategoryId": 3
+    },
+    {
+        "Name": "Canon EF 50mm f/1.2",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 249,
+        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "BrandId": 1,
+        "CategoryId": 3
+    },
+    {
+        "Name": "Canon EF 24-70mm f/2.8L",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 1899,
+        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "BrandId": 1,
+        "CategoryId": 3
+    },
+    {
+        "Name": "Fujifilm 18-55m f/2.8-4",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 599,
+        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "BrandId": 4,
+        "CategoryId": 3
+    },
+    {
+        "Name": "Fujifilm 55-200mm f/3.5-4.8",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 799,
+        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "BrandId": 4,
+        "CategoryId": 3
+    },
+    {
+        "Name": "Sony 85mm f/1.8 FE",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 449,
+        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "BrandId": 3,
+        "CategoryId": 3
+    },
+    {
+        "Name": "Sony 24-70mm f/2.8",
+        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Price": 1699,
+        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "BrandId": 3,
+        "CategoryId": 3
+    }
+]
