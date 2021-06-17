@@ -1,0 +1,46 @@
+﻿@page "/products/details/{id:int}"
+
+@using FotoStorio.Shared.Models
+@using FotoStorio.Client.Contracts
+
+@inject IProductService productService
+
+@if (errorMessage != "")
+    {
+        <div class="alert alert-danger" role="alert">
+            <h4>@errorMessage</h4>
+        </div>
+    }
+else if (product == null)
+    {
+        <text>Loading product details...</text>
+    }
+else 
+    {
+        <div>
+            <h4>@product.Name</h4>
+            <p>£@product.GetFormattedPrice()</p>
+        </div>
+    }
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Product product;
+
+    private string errorMessage = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try 
+        {
+            product = await productService.GetProductByIdAsync(Id);
+            errorMessage = "";
+        }
+        catch
+        {
+            errorMessage = "Could not retrieve details for this product";
+        }
+    }
+}
