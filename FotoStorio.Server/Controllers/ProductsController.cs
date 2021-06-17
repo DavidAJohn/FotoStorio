@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FotoStorio.Server.Contracts;
 using FotoStorio.Server.Data;
 using FotoStorio.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,29 +13,54 @@ namespace FotoStorio.Server.Controllers
     public class ProductsController : BaseApiController
     {
         private readonly ILogger<ProductsController> _logger;
+        private readonly IProductRepository _productRepository;
         private readonly ApplicationDbContext _context;
-        public ProductsController(ILogger<ProductsController> logger, ApplicationDbContext context)
+
+        public ProductsController(ILogger<ProductsController> logger, IProductRepository productRepository)
         {
             _logger = logger;
-            _context = context;
+            _productRepository = productRepository;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Product>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            var products = await _context.Products
-                .ToListAsync();
+            try
+            {
+                var products = await _productRepository.GetAllProductsAsync();
 
-            return products;
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in GetProducts : {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+            
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProductById(int id)
+        public async Task<ActionResult> GetProductById(int id)
         {
-            var product = await _context.Products
-                .SingleOrDefaultAsync(p => p.Id == id);
+            try
+            {
+                var product = await _productRepository.GetProductWithDetailsAsync(id);
 
-            return Ok(product);
+                if (product == null)
+                {
+                    _logger.LogError($"Product with id: {id}, not found");
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(product);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in GetProductById, from id {id} : {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

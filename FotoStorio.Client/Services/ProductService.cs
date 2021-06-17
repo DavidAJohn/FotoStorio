@@ -40,7 +40,7 @@ namespace FotoStorio.Client.Services
             try
             {
                 var client = _httpClient.CreateClient("FotoStorioAPI");
-                var products = await client.GetFromJsonAsync<List<Product>>("product");
+                var products = await client.GetFromJsonAsync<List<Product>>("products");
 
                 return products;
             }

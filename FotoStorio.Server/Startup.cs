@@ -1,3 +1,4 @@
+using FotoStorio.Server.Contracts;
 using FotoStorio.Server.Data;
 using FotoStorio.Server.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -26,7 +27,9 @@ namespace FotoStorio.Server
             services.AddDbContext<ApplicationDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+
             services.AddSwaggerDocumentation();
         }
 
