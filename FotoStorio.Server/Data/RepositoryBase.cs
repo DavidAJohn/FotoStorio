@@ -1,10 +1,8 @@
 ﻿using FotoStorio.Server.Contracts;
 using FotoStorio.Shared.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace FotoStorio.Server.Data
@@ -18,22 +16,32 @@ namespace FotoStorio.Server.Data
             _repositoryContext = repositoryContext;
         }
 
-        public async Task<IEnumerable<T>> GetAll()
-        {
-            return await _repositoryContext.Set<T>().ToListAsync();
-        }
-
-        public async Task<T> GetByCondition(Expression<Func<T, bool>> expression)
+        public async Task<IEnumerable<T>> ListAllAsync()
         {
             return await _repositoryContext.Set<T>()
-                .Where(expression)
-                .OrderBy(t => t.Id)
-                .FirstOrDefaultAsync();
+                .ToListAsync();
+        }
+
+        public async Task<T> GetByIdAsync(int id)
+        {
+            return await _repositoryContext.Set<T>()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<T> GetEntityWithSpecification(ISpecification<T> specification)
+        {
+            return await ApplySpecification(specification).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<T>> ListWithSpecificationAsync(ISpecification<T> specification)
+        {
+            return await ApplySpecification(specification).ToListAsync();
         }
 
         public async Task<T> Create(T entity)
         {
-            _repositoryContext.Set<T>().Add(entity);
+            await _repositoryContext.Set<T>().AddAsync(entity);
             await Save();
             return entity;
         }
@@ -55,5 +63,15 @@ namespace FotoStorio.Server.Data
             var changes = await _repositoryContext.SaveChangesAsync();
             return changes > 0;
         }
+
+        private IQueryable<T> ApplySpecification(ISpecification<T> specification)
+        {
+            return SpecificationEvaluator<T>
+                .GetQuery(_repositoryContext
+                    .Set<T>()
+                    .AsQueryable(), specification
+                );
+        }
+
     }
 }
