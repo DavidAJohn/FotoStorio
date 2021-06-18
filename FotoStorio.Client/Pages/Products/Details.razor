@@ -1,6 +1,6 @@
 ﻿@page "/products/details/{id:int}"
 
-@using FotoStorio.Shared.Models
+@using FotoStorio.Shared.DTOs
 @using FotoStorio.Client.Contracts
 
 @inject IProductService productService
@@ -19,7 +19,7 @@ else
     {
         <div>
             <h4>@product.Name</h4>
-            <p>£@product.GetFormattedPrice()</p>
+            <p>£@product.Price</p>
         </div>
     }
 
@@ -27,7 +27,7 @@ else
     [Parameter]
     public int Id { get; set; }
 
-    private Product product;
+    private ProductDTO product;
 
     private string errorMessage = "";
 

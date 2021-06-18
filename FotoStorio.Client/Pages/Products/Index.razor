@@ -1,6 +1,6 @@
 ﻿@page "/products/"
 
-@using FotoStorio.Shared.Models
+@using FotoStorio.Shared.DTOs
 @using FotoStorio.Client.Contracts
 
 @inject IProductService productService
@@ -24,7 +24,7 @@
                 <div>
                     <h4>
                         <a href="/products/details/@product.Id">
-                            @product.Name (£@product.GetFormattedPrice())
+                            @product.Name (£@product.Price)
                         </a>
                     </h4>
                 </div>
@@ -34,7 +34,7 @@
 </div>
 
 @code {
-    List<Product> products;
+    List<ProductDTO> products;
     private string errorMessage = "";
 
     protected override async Task OnInitializedAsync()

@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using FotoStorio.Client.Contracts;
+using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Models;
 using Microsoft.Extensions.Logging;
 
@@ -19,12 +20,12 @@ namespace FotoStorio.Client.Services
             _logger = logger;
         }
 
-        public async Task<Product> GetProductByIdAsync(int id)
+        public async Task<ProductDTO> GetProductByIdAsync(int id)
         {
             try
             {
                 var client = _httpClient.CreateClient("FotoStorioAPI");
-                var product = await client.GetFromJsonAsync<Product>($"products/{id}");
+                var product = await client.GetFromJsonAsync<ProductDTO>($"products/{id}");
 
                 return product;
             }
@@ -35,12 +36,12 @@ namespace FotoStorio.Client.Services
             }
         }
 
-        public async Task<List<Product>> GetProductsAsync()
+        public async Task<List<ProductDTO>> GetProductsAsync()
         {
             try
             {
                 var client = _httpClient.CreateClient("FotoStorioAPI");
-                var products = await client.GetFromJsonAsync<List<Product>>("products");
+                var products = await client.GetFromJsonAsync<List<ProductDTO>>("products");
 
                 return products;
             }

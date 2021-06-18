@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using FotoStorio.Server.Contracts;
-using FotoStorio.Server.Data;
 using FotoStorio.Server.Specifications;
+using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace FotoStorio.Server.Controllers
@@ -15,34 +15,37 @@ namespace FotoStorio.Server.Controllers
     {
         private readonly ILogger<ProductsController> _logger;
         private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;
 
-        public ProductsController(ILogger<ProductsController> logger, IProductRepository productRepository)
+        public ProductsController(ILogger<ProductsController> logger, IProductRepository productRepository, IMapper mapper)
         {
             _logger = logger;
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
         // GET api/products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts()
         {
             try
             {
                 var spec = new ProductsWithBrandsAndCategoriesSpecification();
                 var products = await _productRepository.ListWithSpecificationAsync(spec);
 
-                return Ok(products);
+                return Ok(_mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products));
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error in GetProducts : {ex.Message}");
+
                 return StatusCode(500, "Internal server error");
             }
         }
 
         // GET api/products/{id}
         [HttpGet("{id}", Name="GetProductById")]
-        public async Task<ActionResult> GetProductById(int id)
+        public async Task<ActionResult<ProductDTO>> GetProductById(int id)
         {
             try
             {
@@ -52,60 +55,69 @@ namespace FotoStorio.Server.Controllers
                 if (product == null)
                 {
                     _logger.LogError($"Product with id: {id}, not found");
+
                     return NotFound();
                 }
                 else
                 {
-                    return Ok(product);
+                    return _mapper.Map<Product, ProductDTO>(product);
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error in GetProductById, from id {id} : {ex.Message}");
+
                 return StatusCode(500, "Internal server error");
             }
         }
 
         // POST api/products
         [HttpPost]
-        public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
+        public async Task<ActionResult<Product>> CreateProduct([FromBody] ProductCreateDTO productCreateDTO)
         {
-            if (product == null)
+            if (productCreateDTO == null)
             {
                 return BadRequest();
             }
 
             try
             {
+                var product = _mapper.Map<Product>(productCreateDTO);
                 await _productRepository.Create(product);
-                return CreatedAtRoute(nameof(GetProductById), new {Id = product.Id}, product);
+                var productDTO = _mapper.Map<Product, ProductDTO>(product);
+
+                return CreatedAtRoute(nameof(GetProductById), new {Id = productDTO.Id}, productDTO);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error in CreateProduct : {ex.Message}");
+
                 return BadRequest();
             }
         }
 
         // PUT api/products/{id}
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateProduct(int id, [FromBody] Product product)
+        public async Task<ActionResult> UpdateProduct(int id, [FromBody] ProductUpdateDTO productUpdateDTO)
         {
-            var productToUpdate = await _productRepository.GetByIdAsync(id);
+            var product = await _productRepository.GetByIdAsync(id);
 
-            if (productToUpdate == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
             try
             {
+                _mapper.Map(productUpdateDTO, product);
                 await _productRepository.Update(product);
+
                 return NoContent();
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error in UpdateProduct : {ex.Message}");
+
                 return BadRequest();
             }
         }

@@ -1,6 +1,7 @@
 using FotoStorio.Server.Contracts;
 using FotoStorio.Server.Data;
 using FotoStorio.Server.Extensions;
+using FotoStorio.Server.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,8 @@ namespace FotoStorio.Server
             services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddSwaggerDocumentation();
+
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
