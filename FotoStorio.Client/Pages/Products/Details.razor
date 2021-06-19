@@ -27,19 +27,28 @@ else
     [Parameter]
     public int Id { get; set; }
 
+    [CascadingParameter]
+    public Error Error { get; set; }
+
     private ProductDTO product;
 
     private string errorMessage = "";
 
     protected override async Task OnInitializedAsync()
     {
-        try 
+        await GetProductById();
+    }
+
+    private async Task GetProductById()
+    {
+        try
         {
             product = await productService.GetProductByIdAsync(Id);
             errorMessage = "";
         }
-        catch
+        catch (Exception ex)
         {
+            Error.ProcessError(ex, "Pages/Products/Details.GetProductById()");
             errorMessage = "Could not retrieve details for this product";
         }
     }
