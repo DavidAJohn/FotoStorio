@@ -30,6 +30,8 @@ namespace FotoStorio.Server
             });
 
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.AddSwaggerDocumentation();
 
