@@ -34,7 +34,11 @@
 </div>
 
 @code {
+    [CascadingParameter]
+    public Error Error { get; set; }
+
     List<ProductDTO> products;
+
     private string errorMessage = "";
 
     protected override async Task OnInitializedAsync()
@@ -42,16 +46,17 @@
         await GetProducts();
     }
 
-    private async Task GetProducts() 
+    private async Task GetProducts()
     {
         try
         {
             products = await productService.GetProductsAsync();
             errorMessage = "";
         }
-        catch
+        catch (Exception ex)
         {
-            errorMessage = "Could not retrieve products";
+            Error.ProcessError(ex, "Pages/Products/Index.GetProducts()", true);
+            errorMessage = "Could not retrieve list of products";
         }
     }
 }
