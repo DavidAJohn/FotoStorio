@@ -6,6 +6,7 @@ using FotoStorio.Server.Contracts;
 using FotoStorio.Server.Specifications;
 using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -25,7 +26,13 @@ namespace FotoStorio.Server.Controllers
         }
 
         // GET api/products
+        /// <summary>
+        /// Get all products
+        /// </summary>
+        /// <returns>List of ProductDTO</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts()
         {
             try
@@ -44,7 +51,15 @@ namespace FotoStorio.Server.Controllers
         }
 
         // GET api/products/{id}
+        /// <summary>
+        /// Get a product by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>ProductDTO</returns>
         [HttpGet("{id}", Name="GetProductById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ProductDTO>> GetProductById(int id)
         {
             try
@@ -72,8 +87,15 @@ namespace FotoStorio.Server.Controllers
         }
 
         // POST api/products
+        /// <summary>
+        /// Creates a new product
+        /// </summary>
+        /// <returns>ProductDTO</returns>
         [HttpPost]
-        public async Task<ActionResult<Product>> CreateProduct([FromBody] ProductCreateDTO productCreateDTO)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ProductDTO>> CreateProduct([FromBody] ProductCreateDTO productCreateDTO)
         {
             if (productCreateDTO == null)
             {
@@ -97,7 +119,15 @@ namespace FotoStorio.Server.Controllers
         }
 
         // PUT api/products/{id}
+        /// <summary>
+        /// Update a product
+        /// </summary>
+        /// <param name="id"></param>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdateProduct(int id, [FromBody] ProductUpdateDTO productUpdateDTO)
         {
             var product = await _productRepository.GetByIdAsync(id);
@@ -123,7 +153,15 @@ namespace FotoStorio.Server.Controllers
         }
 
         // DELETE api/products/{id}
+        /// <summary>
+        /// Delete a product
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteProduct(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
