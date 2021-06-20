@@ -7,6 +7,7 @@ namespace FotoStorio.Server.Specifications
     {
         public ProductsWithBrandsAndCategoriesSpecification(ProductSpecificationParams productParams)
             : base(p =>
+                (string.IsNullOrEmpty(productParams.Search) || p.Name.ToLower().Contains(productParams.Search)) &&
                 (!productParams.BrandId.HasValue || p.BrandId == productParams.BrandId) &&
                 (!productParams.CategoryId.HasValue || p.CategoryId == productParams.CategoryId)
             )
