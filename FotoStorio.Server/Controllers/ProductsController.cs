@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FotoStorio.Server.Contracts;
+using FotoStorio.Server.Helpers;
 using FotoStorio.Server.Specifications;
 using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Models;
@@ -33,11 +34,11 @@ namespace FotoStorio.Server.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts([FromQuery] ProductSpecificationParams productParams)
         {
             try
             {
-                var spec = new ProductsWithBrandsAndCategoriesSpecification();
+                var spec = new ProductsWithBrandsAndCategoriesSpecification(productParams);
                 var products = await _productRepository.ListWithSpecificationAsync(spec);
 
                 return Ok(_mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products));
