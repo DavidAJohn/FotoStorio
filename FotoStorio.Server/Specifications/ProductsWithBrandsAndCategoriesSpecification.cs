@@ -16,6 +16,9 @@ namespace FotoStorio.Server.Specifications
             AddInclude(p => p.Brand);
             AddInclude(p => p.Category);
 
+            // Paging
+            ApplyPaging(productParams.PageSize * (productParams.PageIndex - 1), productParams.PageSize);
+
             // Sorting
             if (!string.IsNullOrEmpty(productParams.Sort))
             {

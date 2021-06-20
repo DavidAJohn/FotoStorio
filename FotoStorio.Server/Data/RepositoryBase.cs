@@ -39,6 +39,11 @@ namespace FotoStorio.Server.Data
             return await ApplySpecification(specification).ToListAsync();
         }
 
+        public async Task<int> CountAsync(ISpecification<T> specification)
+        {
+            return await ApplySpecification(specification).CountAsync();
+        }
+
         public async Task<T> Create(T entity)
         {
             await _repositoryContext.Set<T>().AddAsync(entity);

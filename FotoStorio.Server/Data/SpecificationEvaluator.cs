@@ -31,6 +31,13 @@ namespace FotoStorio.Server.Data
                 query = query.OrderByDescending(specification.OrderByDescending);
             }
 
+            // Apply paging if required
+            if (specification.IsPagingEnabled)
+            {
+                query = query.Skip(specification.Skip)
+                            .Take(specification.Take);
+            }
+
             return query;
         }
     }
