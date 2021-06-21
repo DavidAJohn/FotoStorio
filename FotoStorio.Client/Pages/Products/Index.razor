@@ -5,7 +5,7 @@
 
 @inject IProductService productService
 
-<div class="container">
+<div class="p-5 bg-white shadow-md sm:rounded-3xl sm:p-20">
     @if (errorMessage != "")
     {
         <div class="alert alert-danger" role="alert">
@@ -21,8 +21,8 @@
         @foreach (var product in products)
         {
             <div class="py-2">
-                <p class="text-gray-500 text-sm"> 
-                    <a href="/products/details/@product.Id">
+                <p class="text-gray-500 text-sm "> 
+                    <a href="/products/details/@product.Id" class="hover:text-black">
                         @product.Name (£@product.Price)
                     </a>
                 </p>
