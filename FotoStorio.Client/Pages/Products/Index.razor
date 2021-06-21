@@ -5,7 +5,7 @@
 
 @inject IProductService productService
 
-<div class="main">
+<div class="container">
     @if (errorMessage != "")
     {
         <div class="alert alert-danger" role="alert">
@@ -20,14 +20,12 @@
     {
         @foreach (var product in products)
         {
-            <div>
-                <div>
-                    <h4>
-                        <a href="/products/details/@product.Id">
-                            @product.Name (£@product.Price)
-                        </a>
-                    </h4>
-                </div>
+            <div class="py-2">
+                <p class="text-gray-500 text-sm"> 
+                    <a href="/products/details/@product.Id">
+                        @product.Name (£@product.Price)
+                    </a>
+                </p>
             </div>
         }
     }
