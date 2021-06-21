@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Custom additions
 .vscode
+**/wwwroot/css/tailwind.css
