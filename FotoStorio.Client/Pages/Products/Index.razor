@@ -5,30 +5,32 @@
 
 @inject IProductService productService
 
-<div class="p-5 bg-white shadow-md sm:rounded-3xl sm:p-20">
-    @if (errorMessage != "")
-    {
-        <div class="alert alert-danger" role="alert">
-            <h4>@errorMessage</h4>
-        </div>
-    }
-    else if (products == null)
-    {
-        <text>Loading products...</text>
-    }
-    else
-    {
-        @foreach (var product in products)
+<div class="container">
+    <div class="p-4 bg-white max-w-lg sm:rounded-xl sm:p-20">
+        @if (errorMessage != "")
         {
-            <div class="py-2">
-                <p class="text-gray-500 text-sm "> 
-                    <a href="/products/details/@product.Id" class="hover:text-black">
-                        @product.Name (£@product.Price)
-                    </a>
-                </p>
+            <div class="alert alert-danger" role="alert">
+                <h4>@errorMessage</h4>
             </div>
         }
-    }
+        else if (products == null)
+        {
+            <text>Loading products...</text>
+        }
+        else
+        {
+            @foreach (var product in products)
+            {
+                <div class="py-2">
+                    <p class="text-gray-500 text-sm "> 
+                        <a href="/products/details/@product.Id" class="hover:text-black">
+                            @product.Name (£@product.Price)
+                        </a>
+                    </p>
+                </div>
+            }
+        }
+    </div>
 </div>
 
 @code {
