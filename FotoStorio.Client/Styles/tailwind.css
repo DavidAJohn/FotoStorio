@@ -20,3 +20,11 @@
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.product-card {
+    @apply bg-white rounded-md overflow-hidden shadow-md relative;
+}
+
+.product-badge {
+    @apply bg-yellow-100 text-gray-700 text-xs uppercase font-bold rounded-full p-2 absolute top-0 ml-2 mt-2;
+}
