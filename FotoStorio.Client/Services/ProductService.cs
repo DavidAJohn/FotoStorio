@@ -36,7 +36,37 @@ namespace FotoStorio.Client.Services
             try
             {
                 var client = _httpClient.CreateClient("FotoStorioAPI");
-                var products = await client.GetFromJsonAsync<List<ProductDTO>>("products");
+                var products = await client.GetFromJsonAsync<List<ProductDTO>>("products?pageSize=20&brandId=2&sort=priceDesc");
+
+                return products;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException(ex.Message, ex.InnerException, ex.StatusCode);
+            }
+        }
+
+        public async Task<List<ProductDTO>> GetProductsByBrandAsync(int brandId)
+        {
+            try
+            {
+                var client = _httpClient.CreateClient("FotoStorioAPI");
+                var products = await client.GetFromJsonAsync<List<ProductDTO>>($"products?brandId={brandId}");
+
+                return products;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException(ex.Message, ex.InnerException, ex.StatusCode);
+            }
+        }
+
+        public async Task<List<ProductDTO>> GetProductsByCategoryAsync(int categoryId)
+        {
+            try
+            {
+                var client = _httpClient.CreateClient("FotoStorioAPI");
+                var products = await client.GetFromJsonAsync<List<ProductDTO>>($"products?categoryId={categoryId}");
 
                 return products;
             }
