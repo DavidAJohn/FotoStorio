@@ -5,7 +5,8 @@
         "Price": 929,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 2,
-        "CategoryId": 1
+        "CategoryId": 1,
+        "SalePrice": 929
     },
     {
         "Name": "Nikon D850",
@@ -13,7 +14,8 @@
         "Price": 2999,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 2,
-        "CategoryId": 1
+        "CategoryId": 1,
+        "SalePrice": 2999
     },
     {
         "Name": "Nikon Z6",
@@ -21,7 +23,8 @@
         "Price": 1959,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 2,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 1959
     },
     {
         "Name": "Nikon Z7",
@@ -29,7 +32,8 @@
         "Price": 2999,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 2,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 2999
     },
     {
         "Name": "Fujifilm X-T4",
@@ -37,7 +41,8 @@
         "Price": 1929,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 4,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 1929
     },
     {
         "Name": "Fujifilm X-T3",
@@ -45,7 +50,8 @@
         "Price": 1299,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 4,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 1299
     },
     {
         "Name": "Fujifilm X-T30",
@@ -53,7 +59,8 @@
         "Price": 899,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 4,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 899
     },
     {
         "Name": "Fujifilm X-E3",
@@ -61,7 +68,8 @@
         "Price": 599,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 4,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 599
     },
     {
         "Name": "Sony a6600",
@@ -69,7 +77,8 @@
         "Price": 1929,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 3,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 1929
     },
     {
         "Name": "Sony a7R III",
@@ -77,7 +86,8 @@
         "Price": 2699,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 3,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 2699
     },
     {
         "Name": "Sony a7R IV",
@@ -85,7 +95,8 @@
         "Price": 3299,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 3,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 3299
     },
     {
         "Name": "Sony a9 II",
@@ -93,7 +104,8 @@
         "Price": 4299,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 3,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 4299
     },
     {
         "Name": "Canon EOS 800D",
@@ -101,7 +113,8 @@
         "Price": 849,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 1,
-        "CategoryId": 1
+        "CategoryId": 1,
+        "SalePrice": 849
     },
     {
         "Name": "Canon EOS 5D Mark IV",
@@ -109,7 +122,8 @@
         "Price": 2199,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 1,
-        "CategoryId": 1
+        "CategoryId": 1,
+        "SalePrice": 2199
     },
     {
         "Name": "Canon EOS R",
@@ -117,7 +131,8 @@
         "Price": 1499,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 1,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 1499
     },
     {
         "Name": "Canon EOS M5",
@@ -125,7 +140,8 @@
         "Price": 499,
         "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
         "BrandId": 1,
-        "CategoryId": 2
+        "CategoryId": 2,
+        "SalePrice": 499
     },
     {
         "Name": "Nikon 50mm f/1.8",
@@ -133,7 +149,8 @@
         "Price": 299,
         "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
         "BrandId": 2,
-        "CategoryId": 3
+        "CategoryId": 3,
+        "SalePrice": 299
     },
     {
         "Name": "Nikon 24-70mm f/2.8",
@@ -141,7 +158,8 @@
         "Price": 1099,
         "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
         "BrandId": 2,
-        "CategoryId": 3
+        "CategoryId": 3,
+        "SalePrice": 1099
     },
     {
         "Name": "Canon EF 50mm f/1.2",
@@ -149,7 +167,8 @@
         "Price": 249,
         "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
         "BrandId": 1,
-        "CategoryId": 3
+        "CategoryId": 3,
+        "SalePrice": 249
     },
     {
         "Name": "Canon EF 24-70mm f/2.8L",
@@ -157,7 +176,8 @@
         "Price": 1899,
         "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
         "BrandId": 1,
-        "CategoryId": 3
+        "CategoryId": 3,
+        "SalePrice": 1899
     },
     {
         "Name": "Fujifilm 18-55m f/2.8-4",
@@ -165,7 +185,8 @@
         "Price": 599,
         "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
         "BrandId": 4,
-        "CategoryId": 3
+        "CategoryId": 3,
+        "SalePrice": 599
     },
     {
         "Name": "Fujifilm 55-200mm f/3.5-4.8",
@@ -173,7 +194,8 @@
         "Price": 799,
         "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
         "BrandId": 4,
-        "CategoryId": 3
+        "CategoryId": 3,
+        "SalePrice": 799
     },
     {
         "Name": "Sony 85mm f/1.8 FE",
@@ -181,7 +203,8 @@
         "Price": 449,
         "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
         "BrandId": 3,
-        "CategoryId": 3
+        "CategoryId": 3,
+        "SalePrice": 449
     },
     {
         "Name": "Sony 24-70mm f/2.8",
@@ -189,6 +212,7 @@
         "Price": 1699,
         "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
         "BrandId": 3,
-        "CategoryId": 3
+        "CategoryId": 3,
+        "SalePrice": 1699
     }
 ]
