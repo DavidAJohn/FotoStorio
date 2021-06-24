@@ -21,5 +21,11 @@ namespace FotoStorio.Shared.DTOs
 
         [Required]
         public int CategoryId { get; set; }
+
+        [Required]
+        public decimal SalePrice
+        {
+            get => Price;
+        }
     }
 }

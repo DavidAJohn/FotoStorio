@@ -21,5 +21,7 @@ namespace FotoStorio.Shared.DTOs
         public string Category { get; set; }
         
         public bool IsAvailable { get; set; }
+
+        public decimal SalePrice { get; set; }
     }
 }

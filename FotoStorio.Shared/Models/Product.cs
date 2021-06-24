@@ -36,6 +36,10 @@ namespace FotoStorio.Shared.Models
         [Required]
         public bool IsAvailable { get; set; } = true;
 
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal SalePrice { get; set; }
+
         public string GetFormattedPrice()
         {
             return Price.ToString("0.00");
