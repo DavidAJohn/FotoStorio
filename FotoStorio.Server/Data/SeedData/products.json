@@ -1,75 +1,75 @@
 [
     {
         "Name": "Nikon D7500",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Description": "The search for the perfect image can take you anywhere. Go there with the powerful, nimble, and fully connected D7500. Catch the beauty you find with flagship DX image quality inherited from Nikon’s D500.",
         "Price": 929,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "ImageUrl": "https://i.ibb.co/Wt3RLDT/nikon-D7500.png",
         "BrandId": 2,
         "CategoryId": 1,
         "SalePrice": 929
     },
     {
         "Name": "Nikon D850",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Description": "When you’ve got the ultimate combination of resolution, speed, and light sensitivity to work with, you don’t just execute incredible work. You show your mastery.",
         "Price": 2999,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "ImageUrl": "https://i.ibb.co/hMYxV6d/nikon-d850.png",
         "BrandId": 2,
         "CategoryId": 1,
         "SalePrice": 2999
     },
     {
-        "Name": "Nikon Z6",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
-        "Price": 1959,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "Name": "Nikon Z6 II",
+        "Description": "Run with your ideas. Follow your intuition. Whatever your next project demands, the versatile Z 6II full-frame mirrorless camera gives you the imaging power to create faster, sharper, and more fluidly. Meet opportunity with excellence, whether you express yourself best in stills—or video.",
+        "Price": 1999,
+        "ImageUrl": "https://i.ibb.co/7p9D7sG/nikon-Z6-II.png",
         "BrandId": 2,
         "CategoryId": 2,
-        "SalePrice": 1959
+        "SalePrice": 1819
     },
     {
-        "Name": "Nikon Z7",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Name": "Nikon Z7 II",
+        "Description": "Scrupulous attention to detail. A fearless work ethic. The skill to adapt. Meet the full-frame mirrorless camera that will match your passion for detail every step of the way. However you want to create with the light, the Nikon Z 7II gives you the power to realise your ideas perfectly.",
         "Price": 2999,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "ImageUrl": "https://i.ibb.co/PrV690P/nikon-Z7-II.png",
         "BrandId": 2,
         "CategoryId": 2,
         "SalePrice": 2999
     },
     {
         "Name": "Fujifilm X-T4",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Description": "Making a camera that suitable for both photography and videography is no simple task. The X-T4 is our most powerful X Series camera to date with no compromises for stills or video. Using the 4th generation X-Trans CMOS 4 sensor, X-Processor 4, a newly developed compact in-body image stabilization (IBIS) system, new Film Simulation mode “ETERNA Bleach Bypass” and various other features that have evolved based on user feedback, this camera delivers image quality that can satisfy the demands of professional photographers and videographers.",
         "Price": 1929,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "ImageUrl": "https://i.ibb.co/5hh4vXZ/fuji-x-t4.png",
         "BrandId": 4,
         "CategoryId": 2,
         "SalePrice": 1929
     },
     {
         "Name": "Fujifilm X-T3",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Description": "The X-T3 is a high performance premium camera that will become an inseparable partner in your artistic journey. Everything about this camera has been designed to completely satisfy all your photography and videography needs…dials for adjusting exposure settings, high resolution EVF and a robust magnesium alloy body that is ready for the toughest of conditions.",
         "Price": 1299,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "ImageUrl": "https://i.ibb.co/THsp3mw/fuji-x-t3.png",
         "BrandId": 4,
         "CategoryId": 2,
         "SalePrice": 1299
     },
     {
         "Name": "Fujifilm X-T30",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Description": "The new FUJIFILM X-T30, offers similar performance to the FUJIFILM X-T3, in a smaller and lighter body. It has the same phase-detection AF system with almost 100% frame coverage, blackout-free high-speed continuous shooting of up to 30fps, monochrome adjustment function, Color Chrome effect and Sports Viewfinder mode while also offering functions that cater to the less professional photographer, such as the Advanced SR Auto function.",
         "Price": 899,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "ImageUrl": "https://i.ibb.co/8XJJtfy/fuji-X-T30.jpg",
         "BrandId": 4,
         "CategoryId": 2,
         "SalePrice": 899
     },
     {
         "Name": "Fujifilm X-E3",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
-        "Price": 599,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "Description": "The FUJIFILM X-E3 is a rangefinder style, ultra-compact mirror less camera which boasts outstanding image quality and enhanced handling. Utilising the X-Processor pro for best in class colour reproduction in both stills and 4K movies, it’s made for photographers who want to seamlessly upload photos directly to their smartphone or tablet.",
+        "Price": 699,
+        "ImageUrl": "https://i.ibb.co/s2LwZcd/fuji-x-e3.jpg",
         "BrandId": 4,
         "CategoryId": 2,
-        "SalePrice": 599
+        "SalePrice": 699
     },
     {
         "Name": "Sony a6600",
@@ -145,18 +145,18 @@
     },
     {
         "Name": "Nikon 50mm f/1.8",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Description": "Special edition of the popular 50mm f/1.8 NIKKOR lens. Boasts a compact and lightweight body with a retro-look and feel. With a fast maximum aperture of f/1.8, this is a great lens for low-light situations or when shallow depth of field is required. An aspherical lens element reduces aberrations and increases resolution, and Nikon’s exclusive Silent Wave Motor (SWM) delivers whisper-quiet operation.",
         "Price": 299,
-        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "ImageUrl": "https://i.ibb.co/c8zknTr/nikon-50mm-f1-8.png",
         "BrandId": 2,
         "CategoryId": 3,
         "SalePrice": 299
     },
     {
-        "Name": "Nikon 24-70mm f/2.8",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Name": "Nikon 24-70mm f/4",
+        "Description": "Find the perfect angle, keep the perfect angle. This compact NIKKOR Z 24-70mm f/4 S zoom lens delivers true full-frame images. Whether you’re shooting stills or movies with your Nikon Z camera, you’ll capture incredible detail. All the way to the edge.",
         "Price": 1099,
-        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "ImageUrl": "https://i.ibb.co/416TG7N/nikon-Z-24-70mm-f4.png",
         "BrandId": 2,
         "CategoryId": 3,
         "SalePrice": 1099
@@ -181,18 +181,18 @@
     },
     {
         "Name": "Fujifilm 18-55m f/2.8-4",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Description": "With this single versatile zoom featuring a maximum aperture of F2.8 and a broad focal length range from 27mm (35mm equiv) wide angle to 84mm (35mm equiv) telephoto, the photographer can respond to a variety of scenes. Superbly portable thanks to its compact size, the fast linear motor-driven autofocus and the built-in functionality of four stops of image stabilisation ensure comfortable, confident shooting even in challenging situations.",
         "Price": 599,
-        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "ImageUrl": "https://i.ibb.co/vkQLTrP/fuji-xf18-55mmf2-8-4-r-lm-ois.jpg",
         "BrandId": 4,
         "CategoryId": 3,
         "SalePrice": 599
     },
     {
         "Name": "Fujifilm 55-200mm f/3.5-4.8",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Description": "Built with optical design that offers a large maximum aperture, and a linear motor that delivers high-speed AF performance, while featuring the image stabilization function that allows the use of shutter speeds 5.0 stops slower. This is a lens you can trust even in the toughest of shooting conditions.",
         "Price": 799,
-        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "ImageUrl": "https://i.ibb.co/7vNcV1b/fuji-xf55-200mmf3-5-4-8-r-lm-ois.jpg",
         "BrandId": 4,
         "CategoryId": 3,
         "SalePrice": 799
