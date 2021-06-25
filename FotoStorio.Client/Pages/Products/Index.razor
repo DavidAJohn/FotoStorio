@@ -22,20 +22,20 @@
             @foreach (var product in products)
             {
                 <div class="product-card hover:shadow-xl hover:opacity-70">
-                    <a href="products/details/@product.Id">
+                    <a href="products/details/@product.Id" class="hover:text-fotoblue">
                         <img src="@product.ImageUrl" alt="@product.Name" class="w-full h-32 sm:h-48 object-cover">
-                    <div class="m-4">
-                        <span class="font-bold block">@product.Name</span>
-                        @if (product.SalePrice != 0 && product.SalePrice < product.Price)
-                        {   
-                            <span class="text-gray-500 text-sm line-through mr-4">£@product.Price</span>
-                            <span class="inline text-gray-500 text-sm">Now: £@product.SalePrice</span>
-                        }
-                        else
-                        {
-                            <span class="block text-gray-500 text-sm">£@product.Price</span>
-                        }
-                    </div>
+                        <div class="m-4">
+                            <span class="font-bold block">@product.Name</span>
+                            @if (product.SalePrice != 0 && product.SalePrice < product.Price)
+                            {   
+                                <span class="text-gray-500 text-sm line-through mr-4">£@product.Price</span>
+                                <span class="inline text-gray-500 text-sm">Now: £@product.SalePrice</span>
+                            }
+                            else
+                            {
+                                <span class="block text-gray-500 text-sm">£@product.Price</span>
+                            }
+                        </div>
                     </a>
                     @if (product.SalePrice != 0 && product.SalePrice < product.Price)
                     {
