@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<nav class="bg-fotoblue">
+<nav class="bg-fotoblue" id="navbar-top">
   <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
     <div class="relative flex items-center justify-between h-16">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -59,6 +59,35 @@
   </div>
 </nav>
 
+<nav class="bg-fotoblue">
+  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-center h-16">
+      <div>
+        <div class="text-white">
+          <NavLink href="products?category=1">DSLR Cameras</NavLink>
+        </div>
+      </div>
+      <div class="mx-3 text-white">|</div>
+      <div>
+        <div class="text-white">
+          <NavLink href="products?category=2">Mirrorless Cameras</NavLink>
+        </div>
+      </div>
+      <div class="mx-3 text-white">|</div>
+      <div>
+        <div class="text-white">
+          <NavLink href="products?category=3">Lenses</NavLink>
+        </div>
+      </div>
+      <div class="mx-3 text-white">|</div>
+      <div>
+        <div class="text-white">
+          <a href="#">By Brand</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
 
 <main role="main" class="flex-shrink-0 container">
     <div class="container">
