@@ -4,10 +4,6 @@ module.exports = {
         center: true,
         padding: '2rem'
       },
-      fontFamily: {
-        sans: ['Graphik', 'sans-serif'],
-        serif: ['Merriweather', 'serif'],
-      },
       extend: {
         spacing: {
           '128': '32rem',
@@ -17,7 +13,11 @@ module.exports = {
           '4xl': '2rem',
         },
         colors: {
-            fotoblue: '#111750'
+            fotoblue: '#111750',
+            fotofuchsia: '#FF2A57'
+        },
+        fontFamily: {
+          body: ['Roboto']
         }
       }
     }
