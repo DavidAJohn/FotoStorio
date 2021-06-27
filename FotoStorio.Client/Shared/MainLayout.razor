@@ -7,7 +7,7 @@
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex items-center justify-between h-16">
 
-          <!-- Hamburger menu button -->
+          <!-- Hamburger button for mobile menu -->
           <div class="absolute inset-y-0 left-0 flex items-center sm:hidden" @onclick="ToggleNavMenu">
             <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
               <span class="sr-only">Open main menu</span>
@@ -21,6 +21,7 @@
             </button>
           </div>
 
+          <!-- Site name and logo -->
           <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
               <div class="block md:hidden h-12 w-auto items-center ml-4">
                   <span class="flex items-center justify-center">
@@ -36,6 +37,7 @@
               </div>
           </div>
 
+          <!-- Login/Register/User Details and cart -->
           <div class="flex flex-row items-center">
             <div class="text-white text-sm font-medium mr-4">
               <a href="/login" class="text-gray-300 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Log In</a>
@@ -59,50 +61,13 @@
 
   <!-- Mobile menu -->
   <div class="sm:hidden @NavMenuCssClass" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-1">
-      <!-- Current: "bg-blue-900 text-white", Default: "text-gray-300 hover:bg-blue-900 hover:text-white" -->
-      <a href="/products" class="text-gray-300 hover:bg-blue-900 hover:text-white block px-3 py-2 rounded-md text-base font-medium">DSL Cameras</a>
-
-      <a href="/products" class="text-gray-300 hover:bg-blue-900 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Mirrorless Cameras</a>
-
-      <a href="/products" class="text-gray-300 hover:bg-blue-900 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Lenses</a>
-
-      <a href="/products" class="text-gray-300 hover:bg-blue-900 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Special Offers</a>
-    </div>
+    <MobileMenu />
   </div>
 
 </nav>
 
 <!-- navbar second layer -->
-<nav class="bg-blue-900 hidden sm:block">
-  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-center h-16">
-      <div>
-        <div class="text-white text-sm">
-          <NavLink href="products?category=1" class="hover:bg-fotoblue hover:text-white px-3 py-2 my-2 rounded-md uppercase font-bold">DSLR Cameras</NavLink>
-        </div>
-      </div>
-      <div class="mx-2 text-white">|</div>
-      <div>
-        <div class="text-white text-sm hover:border-b-2 ">
-          <NavLink href="products?category=2" class="hover:bg-fotoblue hover:text-white px-3 py-2 my-2 rounded-md uppercase font-bold">Mirrorless Cameras</NavLink>
-        </div>
-      </div>
-      <div class="mx-2 text-white">|</div>
-      <div>
-        <div class="text-white text-sm">
-          <NavLink href="products?category=3" class="hover:bg-fotoblue hover:text-white px-3 py-2 my-2 rounded-md uppercase font-bold">Lenses</NavLink>
-        </div>
-      </div>
-      <div class="mx-2 text-white">|</div>
-      <div>
-        <div class="text-white text-sm">
-          <a href="#" class="hover:bg-fotoblue hover:text-white px-3 py-2 my-2 rounded-md uppercase font-bold">Special Offers</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
+<NavMenu />
 
 <!-- main body content -->
 <main role="main" class="flex-shrink-0 container max-w-7xl pb-12">
@@ -177,7 +142,7 @@
     </div>
 
     <div class="p-3 text-center" style="background-color: rgba(0, 0, 0, 0.2);">
-        &copy; Copyright 2021 - Foto Storio
+        &copy; Copyright @currentYear - Foto Storio
     </div>
 </footer>
 
@@ -185,6 +150,15 @@
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private string currentYear;
+
+    protected override void OnInitialized()
+    {
+        // set footer copyright year
+        DateTime currentDateTime = DateTime.Now;
+        currentYear = currentDateTime.Year.ToString();
+    }
 
     private void ToggleNavMenu()
     {
