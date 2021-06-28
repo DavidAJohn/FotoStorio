@@ -4,6 +4,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using FotoStorio.Client.Contracts;
 using FotoStorio.Shared.DTOs;
+using FotoStorio.Shared.Models;
 
 namespace FotoStorio.Client.Services
 {
@@ -69,6 +70,36 @@ namespace FotoStorio.Client.Services
                 var products = await client.GetFromJsonAsync<List<ProductDTO>>($"products?categoryId={categoryId}");
 
                 return products;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException(ex.Message, ex.InnerException, ex.StatusCode);
+            }
+        }
+
+        public async Task<List<Brand>> GetProductBrandsAsync()
+        {
+            try
+            {
+                var client = _httpClient.CreateClient("FotoStorioAPI");
+                var brands = await client.GetFromJsonAsync<List<Brand>>("brands");
+
+                return brands;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException(ex.Message, ex.InnerException, ex.StatusCode);
+            }
+        }
+
+        public async Task<List<Category>> GetProductCategoriesAsync()
+        {
+            try
+            {
+                var client = _httpClient.CreateClient("FotoStorioAPI");
+                var categories = await client.GetFromJsonAsync<List<Category>>("categories");
+
+                return categories;
             }
             catch (HttpRequestException ex)
             {
