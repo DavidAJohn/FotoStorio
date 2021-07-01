@@ -63,6 +63,9 @@
                 </div>
             }
         </div>
+        <div>
+            <Pagination metadata="metadata" Spread="10" SelectedPage="SelectedPage" />
+        </div>
     }
 </div>
 
@@ -74,13 +77,16 @@
 
     List<DropdownItem> dropdownOptions = new();
 
+    private PagingMetadata metadata = new();
+    private ProductParameters productParams = new();
+
     private string errorMessage = "";
 
     private bool ClearSearch = false;
 
     protected override async Task OnInitializedAsync()
     {
-        await GetProducts();
+        await SelectedPage();
     }
 
     protected override void OnInitialized()
@@ -92,7 +98,9 @@
     {
         try
         {
-            products = await productService.GetProductsAsync();
+            var productsWithMetadata = await productService.GetProductsAsync(productParams);
+            products = productsWithMetadata.Items;
+            metadata = productsWithMetadata.Metadata;
             errorMessage = "";
         }
         catch (Exception ex)
@@ -102,10 +110,17 @@
         }
     }
 
+    private async Task SelectedPage(int page = 1)
+    {
+        productParams.PageIndex = page;
+
+        await GetProducts();
+    }
+
     private async Task SearchChanged(string searchTerm = "")
     {
-        //itemParams.PageIndex = 1;
-        //itemParams.Search = searchTerm;
+        productParams.PageIndex = 1;
+        productParams.Search = searchTerm;
 
         await GetProducts();
     }

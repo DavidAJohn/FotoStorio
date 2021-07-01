@@ -1,4 +1,4 @@
-﻿using FotoStorio.Server.Helpers;
+﻿using FotoStorio.Shared.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Text.Json;
@@ -26,7 +26,7 @@ namespace FotoStorio.Server.Extensions
             bool hasPrevious = pageIndex > 1;
             bool hasNext = pageIndex < totalPages;
 
-            var paginationHeader = new PaginationResponseHeader
+            var paginationHeader = new PagingMetadata
             {
                 TotalCount = recordCount,
                 PageIndex = pageIndex,

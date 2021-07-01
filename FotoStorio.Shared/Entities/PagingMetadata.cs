@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FotoStorio.Server.Helpers
+namespace FotoStorio.Shared.Entities
 {
-    public class PaginationResponseHeader
+    public class PagingMetadata
     {
         public int TotalCount { get; set; }
         public int PageIndex { get; set; }
