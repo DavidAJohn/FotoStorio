@@ -108,40 +108,40 @@
         "SalePrice": 4299
     },
     {
-        "Name": "Canon EOS 800D",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
-        "Price": 849,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "Name": "Canon EOS 850D",
+        "Description": "Take the next step in creative control and enjoy the world of the Canon EOS system. Capture beautifully detailed photos and stunning 4K movies with this lightweight and connected DSLR. The EOS 850D is the perfect DSLR for anyone seeking next-level control, offering an optical viewfinder to see through the lens, a rear control and top dial to fine tune settings and 7-fps continuous shooting for capturing action. With a 24.1 MP sensor using Dual Pixel CMOS AF and a refined 45-point all cross-type AF sensor plus iTR AF for precise focus and tracking, the EOS 850D will react instantly to capture the perfect moment. This kit comes with the versatile EF-S 18-135mm f/3.5-5.6 IS USM that’s built-in Image Stabilizer reduces image blur from camera shake for impressive low light performance.",
+        "Price": 1249,
+        "ImageUrl": "https://i.ibb.co/VQJw2YT/canon-eos-850d.png",
         "BrandId": 1,
         "CategoryId": 1,
-        "SalePrice": 849
+        "SalePrice": 1249
     },
     {
         "Name": "Canon EOS 5D Mark IV",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
-        "Price": 2199,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "Description": "Enjoy superb image quality, whatever you are photographing. From street reportage to location portraiture and landscapes in the evening light, the EOS 5D Mark IV captures incredible detail, even in extreme contrast. 4K video delivers new levels of performance. Continuous 7fps shooting helps when chasing the perfect moment, while GPS keeps a record of your movements. Wi-Fi and NFC make wireless control and photo sharing quick and easy. Increase flexibility in video post-production with the included Canon Log upgrade. Canon Log provides extra wide dynamic range, enabling you to retain natural-looking detail. It also allows easy colour grading to reduce noise in video post-production and bring to life that polished film footage you’ve been striving for.",
+        "Price": 2959,
+        "ImageUrl": "https://i.ibb.co/Rc5fRDB/canon-eos-5d-mark4.png",
         "BrandId": 1,
         "CategoryId": 1,
-        "SalePrice": 2199
+        "SalePrice": 2959
     },
     {
         "Name": "Canon EOS R",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
-        "Price": 1499,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "Description": "With over 30 years of EOS innovation and design in its wake, the EOS R system’s pioneering lens mount sets the new standard for the cameras of the future. Offering the fastest autofocus in the world, this EOS R body brings new levels of operability to advanced EOS users, with faster communication between lens and camera, redefining photo and video capability. Incredible low light performance with -6EV autofocus, the camera also boasts 4K video, Vari-Angle touchscreen and intuitive controls for responsive handling - perfect for photographers and filmmakers alike.",
+        "Price": 1729,
+        "ImageUrl": "https://i.ibb.co/8Dg2YPg/canon-eos-r.png",
         "BrandId": 1,
         "CategoryId": 2,
-        "SalePrice": 1499
+        "SalePrice": 1599
     },
     {
-        "Name": "Canon EOS M5",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
-        "Price": 499,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "Name": "Canon EOS R6",
+        "Description": "Fall in love with photography all over again with a camera that lets you be creative in new and exciting ways. The EOS R6 is a full-frame mirrorless camera that’s so advanced it can shoot silently at up to 20 fps¹ with electronic shutter or at 12 fps with a mechanical shutter, capture 4K 60p video and is sensitive up to ISO 102,400 for amazing low-light photography. Next-generation image stabilisation allows hand-held photography at shutter speeds up to 8 stops longer than normal without camera shake. The Canon EOS R6 excels in all areas but will particularly appeal to photographers capturing action photography and videographers working on the move. Those shooting wedding photography, event photography and documentary projects will love its lightning-fast AF that recognises heads, eyes and bodies – not just in human subjects but also in cats, dogs and birds too.",
+        "Price": 2599,
+        "ImageUrl": "https://i.ibb.co/Z8DRbNM/canon-eos-r6.png",
         "BrandId": 1,
         "CategoryId": 2,
-        "SalePrice": 499
+        "SalePrice": 2599
     },
     {
         "Name": "Nikon 50mm f/1.8",
@@ -162,22 +162,22 @@
         "SalePrice": 1099
     },
     {
-        "Name": "Canon EF 50mm f/1.2",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
-        "Price": 249,
-        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "Name": "Canon EF 50mm f/1.8 STM",
+        "Description": "Тhе Саnоn ЕF 50mm f1.8 ЅТМ lеnѕ іѕ thе ѕuссеѕѕоr tо thе іnсrеdіblу рорulаr 50mm f1.8 ІІ. Ехtrеmеlу соmрасt аnd lіghtwеіght (160g), thе lеnѕ fеаturеѕ аn іmрrоvеd орtісаl dеѕіgn аnd ѕtерріng mоtоr (ЅТМ) tесhnоlоgу. Іtѕ wіdе f/1.8 mахіmum ареrturе аnd ѕtаndаrd 50mm fосаl lеngth mаkеѕ іt іdеаl fоr а wіdе vаrіеtу оf рhоtоgrарhіс gеnrеѕ, іnсludіng trаvеl, роrtrаіturе, аnd еvеrуdау сrеаtіvе ѕnарѕhоtѕ.",
+        "Price": 129,
+        "ImageUrl": "https://i.ibb.co/BPHwnzN/canon-ef-50mm-f1-8.png",
         "BrandId": 1,
         "CategoryId": 3,
-        "SalePrice": 249
+        "SalePrice": 129
     },
     {
         "Name": "Canon EF 24-70mm f/2.8L",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
-        "Price": 1899,
-        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "Description": "Тhе аll-рurроѕе Саnоn ЕF 24-70mm f/2.8L ІІ UЅМ lеnѕ іѕ а fаѕt ареrturе zооm ѕuіtаblе fоr аll аrеаѕ оf рhоtоgrарhу, whісh fеаturеѕ аn орtісаl ѕуѕtеm thаt іnсludеѕ 2 ultrа-lоw dіѕреrѕіоn (UD) аnd ѕuреr UD аѕрhеrіс еlеmеntѕ tо mіnіmіѕе соlоur аbеrrаtіоn аnd еnѕurе ехсерtіоnаl ѕhаrрnеѕѕ. f/2.8 ареrturе аnd UЅМ (Ultrаѕоnіс Моtоr) аllоwѕ fоr fаѕt, lоw lіght ѕhооtіng аnd nеаr-ѕіlеnt fосuѕіng.",
+        "Price": 1929,
+        "ImageUrl": "https://i.ibb.co/Pc0dBfh/canon-ef-24-70mm-f2-8.png",
         "BrandId": 1,
         "CategoryId": 3,
-        "SalePrice": 1899
+        "SalePrice": 1799
     },
     {
         "Name": "Fujifilm 18-55m f/2.8-4",
