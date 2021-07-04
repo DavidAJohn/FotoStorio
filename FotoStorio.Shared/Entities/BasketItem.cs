@@ -1,11 +1,11 @@
-using FotoStorio.Shared.Models;
+using FotoStorio.Shared.DTOs;
 
 namespace FotoStorio.Shared.Entities
 {
     public class BasketItem
     {
         public int Quantity { get; set; }
-        public Product Product { get; set; }
+        public ProductDTO Product { get; set; }
 
         public decimal Total
         {

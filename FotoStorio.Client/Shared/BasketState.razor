@@ -22,4 +22,18 @@
             StateHasChanged();
         }
     }
+
+    private int basketItemCount = 0;
+    public int BasketItemCount
+    {
+        get
+        {
+            return basketItemCount;
+        }
+        set
+        {
+            basketItemCount = value;
+            StateHasChanged();
+        }
+    }
 }
