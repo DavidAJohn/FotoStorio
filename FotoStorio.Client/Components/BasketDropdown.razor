@@ -1,0 +1,64 @@
+﻿@using FotoStorio.Shared.Entities
+
+<div class="relative inline-block text-left h-full">
+    <div class="flex flex-row justify-between items-center bg-fotofuchsia h-full px-3 cursor-pointer" @onclick="ToggleDropdown">
+        <span class=" text-white text-sm font-medium">Your Basket:</span>
+        <span class=" text-white ml-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+        </span>
+        @if (basketItems != null)
+        {
+            <span id="cart-items" class="text-white text-sm ml-2 mr-3 md:mr-2">@basketItems.Count</span>
+        }
+        else
+        {
+            <span id="cart-items" class="text-white text-sm ml-2 mr-3 md:mr-2">0</span>
+        }
+    </div>
+
+    @if (basketItems != null)
+    {
+        @if (basketItems.Count > 0)
+        {
+            <div class="origin-top-right absolute right-0 mt-20 w-64 rounded-md shadow-lg bg-white focus:outline-none z-10 @DropdownCssClass" role="menu" tabindex="-1">
+                <div class="p-4" role="none">
+                    @foreach (BasketItem item in basketItems)
+                    {
+                        <span>item.Quantity</span><span>&nbsp;x&nbsp;</span><span>item.Product</span>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="origin-top-right absolute right-0 mt-0 w-64 h-32 rounded-md shadow-lg bg-white focus:outline-none z-10 @DropdownCssClass" role="menu" tabindex="-1">
+                <div class="p-4" role="none">
+                    <span class="font-semibold text-sm">Your basket is currently empty</span>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [CascadingParameter]
+    public BasketState basketState { get; set; }
+
+    List<BasketItem> basketItems { get; set; }
+
+    protected override void OnInitialized()
+    {
+        basketItems = basketState.BasketItems;
+    }
+
+    private bool collapseDropdown = true;
+
+    private string DropdownCssClass => collapseDropdown ? "collapse" : null;
+
+    private void ToggleDropdown()
+    {
+        collapseDropdown = !collapseDropdown;
+    }
+}

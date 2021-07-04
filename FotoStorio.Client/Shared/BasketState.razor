@@ -1,0 +1,25 @@
+﻿@using FotoStorio.Shared.Entities
+
+<CascadingValue Value="this">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private List<BasketItem> basketItems = new();
+
+    public List<BasketItem> BasketItems
+    {
+        get
+        {
+            return basketItems;
+        }
+        set
+        {
+            basketItems = value;
+            StateHasChanged();
+        }
+    }
+}
