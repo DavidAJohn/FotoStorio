@@ -1,6 +1,8 @@
 ﻿@using FotoStorio.Shared.Entities
 @using System.Linq
 
+@inject NavigationManager NavigationManager
+
 <div class="relative inline-block text-left h-full">
     <div class="flex flex-row justify-between items-center bg-fotofuchsia h-full px-3 cursor-pointer fotofuchsia-ripple" @onclick="ToggleDropdown">
         <span class=" text-white text-sm font-medium">Your Basket:</span>
@@ -45,6 +47,9 @@
                     Total:&nbsp; £@basketTotal
                 </div>
                 <div class="mt-2 px-4 text-right">
+                    <button type="button" class="p-2 my-3 bg-fotoblue text-white rounded-sm text-sm hover:opacity-90 fotoblue-ripple" @onclick="GoToCheckout">
+                        Checkout
+                    </button>&nbsp;
                     <button type="button" class="p-2 my-3 bg-fotofuchsia text-white rounded-sm text-sm hover:opacity-90 fotofuchsia-ripple" @onclick="EmptyBasket">
                         Empty basket
                     </button>
@@ -97,5 +102,11 @@
             ));
 
         basketState.BasketItemCount--;
+    }
+
+    private void GoToCheckout()
+    {
+        ToggleDropdown();
+        NavigationManager.NavigateTo("/");
     }
 }
