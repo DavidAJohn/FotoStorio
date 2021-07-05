@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using FotoStorio.Client.Contracts;
 using FotoStorio.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -22,6 +23,7 @@ namespace FotoStorio.Client
             builder.Services.AddHttpClient("FotoStorioAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress + "api/"));
 
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddBlazoredLocalStorage();
 
             await builder.Build().RunAsync();
         }

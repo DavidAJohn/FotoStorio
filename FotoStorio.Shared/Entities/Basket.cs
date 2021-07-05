@@ -22,6 +22,6 @@ namespace FotoStorio.Shared.Entities
             }
         }
         public DateTime LastAccessed { get; set; }
-        public int TimeToLiveInSeconds { get; set; } = 30; // default
+        public int TimeToLiveInSeconds { get; set; } = 300; // 5 mins
     }
 }

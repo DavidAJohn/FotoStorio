@@ -128,11 +128,22 @@
         }
     }
 
-    private void AddItemToBasket()
+    private async Task AddItemToBasket()
     {
-        var item = new BasketItem { Product = product, Quantity = itemQuantity };
+        var productToAdd = new BasketProductDTO {
+            Id = product.Id,
+            Name = product.Name,
+            Price = product.Price,
+            ImageUrl = product.ImageUrl,
+            Brand = product.Brand,
+            Category = product.Category,
+            SalePrice = product.SalePrice
+        };
 
-        basketState.BasketItems.Add(item);
+        var item = new BasketItem { Product = productToAdd, Quantity = itemQuantity };
+
+        basketState.Basket.BasketItems.Add(item);
+        await basketState.SaveChangesAsync(); // save to local storage
         basketState.BasketItemCount++;
     }
 

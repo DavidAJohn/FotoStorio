@@ -5,7 +5,7 @@ namespace FotoStorio.Shared.Entities
     public class BasketItem
     {
         public int Quantity { get; set; }
-        public ProductDTO Product { get; set; }
+        public BasketProductDTO Product { get; set; }
 
         public decimal Total
         {

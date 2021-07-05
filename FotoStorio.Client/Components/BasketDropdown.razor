@@ -44,7 +44,7 @@
                     }
                 </div>
                 <div class="mt-2 px-4 text-right text-sm font-semibold">
-                    Total:&nbsp; £@basketTotal
+                    Total:&nbsp; £@basketState.Basket.BasketTotal
                 </div>
                 <div class="mt-2 px-4 text-right">
                     <button type="button" class="p-2 my-3 bg-fotoblue text-white rounded-sm text-sm hover:opacity-90 fotoblue-ripple" @onclick="GoToCheckout">
@@ -72,11 +72,11 @@
     public BasketState basketState { get; set; }
 
     private List<BasketItem> basketItems { get; set; }
-    private Decimal basketTotal = 0;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        basketItems = basketState.BasketItems;
+        await basketState.GetBasketAsync();
+        basketItems = basketState.Basket.BasketItems;
     }
 
     private bool collapseDropdown = true;
@@ -88,19 +88,21 @@
         collapseDropdown = !collapseDropdown;
     }
 
-    private void EmptyBasket()
+    private async Task EmptyBasket()
     {
-        basketState.BasketItems.Clear();
+        basketState.Basket.BasketItems.Clear();
+        await basketState.SaveChangesAsync(); // update local storage
         basketState.BasketItemCount = 0;
     }
 
-    private void DeleteItem(BasketItem item)
+    private async Task DeleteItem(BasketItem item)
     {
-        basketState.BasketItems.Remove(basketState.BasketItems.FirstOrDefault(
+        basketState.Basket.BasketItems.Remove(basketState.Basket.BasketItems.FirstOrDefault(
                 i => i.Product.Name == item.Product.Name &&
                 i.Quantity == item.Quantity
             ));
 
+        await basketState.SaveChangesAsync(); // save to local storage
         basketState.BasketItemCount--;
     }
 
