@@ -21,5 +21,12 @@ module.exports = {
           body: ['Roboto']
         }
       }
-    }
+    },
+    variants: {
+      extend: {
+        backgroundColor: ['active'],
+        opacity: ['disabled'],
+        cursor: ['disabled']
+      }
+    },
   }
