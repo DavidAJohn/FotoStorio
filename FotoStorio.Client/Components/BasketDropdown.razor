@@ -2,7 +2,7 @@
 @using System.Linq
 
 <div class="relative inline-block text-left h-full">
-    <div class="flex flex-row justify-between items-center bg-fotofuchsia h-full px-3 cursor-pointer" @onclick="ToggleDropdown">
+    <div class="flex flex-row justify-between items-center bg-fotofuchsia h-full px-3 cursor-pointer fotofuchsia-ripple" @onclick="ToggleDropdown">
         <span class=" text-white text-sm font-medium">Your Basket:</span>
         <span class=" text-white ml-2">
             <!-- heroicons: shopping-cart -->
@@ -45,7 +45,7 @@
                     Total:&nbsp; £@basketTotal
                 </div>
                 <div class="mt-2 px-4 text-right">
-                    <button type="button" class="p-2 my-3 bg-fotofuchsia text-white rounded-sm text-sm hover:opacity-75" @onclick="EmptyBasket">
+                    <button type="button" class="p-2 my-3 bg-fotofuchsia text-white rounded-sm text-sm hover:opacity-90 fotofuchsia-ripple" @onclick="EmptyBasket">
                         Empty basket
                     </button>
                 </div>
