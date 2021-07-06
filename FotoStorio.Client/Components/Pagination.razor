@@ -38,8 +38,8 @@
                         {
                             <div>
                                 <button type="button" disabled  
-                                    class="z-10 relative inline-flex items-center p-2 border border-gray-700 text-md font-medium 
-                                        bg-fotoblue text-gray-50 cursor-default"
+                                    class="z-10 relative inline-flex items-center p-2 border border-gray-800 text-md font-medium 
+                                        bg-blue-900 text-gray-50 cursor-default"
                                 >
                                     @link.Text
                                 </button>
@@ -49,8 +49,8 @@
                         {
                             <div>
                                 <button type="button" @onclick="() => OnSelectedPage(link)" 
-                                    class="z-10 relative inline-flex items-center p-2 border border-gray-700 text-md font-medium 
-                                        bg-gray-50 text-gray-700 hover:bg-fotoblue hover:text-gray-50  
+                                    class="z-10 relative inline-flex items-center p-2 border border-gray-800 text-md font-medium 
+                                        bg-gray-50 text-gray-700 hover:bg-blue-900 hover:text-gray-50  
                                         @($"{(link.Text == "Next" ? " rounded-tr-md rounded-br-md" : "")} {(link.Text == "Previous" ? " rounded-tl-md rounded-bl-md" : "")}")
                                         "
                                 >
@@ -62,8 +62,8 @@
                     else
                     {
                         <div>
-                            <button type="button" disabled class="z-10 relative inline-flex items-center p-2 border border-gray-700 
-                                                        text-md font-medium text-gray-300 cursor-default" 
+                            <button type="button" disabled class="z-10 relative inline-flex items-center p-2 border border-gray-800 
+                                                        text-md font-medium text-gray-400 cursor-default" 
                             >
                                 @link.Text
                             </button>
