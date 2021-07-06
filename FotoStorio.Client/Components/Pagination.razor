@@ -63,7 +63,9 @@
                     {
                         <div>
                             <button type="button" disabled class="z-10 relative inline-flex items-center p-2 border border-gray-800 
-                                                        text-md font-medium text-gray-400 cursor-default" 
+                                    text-md font-medium text-gray-400 cursor-default 
+                                    @($"{(link.Text == "Next" ? " rounded-tr-md rounded-br-md" : "")} {(link.Text == "Previous" ? " rounded-tl-md rounded-bl-md" : "")}")
+                                    " 
                             >
                                 @link.Text
                             </button>
