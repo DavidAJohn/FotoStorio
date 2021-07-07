@@ -22,6 +22,7 @@
     {
         // Retrieve the Basket from the browser's local storage
         Basket = await localStorage.GetItemAsync<Basket>("FotoStorio_Basket");
+        await InvokeAsync(StateHasChanged);
 
         // If the Basket is not there or empty...
         if (Basket == null || Basket.BasketItems.Count == 0)
@@ -47,6 +48,7 @@
         // Set the time stamp to current time and save to local storage
         Basket.LastAccessed = DateTime.Now;
         await localStorage.SetItemAsync("FotoStorio_Basket", Basket);
+        await InvokeAsync(StateHasChanged);
     }
 
     private int basketItemCount = 0;

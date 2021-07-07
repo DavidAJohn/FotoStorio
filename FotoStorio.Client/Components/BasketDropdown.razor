@@ -104,11 +104,14 @@
 
         await basketState.SaveChangesAsync(); // save to local storage
         basketState.BasketItemCount--;
+
+        await basketState.GetBasketAsync();
+        basketItems = basketState.Basket.BasketItems;
     }
 
     private void GoToCheckout()
     {
         ToggleDropdown();
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/checkout");
     }
 }
