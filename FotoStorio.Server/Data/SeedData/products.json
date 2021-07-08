@@ -73,36 +73,36 @@
     },
     {
         "Name": "Sony a6600",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
-        "Price": 1929,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "Description": "Introducing the Sony a6600 Digital Camera - With this body, it is all about incorporating beautiful detail and high resolution images combined with super-fast and powerful processing, all in a compact shell. The A6600 hits the brief with ease. This system caters to the needs to enthusiasts and professional alike, and in both photography and videography because of the pure quality of its capture. Its compact nature makes it perfect for travel documentaries as well as vlogging.",
+        "Price": 1249,
+        "ImageUrl": "https://i.ibb.co/0t4YKPT/sony-a6600.png",
         "BrandId": 3,
         "CategoryId": 2,
-        "SalePrice": 1929
+        "SalePrice": 1249
+    },
+    {
+        "Name": "Sony a7 III",
+        "Description": "The Sony a7 III Digital Camera Body is the third iteration in the game-changing Sony A7 range. It comes upgraded with a back-illuminated 24.2-megapixel Full-Frame Exmor R CMOS imaging sensor, and the reinvented BIONZ X processing engine. The camera facilitates 4K HDR video capture and comes with 15-stops of dynamic range. Furthermore, it is capable of shooting 10fps, offers a fantastic ISO from 100-51200 as well as 5-axis image stabilisation all in a stylish, compact mirrorless system camera body.",
+        "Price": 1699,
+        "ImageUrl": "https://i.ibb.co/M2txHYN/sony-a7iii.png",
+        "BrandId": 3,
+        "CategoryId": 2,
+        "SalePrice": 1699
     },
     {
         "Name": "Sony a7R III",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
-        "Price": 2699,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "Description": "Тhе Ѕоnу a7R ІІІ іѕ thе thіrd іtеrаtіоn frоm thе Ѕоnу'ѕ А7R ѕеrіеѕ оf mіrrоrlеѕѕ соmрасt ѕуѕtеm саmеrаѕ. Тhе саmеrаѕ оffеr іmрrоvеd ѕрееd аnd іmаgе quаlіtу thаnkѕ tо іtѕ 42.4МР full frаmе Ехmоr R СМОЅ Ѕеnѕоr аnd іmрrеѕѕіvе рrосеѕѕіng ѕуѕtеm. А hugе 399-роіnt fосаl-рlаnе рhаѕе-dеtесtіоn АF ѕуѕtеm аnd hіgh-ѕрееd соntіnuоuѕ ѕhооtіng оf uр tо 10fрѕ mаkе thіѕ саmеrа іnсrеdіblу vеrѕаtіlе аnd wіll саtеr fоr а wіdе rаngе оf аррlісаtіоnѕ.",
+        "Price": 2199,
+        "ImageUrl": "https://i.ibb.co/ryGq0Vn/sony-a7-Riii.png",
         "BrandId": 3,
         "CategoryId": 2,
-        "SalePrice": 2699
-    },
-    {
-        "Name": "Sony a7R IV",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
-        "Price": 3299,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
-        "BrandId": 3,
-        "CategoryId": 2,
-        "SalePrice": 3299
+        "SalePrice": 2199
     },
     {
         "Name": "Sony a9 II",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Description": "The Sony a9 Mark II is the successor to the widely popular and well-received Sony A9. It is a Full-Frame Mirrorless-System camera offering 35mm Full-Frame stacked 24.2 MP Exmor RS CMOS sensor, and built-in 1000BASE-T Ethernet terminal. All of this has been packed into an extremely compact, stylish, and portable body. The A9II is undoubtedly a marvel of digital camera technology and a worthy addition to the Sony Alpha Mirrorless-System camera line-up.",
         "Price": 4299,
-        "ImageUrl": "https://i.ibb.co/vs9CgP5/Generic-Camera-Icon-711x600.png",
+        "ImageUrl": "https://i.ibb.co/9GNw8mW/sony-a9ii.png",
         "BrandId": 3,
         "CategoryId": 2,
         "SalePrice": 4299
@@ -199,18 +199,18 @@
     },
     {
         "Name": "Sony 85mm f/1.8 FE",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Description": "This compact, easy-to-handle lens offers fine prime lens performance with high corner-to-corner resolution. A precision optical design includes one ED (Extra-low Dispersion) glass element to effectively minimise chromatic aberration, while spherical aberration is tightly controlled for high overall sharpness with smooth bokeh when required.",
         "Price": 449,
-        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "ImageUrl": "https://i.ibb.co/zJBCB0y/sony-85mm-f1-8.jpg",
         "BrandId": 3,
         "CategoryId": 3,
         "SalePrice": 449
     },
     {
-        "Name": "Sony 24-70mm f/2.8",
-        "Description": "Dolor laboris exercitation laborum aute sunt commodo commodo consequat esse aute ut amet occaecat esse. Voluptate cillum esse tempor minim eiusmod culpa velit esse velit dolor.",
+        "Name": "Sony FE 24-70mm f/2.8 GM",
+        "Description": "Robust design and technology result in a reliable F2.8 zoom lens that can fully utilise current and future high-resolution camera bodies. This peerless standard zoom covers a 24mm to 70mm range, making it ideal for portraits, scenery, snapshots and any time ultimate image quality is required.",
         "Price": 1699,
-        "ImageUrl": "https://i.ibb.co/h7xh2MK/camera-lens.png",
+        "ImageUrl": "https://i.ibb.co/c6TWNd3/sony-24-70mm-f2-8.jpg",
         "BrandId": 3,
         "CategoryId": 3,
         "SalePrice": 1699
