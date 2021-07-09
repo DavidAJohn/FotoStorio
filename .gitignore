@@ -366,3 +366,4 @@ FodyWeavers.xsd
 .vscode
 **/wwwroot/css/tailwind.css
 *.jpg
+*.png
