@@ -24,7 +24,7 @@
         "ImageUrl": "https://i.ibb.co/7p9D7sG/nikon-Z6-II.png",
         "BrandId": 2,
         "CategoryId": 2,
-        "SalePrice": 1819
+        "SalePrice": 1829
     },
     {
         "Name": "Nikon Z7 II",
@@ -33,7 +33,7 @@
         "ImageUrl": "https://i.ibb.co/PrV690P/nikon-Z7-II.png",
         "BrandId": 2,
         "CategoryId": 2,
-        "SalePrice": 2999
+        "SalePrice": 2749
     },
     {
         "Name": "Fujifilm X-T4",
@@ -132,7 +132,7 @@
         "ImageUrl": "https://i.ibb.co/8Dg2YPg/canon-eos-r.png",
         "BrandId": 1,
         "CategoryId": 2,
-        "SalePrice": 1599
+        "SalePrice": 1649
     },
     {
         "Name": "Canon EOS R6",
@@ -155,20 +155,20 @@
     {
         "Name": "Nikon 24-70mm f/4",
         "Description": "Find the perfect angle, keep the perfect angle. This compact NIKKOR Z 24-70mm f/4 S zoom lens delivers true full-frame images. Whether you’re shooting stills or movies with your Nikon Z camera, you’ll capture incredible detail. All the way to the edge.",
-        "Price": 1099,
+        "Price": 999,
         "ImageUrl": "https://i.ibb.co/416TG7N/nikon-Z-24-70mm-f4.png",
         "BrandId": 2,
         "CategoryId": 3,
-        "SalePrice": 1099
+        "SalePrice": 849
     },
     {
         "Name": "Canon EF 50mm f/1.8 STM",
         "Description": "Тhе Саnоn ЕF 50mm f1.8 ЅТМ lеnѕ іѕ thе ѕuссеѕѕоr tо thе іnсrеdіblу рорulаr 50mm f1.8 ІІ. Ехtrеmеlу соmрасt аnd lіghtwеіght (160g), thе lеnѕ fеаturеѕ аn іmрrоvеd орtісаl dеѕіgn аnd ѕtерріng mоtоr (ЅТМ) tесhnоlоgу. Іtѕ wіdе f/1.8 mахіmum ареrturе аnd ѕtаndаrd 50mm fосаl lеngth mаkеѕ іt іdеаl fоr а wіdе vаrіеtу оf рhоtоgrарhіс gеnrеѕ, іnсludіng trаvеl, роrtrаіturе, аnd еvеrуdау сrеаtіvе ѕnарѕhоtѕ.",
-        "Price": 129,
+        "Price": 139,
         "ImageUrl": "https://i.ibb.co/BPHwnzN/canon-ef-50mm-f1-8.png",
         "BrandId": 1,
         "CategoryId": 3,
-        "SalePrice": 129
+        "SalePrice": 119
     },
     {
         "Name": "Canon EF 24-70mm f/2.8L",
