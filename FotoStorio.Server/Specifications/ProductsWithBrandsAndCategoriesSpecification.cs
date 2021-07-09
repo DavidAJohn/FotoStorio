@@ -38,10 +38,10 @@ namespace FotoStorio.Server.Specifications
                         ApplyOrderByDescending(p => p.Brand.Name);
                         break;
                     case "priceAsc":
-                        ApplyOrderBy(p => p.Price);
+                        ApplyOrderBy(p => p.SalePrice != 0 && p.SalePrice < p.Price ? p.SalePrice : p.Price);
                         break;
                     case "priceDesc":
-                        ApplyOrderByDescending(p => p.Price);
+                        ApplyOrderByDescending(p => p.SalePrice != 0 && p.SalePrice < p.Price ? p.SalePrice : p.Price);
                         break;
                     case "idAsc":
                         ApplyOrderBy(p => p.Id);
