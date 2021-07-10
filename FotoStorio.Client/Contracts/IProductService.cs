@@ -14,5 +14,6 @@ namespace FotoStorio.Client.Contracts
         Task<List<ProductDTO>> GetProductsByCategoryAsync(int categoryId);
         Task<List<Brand>> GetProductBrandsAsync();
         Task<List<Category>> GetProductCategoriesAsync();
+        Task<PagedList<ProductDTO>> GetProductsOnSpecialOfferAsync(ProductParameters productParameters);
     }
 }
