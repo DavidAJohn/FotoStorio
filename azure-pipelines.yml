@@ -23,12 +23,11 @@ steps:
   displayName: 'Running npm install...'
   inputs:
     command: 'install'
-    workingDir: 'FotoStorio'
 
 - task: gulp@1
   displayName: 'Running Gulp tasks...'
   inputs:
-    gulpFile: 'FotoStorio/FotoStorio.Client/gulpfile.js' 
+    gulpFile: 'FotoStorio.Client/gulpfile.js' 
     targets: css:prod
 
 - task: DotNetCoreCLI@2
