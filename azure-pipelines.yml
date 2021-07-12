@@ -28,6 +28,7 @@ steps:
 - task: gulp@1
   displayName: 'Running Gulp tasks...'
   inputs:
+    gulpFile: 'FotoStorio.Client/gulpfile.js'
     workingDirectory: 'FotoStorio.Client'
     targets: 'css:prod'
 
