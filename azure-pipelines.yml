@@ -23,6 +23,7 @@ steps:
   displayName: 'Running npm install...'
   inputs:
     command: 'install'
+    workingDir: '$(Build.SourcesDirectory)'
 
 - task: gulp@1
   displayName: 'Running Gulp tasks...'
