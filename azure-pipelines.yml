@@ -28,8 +28,10 @@ steps:
 - task: gulp@1
   displayName: 'Running Gulp tasks...'
   inputs:
-    gulpFile: 'FotoStorio.Client/gulpfile.js' 
-    targets: css:prod
+    gulpFile: 'FotoStorio.Client/gulpfile.js'
+    targets: 'css:prod'
+    gulpjs: 'node_modules/gulp/bin/gulp.js'
+    enableCodeCoverage: false
 
 - task: DotNetCoreCLI@2
   displayName: Build
