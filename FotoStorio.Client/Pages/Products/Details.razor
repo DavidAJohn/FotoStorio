@@ -5,6 +5,7 @@
 @using FotoStorio.Client.Contracts
 
 @inject IProductService productService
+@inject IToastService toastService
 
 <div class="container">
     @if (errorMessage != "")
@@ -145,6 +146,7 @@
         basketState.Basket.BasketItems.Add(item);
         await basketState.SaveChangesAsync(); // save to local storage
         basketState.BasketItemCount++;
+        toastService.ShowSuccess("A new item has been added to your basket", "Basket Updated");
     }
 
 }

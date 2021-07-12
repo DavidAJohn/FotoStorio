@@ -3,7 +3,17 @@
 @using FotoStorio.Shared.Entities
 @using FotoStorio.Shared.Models
 @using FotoStorio.Client.Contracts
+@using Blazored.Toast.Configuration
+
 @inject IProductService productService
+
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="4"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fas fa-check-circle"
+                InfoIcon="fas fa-info-circle"
+                ErrorIcon="fas fa-exclamation-circle" />
 
 <!-- navbar top layer -->
 <nav class="bg-fotoblue" id="navbar-top">

@@ -2,6 +2,7 @@
 @using System.Linq
 
 @inject NavigationManager NavigationManager
+@inject IToastService toastService
 
 <div class="relative inline-block text-left h-full">
     <div class="flex flex-row justify-between items-center bg-fotofuchsia h-full px-3 cursor-pointer fotofuchsia-ripple" @onclick="ToggleDropdown">
@@ -93,6 +94,7 @@
         basketState.Basket.BasketItems.Clear();
         await basketState.SaveChangesAsync(); // update local storage
         basketState.BasketItemCount = 0;
+        toastService.ShowSuccess("Your basket has been emptied", "Empty basket");
     }
 
     private async Task DeleteItem(BasketItem item)
@@ -104,6 +106,7 @@
 
         await basketState.SaveChangesAsync(); // save to local storage
         basketState.BasketItemCount--;
+        toastService.ShowSuccess("The item has been removed from your basket", "Item deleted");
 
         await basketState.GetBasketAsync();
         basketItems = basketState.Basket.BasketItems;
