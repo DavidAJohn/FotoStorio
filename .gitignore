@@ -367,3 +367,7 @@ FodyWeavers.xsd
 **/wwwroot/css/tailwind.css
 *.jpg
 *.png
+
+# Exclude Visual Studio Azure publish files
+profile.arm.json
+dotnet-tools.json

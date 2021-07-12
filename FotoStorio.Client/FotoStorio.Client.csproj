@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -18,5 +18,9 @@
   <ItemGroup>
     <ProjectReference Include="..\FotoStorio.Shared\FotoStorio.Shared.csproj" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="if $(ConfigurationName) == Release gulp css:prod" />
+  </Target>
 
 </Project>
