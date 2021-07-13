@@ -1,0 +1,47 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  BuildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Using .NET 5 sdk'
+  inputs:
+    version: 5.x
+    includePreviewVersions: false
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+
+- task: Npm@1
+  displayName: 'Running npm install...'
+  inputs:
+    command: 'install'
+    workingDir: '$(Build.SourcesDirectory)'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    command: 'build'
+    projects: '**/FotoStorio.Server.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publishing app...'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/FotoStorio.Server.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publishing Build Artifacts...'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+  condition: succeededOrFailed()
