@@ -3,6 +3,7 @@ using FotoStorio.Server.Data;
 using FotoStorio.Server.Data.Identity;
 using FotoStorio.Server.Extensions;
 using FotoStorio.Server.Helpers;
+using FotoStorio.Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -34,11 +35,12 @@ namespace FotoStorio.Server
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
             });
 
-            services.AddIdentityServices(Configuration);
+            services.AddIdentityServices(Configuration); // extension method: IdentityServicesExtensions
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddHttpContextAccessor();
 
