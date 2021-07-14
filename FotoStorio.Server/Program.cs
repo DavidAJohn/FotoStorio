@@ -1,13 +1,14 @@
 using FotoStorio.Server.Data;
+using FotoStorio.Server.Data.Identity;
+using FotoStorio.Shared.Models.Identity;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FotoStorio.Server
@@ -25,12 +26,21 @@ namespace FotoStorio.Server
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
-
                     await context.Database.MigrateAsync();
                     
                     await SeedData.SeedBrandsDataAsync(context);
                     await SeedData.SeedCategoriesDataAsync(context);
                     await SeedData.SeedProductsDataAsync(context);
+
+                    // Identity seeding
+                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                    var identityContext = services.GetRequiredService<IdentityDbContext>();
+                    var config = services.GetRequiredService<IConfiguration>();
+
+                    await identityContext.Database.MigrateAsync();
+                    await SeedIdentity.SeedUsersAndRolesAsync(userManager, roleManager, config);
                 }
                 catch (Exception ex)
                 {

@@ -1,5 +1,6 @@
 using FotoStorio.Server.Contracts;
 using FotoStorio.Server.Data;
+using FotoStorio.Server.Data.Identity;
 using FotoStorio.Server.Extensions;
 using FotoStorio.Server.Helpers;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,12 @@ namespace FotoStorio.Server
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddDbContext<IdentityDbContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
+            });
+
+            services.AddIdentityServices(Configuration);
+
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -56,6 +63,7 @@ namespace FotoStorio.Server
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
