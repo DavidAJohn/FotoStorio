@@ -8,6 +8,7 @@ using FotoStorio.Server.Helpers;
 using FotoStorio.Server.Specifications;
 using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -101,6 +102,7 @@ namespace FotoStorio.Server.Controllers
         /// Creates a new product
         /// </summary>
         /// <returns>ProductDTO</returns>
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -133,6 +135,7 @@ namespace FotoStorio.Server.Controllers
         /// Update a product
         /// </summary>
         /// <param name="id"></param>
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -167,6 +170,7 @@ namespace FotoStorio.Server.Controllers
         /// Delete a product
         /// </summary>
         /// <param name="id"></param>
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
