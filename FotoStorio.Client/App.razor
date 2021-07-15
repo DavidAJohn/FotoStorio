@@ -1,14 +1,30 @@
 <Error>
-    <BasketState>
-        <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
-            <Found Context="routeData">
-                <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-            </Found>
-            <NotFound>
-                <LayoutView Layout="@typeof(MainLayout)">
-                    <CustomNotFound />
-                </LayoutView>
-            </NotFound>
-        </Router>
-    </BasketState>
+    <CascadingAuthenticationState>
+        <BasketState>
+            <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+                <Found Context="routeData">
+                    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                        <Authorizing>
+                            <text>Authorising...please wait</text>
+                        </Authorizing>
+                        <NotAuthorized>
+                            @if (!context.User.Identity.IsAuthenticated)
+                            {
+                                <RedirectToLogin />
+                            }
+                            else
+                            {
+                                <p>You are not authorised to access this resource.</p>
+                            }
+                        </NotAuthorized>
+                    </AuthorizeRouteView>
+                </Found>
+                <NotFound>
+                    <LayoutView Layout="@typeof(MainLayout)">
+                        <CustomNotFound />
+                    </LayoutView>
+                </NotFound>
+            </Router>
+        </BasketState>
+    </CascadingAuthenticationState>
 </Error>
