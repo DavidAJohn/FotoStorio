@@ -1,7 +1,9 @@
 using Blazored.LocalStorage;
 using Blazored.Toast;
 using FotoStorio.Client.Contracts;
+using FotoStorio.Client.Providers;
 using FotoStorio.Client.Services;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,10 @@ namespace FotoStorio.Client
             builder.Services.AddHttpClient("FotoStorioAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress + "api/"));
 
             builder.Services.AddScoped<IProductService, ProductService>();
+            
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazoredToast();
