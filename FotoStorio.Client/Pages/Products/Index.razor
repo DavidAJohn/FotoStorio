@@ -12,8 +12,10 @@
 <div class="container mt-8">
     @if (errorMessage != "")
     {
-        <div class="alert alert-danger" role="alert">
-            <h4>@errorMessage</h4>
+        <div class="mx-2 animate-pulse">
+            <div class="alert-box" role="alert">
+                <span class="block sm:inline">@errorMessage</span>
+            </div>
         </div>
     }
     else if (products == null)
