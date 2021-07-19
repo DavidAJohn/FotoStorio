@@ -82,7 +82,7 @@
             </div>
 
             <!-- show a 'currently displaying' section to indicate how the products are being filtered -->
-            <div class="flex justify-center items-center mt-4">
+            <div class="flex flex-col sm:flex-row justify-center items-center mt-4">
                 <div class="text-md font-semibold mr-2 mt-1">Currently displaying:</div>
 
                 @if (string.IsNullOrEmpty(productParams.Search) && productParams.CategoryId == 0 && productParams.BrandId == 0)
