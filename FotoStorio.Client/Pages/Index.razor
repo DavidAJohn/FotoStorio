@@ -1,4 +1,5 @@
 ﻿@page "/"
+@page "/{auth}"
 
 @inject IJSRuntime JsRuntime;
 
@@ -51,7 +52,7 @@
     </div>
 
     <!-- category grid -->
-    <div class="md:container max-w-7xl mt-8 md:mt-16">
+    <div class="md:container max-w-7xl mt-8 md:mt-24">
         <div class="md:hidden mb-12 w-full md:px-8 flex justify-center items-center">
             <ClickSearch 
                 Placeholder="Search the store..." 
@@ -131,6 +132,17 @@
     </div>
     
 </div>
+
+@code {
+    [Parameter]
+    public string Auth { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+    
+}
 
 @functions {     
 
