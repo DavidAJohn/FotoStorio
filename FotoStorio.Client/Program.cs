@@ -1,4 +1,5 @@
 using Blazored.LocalStorage;
+using Blazored.SessionStorage;
 using Blazored.Toast;
 using FotoStorio.Client.Contracts;
 using FotoStorio.Client.Providers;
@@ -32,6 +33,7 @@ namespace FotoStorio.Client
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             
             builder.Services.AddBlazoredLocalStorage();
+            builder.Services.AddBlazoredSessionStorage();
             builder.Services.AddBlazoredToast();
 
             await builder.Build().RunAsync();
