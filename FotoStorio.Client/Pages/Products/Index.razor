@@ -240,14 +240,14 @@
             if (storedParams != null)
             {
                 productParams = storedParams;
-                await SelectedPage(productParams.PageIndex);
             }
         }
+
+        await SelectedPage(productParams.PageIndex);
     }
 
     protected override async Task OnInitializedAsync()
     {
-        await SelectedPage();
         await GetCategories();
         await GetBrands();
     }
@@ -276,7 +276,7 @@
     private async Task SelectedPage(int page = 1)
     {
         productParams.PageIndex = page;
-
+        await SaveProductParamsToSessionStorage(productParams);
         await GetProducts();
     }
 
@@ -300,6 +300,7 @@
     private async Task AddBrandFilter() 
     {
         productParams.BrandId = brandId;
+        productParams.PageIndex = 1;
         await SaveProductParamsToSessionStorage(productParams);
         await GetProducts();
     }
@@ -307,6 +308,7 @@
     private async Task AddCategoryFilter() 
     {
         productParams.CategoryId = categoryId;
+        productParams.PageIndex = 1;
         await SaveProductParamsToSessionStorage(productParams);
         await GetProducts();
     }
@@ -316,6 +318,7 @@
         if ((string)displayParam == productParams.Search)
         {
             productParams.Search = "";
+            productParams.PageIndex = 1;
             await SaveProductParamsToSessionStorage(productParams);
             await GetProducts();
         }
@@ -326,12 +329,14 @@
         if ((int)displayParam == productParams.CategoryId)
         {
             productParams.CategoryId = 0;
+            productParams.PageIndex = 1;
             await GetProducts();
         }
 
         if ((int)displayParam == productParams.BrandId)
         {
             productParams.BrandId = 0;
+            productParams.PageIndex = 1;
             await GetProducts();
         }
 
