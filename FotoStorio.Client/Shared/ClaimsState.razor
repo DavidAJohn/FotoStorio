@@ -1,0 +1,76 @@
+@page "/claimsstate"
+
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+@if (isAuthenticated)
+{
+    @if (!string.IsNullOrEmpty(userName))
+    {
+        <span>@userName is authenticated</span>
+    }
+}
+
+@if (isAdmin)
+{
+    <p>You are in the Administrator role</p>
+}
+
+@if (isUser)
+{
+    <p>You are in the User role</p>
+}
+
+@if (isAdminPolicy)
+{
+    <p>You are in the IsAdmin policy</p>
+}
+
+@if (isUserPolicy)
+{
+    <p>You are in the IsUser policy</p>
+}
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    bool isAuthenticated = false;
+    bool isAdmin = false;
+    bool isUser = false;
+    bool isAdminPolicy = false;
+    bool isUserPolicy = false;
+    string userName;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var user = (await authenticationStateTask).User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            isAuthenticated = true;
+
+            userName = user.Claims.FirstOrDefault(c => c.Type == "given_name").Value;
+        }
+
+        if (user.HasClaim("role", "Administrator"))
+        {
+            isAdmin = true;
+        }
+
+        if (user.HasClaim("role", "User"))
+        {
+            isUser = true;
+        }
+
+        if ((await AuthorizationService.AuthorizeAsync(user, "IsAdmin")).Succeeded)
+        {
+            isAdminPolicy = true;
+        }
+
+        if ((await AuthorizationService.AuthorizeAsync(user, "IsUser")).Succeeded)
+        {
+            isUserPolicy = true;
+        }
+    }
+}

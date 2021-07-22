@@ -4,6 +4,7 @@ using Blazored.Toast;
 using FotoStorio.Client.Contracts;
 using FotoStorio.Client.Providers;
 using FotoStorio.Client.Services;
+using FotoStorio.Shared.Auth;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,10 +29,25 @@ namespace FotoStorio.Client
 
             builder.Services.AddScoped<IProductService, ProductService>();
             
-            builder.Services.AddAuthorizationCore();
+            builder.Services.AddApiAuthorization(opt => opt.UserOptions.RoleClaim = "role");
+            builder.Services.AddAuthorizationCore(config =>
+            {
+                config.AddPolicy("IsAdmin", policyBuilder =>
+                {
+                    policyBuilder.RequireClaim("role", "Administrator");
+
+                });
+
+                config.AddPolicy("IsUser", policyBuilder =>
+                {
+                    policyBuilder.RequireClaim("role", "User");
+
+                });
+            });
+
             builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-            
+
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazoredSessionStorage();
             builder.Services.AddBlazoredToast();

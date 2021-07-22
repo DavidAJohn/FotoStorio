@@ -56,7 +56,6 @@ namespace FotoStorio.Client.Providers
             var jsonBytes = ParseBase64WithoutPadding(payload);
 
             var keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonBytes);
-            keyValuePairs.TryGetValue(ClaimTypes.Role, out object roles);
 
             ExtractRolesFromJwt(claims, keyValuePairs);
 

@@ -1,5 +1,6 @@
 using System.Text;
 using FotoStorio.Server.Data.Identity;
+using FotoStorio.Shared.Auth;
 using FotoStorio.Shared.Models.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -36,7 +37,8 @@ namespace FotoStorio.Server.Extensions
                 });
 
             services.AddAuthorization(opt => {
-                opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Administrator"));
+                opt.AddPolicy(Policies.IsAdmin, Policies.IsAdminPolicy());
+                opt.AddPolicy(Policies.IsUser, Policies.IsUserPolicy());
             });
 
             return services;
