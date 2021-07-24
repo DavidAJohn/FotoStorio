@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using FotoStorio.Server.Contracts;
-using FotoStorio.Shared.Entities;
+using FotoStorio.Shared.Auth;
 using FotoStorio.Shared.Models.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

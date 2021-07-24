@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace FotoStorio.Shared.Entities
+namespace FotoStorio.Shared.Auth
 {
     public class RegisterResult
     {

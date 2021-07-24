@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using FotoStorio.Shared.Entities;
+using FotoStorio.Shared.Auth;
 
 namespace FotoStorio.Client.Contracts
 {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Blazored.LocalStorage;
 using FotoStorio.Client.Contracts;
 using FotoStorio.Client.Providers;
-using FotoStorio.Shared.Entities;
+using FotoStorio.Shared.Auth;
 using Microsoft.AspNetCore.Components.Authorization;
 
 namespace FotoStorio.Client.Services

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FotoStorio.Shared.Entities
+namespace FotoStorio.Shared.Auth
 {
     public class RegisterModel
     {

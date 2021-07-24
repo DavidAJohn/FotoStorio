@@ -1,4 +1,4 @@
-namespace FotoStorio.Shared.Entities
+namespace FotoStorio.Shared.Auth
 {
     public class LoginResult
     {
