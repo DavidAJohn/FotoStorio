@@ -2,6 +2,10 @@ namespace FotoStorio.Shared.Models.Orders
 {
     public class ProductItemOrdered
     {
+        public ProductItemOrdered()
+        {
+        }
+
         public ProductItemOrdered(int productItemId, string productName, string imageUrl)
         {
             ProductItemId = productItemId;

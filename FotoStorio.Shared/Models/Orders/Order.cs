@@ -7,6 +7,10 @@ namespace FotoStorio.Shared.Models.Orders
 {
     public class Order : BaseEntity
     {
+        public Order()
+        {
+        }
+
         public Order(IReadOnlyList<OrderItem> orderItems, string buyerEmail, Address sendToAddress, decimal subtotal, string paymentIntentId)
         {
             BuyerEmail = buyerEmail;

@@ -2,6 +2,10 @@ namespace FotoStorio.Shared.Models.Orders
 {
     public class Address
     {
+        public Address()
+        {
+        }
+
         public Address(string firstName, string lastName, string street, string secondLine, string city, string county, string postCode)
         {
             FirstName = firstName;

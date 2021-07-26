@@ -5,6 +5,10 @@ namespace FotoStorio.Shared.Models.Orders
 {
     public class OrderItem : BaseEntity
     {
+        public OrderItem()
+        {
+        }
+
         public OrderItem(ProductItemOrdered itemOrdered, decimal price, int quantity)
         {
             ItemOrdered = itemOrdered;
