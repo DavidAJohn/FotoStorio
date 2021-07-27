@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FotoStorio.Server.Contracts;
-using FotoStorio.Shared.Entities;
 using FotoStorio.Shared.Models.Orders;
 
 namespace FotoStorio.Server.Services
@@ -17,14 +16,16 @@ namespace FotoStorio.Server.Services
             _productRepository = productRepository;
         }
 
-        public async Task<Order> CreateOrderAsync(string buyerEmail, Basket basket, Address sendToAddress)
+        public async Task<Order> CreateOrderAsync(string buyerEmail, Order order, Address sendToAddress)
         {
-            // get items from the product repository
+            // get items (crucially, with price from db) from the products repository
             var items = new List<OrderItem>();
 
-            foreach (var item in basket.BasketItems)
+            var basket = order.OrderItems;
+
+            foreach (var item in basket)
             {
-                var productItem = await _productRepository.GetByIdAsync(item.Product.Id);
+                var productItem = await _productRepository.GetByIdAsync(item.Id);
                 var itemOrdered = new ProductItemOrdered(productItem.Id, productItem.Name, productItem.ImageUrl);
 
                 // is the product on offer or at regular price?
