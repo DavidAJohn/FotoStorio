@@ -1,20 +1,26 @@
 ﻿@page "/checkout"
 
+@using FotoStorio.Shared.DTOs
 @using FotoStorio.Shared.Entities
 @using System.Linq
+@using FotoStorio.Client.Contracts
+@using FotoStorio.Shared.Models.Orders
 
-<div class="h-112">
-    <div class="container max-w-7xl">
+@inject IOrderService orderService
+@inject IToastService toastService
+
+<div class="h-screen">
+    <div class="container max-w-7xl md:mt-8">
         @if (basketItems != null)
         {
             @if (basketItems.Count > 0)
             {
-                <div class="w-full p-3 rounded-md shadow-md bg-white focus:outline-none z-10">
+                <div class="w-full p-4 rounded-md shadow-md bg-white focus:outline-none z-10">
                     
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="col-span-2">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-1">
                             <div class="text-lg text-center md:text-xl lg:text-2xl font-bold">
-                                Your Order Summary
+                                Order Summary
                             </div>
                             <div class="p-4 text-right" >
                                 @foreach (BasketItem item in basketItems)
@@ -35,20 +41,60 @@
                             <div class="mt-2 px-4 text-right text-md font-semibold">
                                 Total:&nbsp; <span class="inline font-bold">£@basketState.Basket.BasketTotal</span>
                             </div>
-                            <div class="mt-2 px-4 text-right">
-                                <button type="button" class="p-2 my-3 bg-fotofuchsia text-white rounded-sm text-md hover:opacity-90 fotofuchsia-ripple" @onclick="EmptyBasket">
-                                    Empty basket
-                                </button>
+                            
+                        </div>
+                        <div class="col-span-1 bg-gray-50 rounded-sm text-center h-full px-16">
+                            <div class="text-lg text-center md:text-xl lg:text-2xl font-bold mb-4">
+                                Delivery Address
+                            </div>
+                            <div class="flex justify-center px-4 md:px-8 py-2">
+                                <EditForm Model="Address" OnValidSubmit="PlaceOrder">
+                                    <DataAnnotationsValidator />
+                                    <div class="w-full inline-flex">
+                                        <div class="inline mb-2 w-1/2 text-left mr-2">
+                                            <label class="text-sm font-semibold mb-1 ml-0">First Name</label>
+                                            <InputText Id="firstName" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.FirstName" />
+                                            <ValidationMessage For="@(() => Address.FirstName)" />
+                                        </div>
+                                        <div class="inline mb-2 w-1/2 text-left">
+                                            <label class="text-sm font-semibold mb-1 ml-0">Last Name</label>
+                                            <InputText Id="lastName" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.LastName" />
+                                            <ValidationMessage For="@(() => Address.LastName)" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-2 w-full text-left">
+                                        <label class="text-sm font-semibold mb-1 ml-0">Street</label>
+                                        <InputText Id="street" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.Street" />
+                                        <ValidationMessage For="@(() => Address.Street)" />
+                                    </div>
+                                    <div class="mb-2 w-full text-left">
+                                        <label class="text-sm font-semibold mb-1 ml-0">Village/Area (optional)</label>
+                                        <InputText Id="secondLine" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.SecondLine" />
+                                        <ValidationMessage For="@(() => Address.SecondLine)" />
+                                    </div>
+                                    <div class="mb-2 w-full text-left">
+                                        <label class="text-sm font-semibold mb-1 ml-0">City</label>
+                                        <InputText Id="city" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.City" />
+                                        <ValidationMessage For="@(() => Address.City)" />
+                                    </div>
+                                    <div class="mb-2 w-full text-left">
+                                        <label class="text-sm font-semibold mb-1 ml-0">County</label>
+                                        <InputText Id="county" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.County" />
+                                        <ValidationMessage For="@(() => Address.County)" />
+                                    </div>
+                                    <div class="mb-2 w-full text-left">
+                                        <label class="text-sm font-semibold mb-1 ml-0">Post Code</label>
+                                        <InputText Id="postCode" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.PostCode" />
+                                        <ValidationMessage For="@(() => Address.PostCode)" />
+                                    </div>
+                                </EditForm>
                             </div>
                         </div>
-                        <div class="col-span-1 bg-gray-50 rounded-sm text-center h-full px-2">
-                            <div class="text-lg text-center md:text-xl font-bold">
-                                Payment
-                            </div>
-                            <div class="text-md text-center">
-                                ...
-                            </div>
-                        </div>
+                    </div>
+                    <div class="mt-2 text-center">
+                        <button type="button" class="py-2 px-3 my-3 bg-fotofuchsia text-white text-md font-semibold rounded-sm hover:opacity-90 fotofuchsia-ripple" @onclick="() => PlaceOrder()">
+                            Place Order
+                        </button>
                     </div>
                 </div>
             }
@@ -64,6 +110,14 @@
                 </div>
             }
         }
+        @if (ShowErrors)
+        {
+            <div class="mx-2 text-center animate-pulse">
+                <div class="alert-box" role="alert">
+                    <span class="block sm:inline">@ErrorMessage</span>
+                </div>
+            </div>
+        }
     </div>
 </div>
 
@@ -72,6 +126,10 @@
     public BasketState basketState { get; set; }
 
     private List<BasketItem> basketItems { get; set; }
+
+    private AddressDTO Address = new();
+    private bool ShowErrors;
+    private string ErrorMessage;
 
     protected override void OnParametersSet()
     {
@@ -94,5 +152,42 @@
 
         await basketState.SaveChangesAsync(); // save to local storage
         basketState.BasketItemCount--;
+    }
+
+    private async Task PlaceOrder()
+    {
+        ShowErrors = false;
+
+        var address = new Address {
+            FirstName = Address.FirstName,
+            LastName = Address.LastName,
+            Street = Address.Street,
+            SecondLine = Address.SecondLine,
+            City = Address.City,
+            County = Address.County,
+            PostCode = Address.PostCode
+        };
+
+        var orderToCreate = new OrderCreateDTO {
+             Items = basketItems,
+             SendToAddress = address
+        };
+        
+        var newOrder = await orderService.CreateOrderAsync(orderToCreate);
+
+        if (newOrder != null) 
+        {
+            ShowErrors = false;
+
+            // toast message
+            toastService.ShowSuccess("Thanks, your order has been placed!", "Order Placed");
+
+            // navigate away to confirmation page
+        }
+        else
+        {
+            ShowErrors = true;
+            ErrorMessage = "Sorry, there was an error placing your order";
+        }
     }
 }
