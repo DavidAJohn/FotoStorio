@@ -28,6 +28,7 @@ namespace FotoStorio.Client
             builder.Services.AddHttpClient("FotoStorioAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress + "api/"));
 
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
             
             builder.Services.AddApiAuthorization(opt => opt.UserOptions.RoleClaim = "role");
             builder.Services.AddAuthorizationCore(config =>

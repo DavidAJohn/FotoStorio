@@ -1,6 +1,7 @@
 using AutoMapper;
 using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Models;
+using FotoStorio.Shared.Models.Orders;
 
 namespace FotoStorio.Server.Helpers
 {
@@ -14,6 +15,8 @@ namespace FotoStorio.Server.Helpers
 
             CreateMap<ProductCreateDTO, Product>();
             CreateMap<ProductUpdateDTO, Product>().ReverseMap();
+
+            CreateMap<Address, AddressDTO>();
         }
     }
 }
