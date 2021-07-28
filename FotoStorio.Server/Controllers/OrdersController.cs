@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FotoStorio.Server.Contracts;
 using FotoStorio.Shared.DTOs;
-using FotoStorio.Shared.Models.Orders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,10 +34,10 @@ namespace FotoStorio.Server.Controllers
         /// </summary>
         /// <returns>OrderDTO</returns>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<OrderDTO>> CreateOrder(Order order)
+        public async Task<ActionResult<OrderDTO>> CreateOrder(OrderCreateDTO order)
         {
             if (order == null)
             {
