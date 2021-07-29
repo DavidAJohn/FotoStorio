@@ -17,6 +17,13 @@ namespace FotoStorio.Server.Helpers
             CreateMap<ProductUpdateDTO, Product>().ReverseMap();
 
             CreateMap<Address, AddressDTO>();
+
+            CreateMap<Order, OrderDTO>();
+            CreateMap<Order, OrderDetailsDTO>();
+            CreateMap<OrderItem, OrderItemDTO>()
+                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ItemOrdered.ProductItemId))
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ItemOrdered.ProductName))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ItemOrdered.ImageUrl));
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FotoStorio.Server.Contracts;
+using FotoStorio.Server.Specifications;
 using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Models.Orders;
 
@@ -52,14 +53,16 @@ namespace FotoStorio.Server.Services
             return null;
         }
 
-        public Task<Order> GetOrderByIdAsync(int id, string buyerEmail)
+        public async Task<Order> GetOrderByIdAsync(int id, string buyerEmail)
         {
-            throw new System.NotImplementedException();
+            var spec = new OrdersWithItemsForUserSpecification(id, buyerEmail);
+            return await _orderRepository.GetEntityWithSpecification(spec);
         }
 
-        public Task<IReadOnlyList<Order>> GetOrdersForUserAsync(string buyerEmail)
+        public async Task<IEnumerable<Order>> GetOrdersForUserAsync(string buyerEmail)
         {
-            throw new System.NotImplementedException();
+            var spec = new OrdersWithItemsForUserSpecification(buyerEmail);
+            return await _orderRepository.ListWithSpecificationAsync(spec);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace FotoStorio.Server.Contracts
     public interface IOrderService
     {
         Task<Order> CreateOrderAsync(string buyerEmail, OrderCreateDTO order, Address sendToAddress);
-        Task<IReadOnlyList<Order>> GetOrdersForUserAsync(string buyerEmail);
+        Task<IEnumerable<Order>> GetOrdersForUserAsync(string buyerEmail);
         Task<Order> GetOrderByIdAsync(int id, string buyerEmail);
     }
 }
