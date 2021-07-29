@@ -1,5 +1,7 @@
 ﻿@page "/checkout"
 
+@attribute [Authorize]
+
 @using FotoStorio.Shared.DTOs
 @using FotoStorio.Shared.Entities
 @using System.Linq
@@ -91,11 +93,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-2 text-center">
-                        <button type="button" class="py-2 px-3 my-3 bg-fotofuchsia text-white text-md font-semibold rounded-sm hover:opacity-90 fotofuchsia-ripple" @onclick="() => PlaceOrder()">
-                            Place Order
-                        </button>
-                    </div>
+                    @if (basketItems != null)
+                    {
+                        <div class="mt-2 text-center">
+                            <button type="button" class="py-2 px-3 my-3 bg-fotofuchsia text-white text-md font-semibold rounded-sm hover:opacity-90 fotofuchsia-ripple" @onclick="() => PlaceOrder()">
+                                Place Order
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mt-2 text-center">
+                            <button type="button" class="py-2 px-3 my-3 bg-fotofuchsia text-white text-md font-semibold rounded-sm disabled:opacity-30 disabled:cursor-default" disabled>
+                                Sorry, your order can not be submitted
+                            </button>
+                        </div>
+                    }
                 </div>
             }
             else
@@ -131,8 +144,9 @@
     private bool ShowErrors;
     private string ErrorMessage;
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
+        await Task.Run(()=> System.Threading.Thread.Sleep(1)); // forces the page to wait before getting the basket
         basketItems = basketState.Basket.BasketItems;
     }
 
@@ -169,13 +183,13 @@
         };
 
         var orderToCreate = new OrderCreateDTO {
-             Items = basketItems,
-             SendToAddress = address
+            Items = basketItems,
+            SendToAddress = address
         };
-        
+
         var newOrder = await orderService.CreateOrderAsync(orderToCreate);
 
-        if (newOrder != null) 
+        if (newOrder != null)
         {
             ShowErrors = false;
 
