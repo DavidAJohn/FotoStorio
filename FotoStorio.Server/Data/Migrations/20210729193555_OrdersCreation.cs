@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FotoStorio.Server.Data.Migrations
 {
-    public partial class OrdersInitial : Migration
+    public partial class OrdersCreation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,7 +22,7 @@ namespace FotoStorio.Server.Data.Migrations
                     SendToAddress_City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SendToAddress_County = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SendToAddress_PostCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Subtotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PaymentIntentId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },

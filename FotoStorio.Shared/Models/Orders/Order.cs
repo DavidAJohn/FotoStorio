@@ -11,12 +11,12 @@ namespace FotoStorio.Shared.Models.Orders
         {
         }
 
-        public Order(IReadOnlyList<OrderItem> orderItems, string buyerEmail, Address sendToAddress, decimal subtotal, string paymentIntentId)
+        public Order(IReadOnlyList<OrderItem> orderItems, string buyerEmail, Address sendToAddress, decimal total, string paymentIntentId)
         {
             BuyerEmail = buyerEmail;
             SendToAddress = sendToAddress;
             OrderItems = orderItems;
-            Subtotal = subtotal;
+            Total = total;
             PaymentIntentId = paymentIntentId;
         }
 
@@ -31,7 +31,8 @@ namespace FotoStorio.Shared.Models.Orders
         [Required]
         public IReadOnlyList<OrderItem> OrderItems { get; set; }
 
-        public decimal Subtotal { get; set; }
+        [Required]
+        public decimal Total { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [Required]

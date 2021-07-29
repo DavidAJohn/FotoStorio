@@ -36,11 +36,11 @@ namespace FotoStorio.Server.Services
                 items.Add(orderItem);
             }
 
-            // calculate the subtotal
-            var subtotal = items.Sum(item => item.Price * item.Quantity);
+            // calculate the total
+            var total = items.Sum(item => item.Price * item.Quantity);
 
             // create the order and save changes
-            var orderToCreate = new Order(items, buyerEmail, sendToAddress, subtotal, "");
+            var orderToCreate = new Order(items, buyerEmail, sendToAddress, total, "");
             var newOrder = await _orderRepository.Create(orderToCreate);
             
             // return the new order

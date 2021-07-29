@@ -27,6 +27,10 @@ namespace FotoStorio.Server.Data
                 .Property(oi => oi.Price)
                 .HasColumnType("decimal(18,2)");
 
+            modelBuilder.Entity<Order>()
+                .Property(o => o.Total)
+                .HasColumnType("decimal(18,2)");
+
             // defines the Address as being owned by an Order
             modelBuilder.Entity<Order>()
                 .OwnsOne(o => o.SendToAddress, a => {
