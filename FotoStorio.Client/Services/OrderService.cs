@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -7,7 +8,6 @@ using System.Threading.Tasks;
 using Blazored.LocalStorage;
 using FotoStorio.Client.Contracts;
 using FotoStorio.Shared.DTOs;
-using FotoStorio.Shared.Models.Orders;
 
 namespace FotoStorio.Client.Services
 {
@@ -21,7 +21,7 @@ namespace FotoStorio.Client.Services
             _httpClient = httpClient;
         }
 
-        public async Task<OrderDTO> CreateOrderAsync(OrderCreateDTO order)
+        public async Task<OrderDetailsDTO> CreateOrderAsync(OrderCreateDTO order)
         {
             if (order == null)
             {
@@ -49,20 +49,39 @@ namespace FotoStorio.Client.Services
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
 
-                    var createdOrder = JsonSerializer.Deserialize<Order>(
+                    var createdOrder = JsonSerializer.Deserialize<OrderDetailsDTO>(
                         responseContent, 
                         new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
                     );
 
-                    var returnOrder = new OrderDTO {
-                        OrderId = createdOrder.Id.ToString(),
-                        SendToAddress = createdOrder.SendToAddress
-                    };
-
-                    return returnOrder;
+                    return createdOrder;
                 }
 
                 return null;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException(ex.Message, ex.InnerException, ex.StatusCode);
+            }
+        }
+
+        public async Task<List<OrderDetailsDTO>> GetOrdersForUserAsync()
+        {
+            var storedToken = await _localStorage.GetItemAsync<string>("authToken");
+
+            if (string.IsNullOrWhiteSpace(storedToken))
+            {
+                return null;
+            }
+
+            try 
+            {
+                var client = _httpClient.CreateClient("FotoStorioAPI");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", storedToken);
+
+                var orders = await client.GetFromJsonAsync<List<OrderDetailsDTO>>("orders");
+
+                return orders;
             }
             catch (HttpRequestException ex)
             {
