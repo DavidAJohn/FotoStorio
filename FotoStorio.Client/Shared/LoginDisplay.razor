@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Authorization
+
 @inject IAuthorizationService AuthorizationService
 
 <AuthorizeView>
@@ -16,7 +17,11 @@
 
             @if (isUserByPolicy && !isAdminByPolicy)
             {
-                <span class="text-gray-300 text-sm font-medium md:mr-2">Your Orders</span>
+                <span class="md:mr-2">
+                    <NavLink href="/account/orders" class="text-gray-300 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        Your Orders
+                    </NavLink>
+                </span>
             }
 
             <a href="logout" class="text-gray-300 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Log out</a>
