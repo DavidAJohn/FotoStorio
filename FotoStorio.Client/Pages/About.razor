@@ -1,7 +1,58 @@
 ﻿@page "/about"
 
-<h3>About the Site</h3>
+<div class="md:container mt-4 mb-8 h-auto text-justify">
+    <h4 class="text-xl font-bold mb-8">About the Site</h4>
+    <p class="mb-8">
+        Welcome to Foto Storio, a .NET e-commerce application built using Blazor WebAssembly, Web API and Tailwind CSS. 
+        The source code is available to view on <a href="https://github.com/DavidAJohn/FotoStorio" target="_blank" class="text-fotoblue underline">GitHub</a> if you're interested in learning more about it (or improving it).
+    </p>
+    <p class="mb-8">
+        If you're a newcomer to Microsoft's .NET stack, you're likely to find this tough going. I'd recommend finding a course on Blazor, or maybe checking out the work of <a href="https://www.youtube.com/playlist?list=PLUOequmGnXxPrY79JGnF72e1Pba8z93zo" class="text-fotoblue underline">Nick Chapsas</a> or <a href="https://www.youtube.com/user/IAmTimCorey/videos" class="text-fotoblue underline">Tim Corey</a> on YouTube first.
+        If you're an experienced .NET developer who's also familiar with Blazor, I've probably still thrown you a curveball by introducing Tailwind CSS, rather than sticking with something more traditional like Bootstrap.
+        I'm aware that this limits my audience somewhat (possibly just to me and <a href="https://chrissainty.com/integrating-tailwind-css-with-blazor-using-gulp-part-1/" class="text-fotoblue underline">Chris Sainty</a>), but I was determined to use Tailwind for something more than little tutorial projects.
+        I know Tailwind is divisive, but I'm surprised how quickly I've come to love it. I found it was much simpler to develop a responsive layout with Tailwind rather than editing media queries in separate CSS files. 
+        If you're a sceptic, I'd suggest reading Tailwind creator Adam Wathan's explanation <a href="https://adamwathan.me/css-utility-classes-and-separation-of-concerns/" class="text-fotoblue underline">here</a>.
+    </p>
 
-@code {
+    <div class="text-md font-bold mb-4">Construction</div>
+    <p class="mb-4">
+        The site itself was initially constructed using the .NET cli and VS Code rather than Visual Studio 2019. 
+        This gave me the opportunity to create a minimal solution without a lot of the code that Microsoft templates tend to add for authentication, which still tends to be MVC-era .cshtml files that inject jQuery (shudder).
+    </p>
+    <p class="mb-4">
+        The solution consists of three main projects: a Blazor WebAssembly client (FotoStorio.Client), a Web API server (FotoStorio.Server) and a shared class library (FotoStorio.Shared) that contains classes used by either or both of the other projects.
+        The client project is "hosted" within the server project, ultimately allowing us to deploy just the server project, which is able to respond to API calls and also fallback to the "static" index.html file from the client project, all on the same HTTP port.
+    </p>
+    <p class="mb-4">
+        I've used SQL Server as the database from the start. If you don't want to install it on your machine, the official Microsoft <a href="https://hub.docker.com/_/microsoft-mssql-server" target="_blank" class="text-fotoblue underline">Docker image</a> would be one alternative, although it is still 1.3Gb.
+    </p>
+    <p class="mb-8">
+        You may be surprised to see a package.json file in the solution. Node was used in this case to allow us to run gulp (see the gulpfile.js file in the Client project) to create custom Tailwind builds for dev or production.
+    </p>
 
-}
+    <div class="text-md font-bold mb-4">What Does The Name Mean?</div>
+    <p class="mb-4">
+        I used the name "Foto Storio" because it's really quite difficult to find a name for a camera store that hasn't already been taken.
+        Seriously, try it for yourself. So, I thought perhaps I'd have more luck if I switched to a different language.
+    </p>
+    <p class="mb-4">
+        "Foto Storio" is actually two Welsh language words, one of which is misspelt and the other which is misused.
+        The Welsh word for photo is "ffoto". I took off one of the Fs to avoiding confusing non-Welsh people.
+        "Storio" is actually the Welsh verb "to store", as in "to store something in a location". The Welsh word for shop is "siop".
+        I thought "Storio" sounded cooler though (possibly even Italian!), and I also wanted to avoid having the words "photo" and "shop" anywhere near each other, for obvious legal reasons *.
+    </p>
+    <p class="mb-8">
+        * Although it turns out there is actually a store in Aberystwyth called "Siop Ffoto Shop".
+        Hopefully, for their sake, Adobe's lawyers do not find out about this.
+    </p>
+
+    <div class="text-md font-bold mb-4">Thanks</div>
+    <p class="mb-4">
+        Developing any site in a vacuum would obviously be impossible, so the many great articles and videos on Blazor by <a href="https://chrissainty.com/" class="text-fotoblue underline">Chris Sainty</a>, <a href="https://blazortrain.com/" class="text-fotoblue underline">Carl Franklin</a> and Marinko Spasojevic at <a href="https://code-maze.com/" class="text-fotoblue underline">Code Maze</a> have been invaluable.
+    </p>
+    <p class="mb-4">
+        Udemy courses by <a href="https://www.udemy.com/courses/search/?src=ukw&q=neil+cummings" class="text-fotoblue underline">Neil Cummings</a>, 
+        <a href="https://www.udemy.com/courses/search/?src=ukw&q=trevoir+williams" class="text-fotoblue underline">Trevoir Williams</a> 
+        and <a href="https://www.udemy.com/courses/search/?lang=en&q=felipe+gavilan&src=ukw" class="text-fotoblue underline">Felipe Gavilan</a> were also a huge help in developing my knowledge of Blazor and Web API.
+    </p>
+</div>
