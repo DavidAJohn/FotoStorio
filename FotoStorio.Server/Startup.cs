@@ -44,6 +44,7 @@ namespace FotoStorio.Server
             
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             services.AddHttpContextAccessor();
 
