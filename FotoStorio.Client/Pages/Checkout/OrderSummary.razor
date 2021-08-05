@@ -13,6 +13,7 @@
 @inject IJSRuntime JsRuntime
 @inject IToastService toastService
 @inject IConfiguration config
+@inject IPaymentService paymentService
 
 <div class="h-auto">
     <div class="container max-w-7xl md:mt-8">
@@ -171,23 +172,43 @@
         ShowPaymentOptions = true;
     }
 
-    protected async override Task OnAfterRenderAsync(bool firstRender)     
-    {        
-        if (firstRender)         
+    protected override async Task OnInitializedAsync()
+    {
+        if (basketItems != null) 
+        {
+            await GetPaymentIntentResultAsync();
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
         {
             // initialise the stripe js file 
             ShowPaymentOptions = true;
             await JsRuntime.InvokeVoidAsync("setupStripe", config["Stripe_PublishableKey"]); // wwwroot/scripts/stripe.js     
             firstRender = false;
-            if (basketItems == null) ShowPaymentOptions = false;
+
+            if (basketItems == null) 
+            {
+                ShowPaymentOptions = false;
+            }
         }
     }
 
-    private async Task EmptyBasket()
+    public async Task GetPaymentIntentResultAsync()
     {
-        basketState.Basket.BasketItems.Clear();
-        await basketState.SaveChangesAsync(); // update local storage
-        basketState.BasketItemCount = 0;
+        var basket = basketState.Basket;
+        var result = await paymentService.CreateOrUpdatePaymentIntent(basket);
+
+        if (result != null)
+        {
+            // add created payment intent details to the basket state
+            basket.PaymentIntentId = result.PaymentIntentId;
+            basket.ClientSecret = result.ClientSecret;
+
+            await basketState.SaveChangesAsync(); // save to local storage
+        }
     }
 
     private async Task DeleteItem(BasketItem item)
@@ -196,6 +217,8 @@
                 i => i.Product.Name == item.Product.Name &&
                 i.Quantity == item.Quantity
             ));
+
+        await GetPaymentIntentResultAsync();
 
         await basketState.SaveChangesAsync(); // save to local storage
         basketState.BasketItemCount--;
