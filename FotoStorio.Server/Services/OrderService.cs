@@ -12,13 +12,16 @@ namespace FotoStorio.Server.Services
     {
         private readonly IProductRepository _productRepository;
         private readonly IOrderRepository _orderRepository;
-        public OrderService(IProductRepository productRepository, IOrderRepository orderRepository)
+        private readonly IPaymentService _paymentService;
+
+        public OrderService(IProductRepository productRepository, IOrderRepository orderRepository, IPaymentService paymentService)
         {
+            _paymentService = paymentService;
             _orderRepository = orderRepository;
             _productRepository = productRepository;
         }
 
-        public async Task<Order> CreateOrderAsync(string buyerEmail, OrderCreateDTO order, Address sendToAddress)
+        public async Task<Order> CreateOrderAsync(string buyerEmail, OrderCreateDTO order)
         {
             // get items (crucially, with price from db) from the products repository
             var items = new List<OrderItem>();
@@ -40,8 +43,24 @@ namespace FotoStorio.Server.Services
             // calculate the total
             var total = items.Sum(item => item.Price * item.Quantity);
 
+            // check for an existing order
+            var spec = new OrderByPaymentIntentIdSpecification(order.PaymentIntentId);
+            var existingOrder = await _orderRepository.GetEntityWithSpecification(spec);
+
+            if (existingOrder != null)
+            {
+                await _orderRepository.Delete(existingOrder);
+
+                var pi = new PaymentIntentCreateDTO {
+                    Items = order.Items,
+                    PaymentIntentId = order.PaymentIntentId
+                };
+
+                await _paymentService.CreateOrUpdatePaymentIntent(pi);
+            }
+
             // create the order and save changes
-            var orderToCreate = new Order(items, buyerEmail, sendToAddress, total, "");
+            var orderToCreate = new Order(items, buyerEmail, order.SendToAddress, total, order.PaymentIntentId);
             var newOrder = await _orderRepository.Create(orderToCreate);
             
             // return the new order

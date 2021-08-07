@@ -251,7 +251,8 @@
 
         var orderToCreate = new OrderCreateDTO {
             Items = basketItems,
-            SendToAddress = address
+            SendToAddress = address,
+            PaymentIntentId = basketState.Basket.PaymentIntentId
         };
 
         var newOrder = await orderService.CreateOrderAsync(orderToCreate);
@@ -267,12 +268,17 @@
             {
                 ShowErrors = true;
                 ErrorMessage = paymentResult;
+                toastService.ShowError(paymentResult, "Payment Failed");
             }
             else 
             {
                 ShowErrors = false;
 
-                // empty the basket
+                // remove the payment intent id and secret from the basket
+                basketState.Basket.PaymentIntentId = "";
+                basketState.Basket.ClientSecret = "";
+
+                // empty the basket of items
                 basketState.Basket.BasketItems.Clear();
                 await basketState.SaveChangesAsync();
 

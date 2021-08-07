@@ -8,5 +8,6 @@ namespace FotoStorio.Shared.DTOs
     {
         public List<BasketItem> Items { get; set; }
         public Address SendToAddress { get; set; }
+        public string PaymentIntentId { get; set; }
     }
 }

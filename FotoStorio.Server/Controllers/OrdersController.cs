@@ -49,9 +49,8 @@ namespace FotoStorio.Server.Controllers
             try
             {
                 var email = _httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-                var address = order.SendToAddress;
 
-                var createdOrder = await _orderService.CreateOrderAsync(email, order, address);
+                var createdOrder = await _orderService.CreateOrderAsync(email, order);
 
                 return Ok(createdOrder);
             }
