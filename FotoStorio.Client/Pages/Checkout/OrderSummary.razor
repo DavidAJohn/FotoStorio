@@ -14,6 +14,7 @@
 @inject IToastService toastService
 @inject IConfiguration config
 @inject IPaymentService paymentService
+@inject NavigationManager navigationManager
 
 <div class="h-auto">
     <div class="container max-w-7xl md:mt-8">
@@ -101,12 +102,13 @@
                     @if (ShowPaymentOptions)
                     {
                         <div class="text-lg text-center md:text-xl lg:text-2xl font-bold my-8">
-                            Payment Details
+                            Card Details
                         </div>
                         <div class="flex justify-center">
                             <div>
                                 <form id="payment-form" class="justify-items-center">
-                                    <div id="card-element" class="w-112 p-4 rounded-md shadow-md border-gray-300">
+                                    <input id="name-on-card" class="w-112 p-3 rounded-md shadow-sm border border-gray-300 text-md text-gray-900 mb-1" placeholder="Name on Card" />
+                                    <div id="card-element" class="w-112 p-3 rounded-md shadow-sm border border-gray-300">
                                         <!--Stripe.js injects the Card Element-->
                                     </div>
                                     <div id="card-error" class="mt-3 flex justify-center font-semibold text-red-500 animate-pulse">
@@ -116,8 +118,20 @@
                             </div>
                         </div>
                         <div class="mt-4 w-full flex justify-center">
-                            <button type="button" id="btnPlaceOrder" class="py-2 px-3 my-3 bg-fotofuchsia text-white text-md font-semibold rounded-sm hover:opacity-90 fotofuchsia-ripple" @onclick="() => PlaceOrder()">
-                                Place Order
+                            <button type="button" id="btnPlaceOrder" class="flex justify-center align-items-center py-2 px-4 my-3 bg-fotofuchsia text-white text-md font-semibold rounded-sm hover:opacity-90 fotofuchsia-ripple" @onclick="() => PlaceOrder()">
+                                <svg version="1.1" id="order-spinner" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    class="h-5 w-5 @SubmitSpinnerHidden" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                                    <path fill="currentColor" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                                        <animateTransform attributeType="xml"
+                                            attributeName="transform"
+                                            type="rotate"
+                                            from="0 25 25"
+                                            to="360 25 25"
+                                            dur="0.7s"
+                                            repeatCount="indefinite"/>
+                                    </path>
+                                </svg>
+                                <div id="order-text" class="ml-2">Place Order (£@basketState.Basket.BasketTotal)</div>
                             </button>
                         </div>
                     }
@@ -164,20 +178,13 @@
     private bool ShowErrors;
     private string ErrorMessage;
     private bool ShowPaymentOptions;
+    private string SubmitSpinnerHidden = "hidden";
 
     protected override async Task OnParametersSetAsync()
     {
         await Task.Run(()=> System.Threading.Thread.Sleep(1)); // forces the page to wait before getting the basket
         basketItems = basketState.Basket.BasketItems;
         ShowPaymentOptions = true;
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        if (basketItems != null) 
-        {
-            await GetPaymentIntentResultAsync();
-        }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -188,6 +195,9 @@
             ShowPaymentOptions = true;
             await JsRuntime.InvokeVoidAsync("setupStripe", config["Stripe_PublishableKey"]); // wwwroot/scripts/stripe.js     
             firstRender = false;
+
+            // get a payment intent from stripe
+            await GetPaymentIntentResultAsync();
 
             if (basketItems == null) 
             {
@@ -227,6 +237,7 @@
     private async Task PlaceOrder()
     {
         ShowErrors = false;
+        SubmitSpinnerHidden = "";
 
         var address = new Address {
             FirstName = Address.FirstName,
@@ -247,17 +258,36 @@
 
         if (newOrder != null)
         {
-            ShowErrors = false;
+            // invoke js method to submit payment
+            string paymentResult = await JsRuntime.InvokeAsync<string>("payWithCard");
 
-            // toast message
-            toastService.ShowSuccess("Thanks, your order has been placed!", "Order Placed");
+            SubmitSpinnerHidden = "hidden";
 
-            // navigate away to confirmation page
+            if (paymentResult != "success")
+            {
+                ShowErrors = true;
+                ErrorMessage = paymentResult;
+            }
+            else 
+            {
+                ShowErrors = false;
+
+                // empty the basket
+                basketState.Basket.BasketItems.Clear();
+                await basketState.SaveChangesAsync();
+
+                // toast message
+                toastService.ShowSuccess("Thanks, your order has been placed!", "Order Placed");
+
+                // navigate away to confirmation page
+                navigationManager.NavigateTo("/checkout/success");
+            }
         }
         else
         {
             ShowErrors = true;
             ErrorMessage = "Sorry, there was an error placing your order";
+            SubmitSpinnerHidden = "hidden";
         }
     }
 }

@@ -1,13 +1,21 @@
+let stripeRef;
+let cardRef;
+
 function setupStripe(publishable_key) {
+    setupCard(publishable_key);
+}
+
+const setupCard = (publishable_key) => {
 
     let stripe = Stripe(publishable_key);
+    stripeRef = stripe;
 
     let elements = stripe.elements();
 
     let style = {
         base: {
             color: "#111750",
-            fontFamily: 'Roboto, Arial sans-serif',
+            fontFamily: 'Roboto, Arial, sans-serif',
             fontSmoothing: "antialiased",
             fontSize: "16px",
             "::placeholder": {
@@ -22,11 +30,12 @@ function setupStripe(publishable_key) {
     };
 
     let card = elements.create('card', { style: style });
+    cardRef = card;
 
     mountCard(card);
 
     card.on('change', function (event) {
-        document.querySelector("#btnPlaceOrder").disabled = event.empty;
+        //document.querySelector("#btnPlaceOrder").disabled = event.empty;
         document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
     });
 };
@@ -38,4 +47,35 @@ const mountCard = (card) => {
             clearInterval(checkExists);
         }
      }, 100);
+};
+
+const getClientSecret = () => {
+    const basket = JSON.parse(localStorage.getItem('FotoStorio_Basket'));
+    return basket.ClientSecret;
+}
+
+function payWithCard() {
+    const clientSecret = getClientSecret();
+    const nameOnCard = document.getElementById('name-on-card').value;
+
+    stripeRef
+      .confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: cardRef,
+          billing_details: {
+              name: nameOnCard
+          }
+        }
+      })
+      .then(function(result) {
+        if (result.error) {
+          // return the error message
+          console.log(result.error.message);
+          return result.error.message;
+        } else {
+          // the payment succeeded!
+          console.log('payment suceeded');
+          return 'success';
+        }
+      });
 };
