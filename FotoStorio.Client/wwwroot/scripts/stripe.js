@@ -54,11 +54,11 @@ const getClientSecret = () => {
     return basket.ClientSecret;
 }
 
-function payWithCard() {
+async function payWithCard() {
     const clientSecret = getClientSecret();
     const nameOnCard = document.getElementById('name-on-card').value;
 
-    stripeRef
+    const message = await stripeRef
       .confirmCardPayment(clientSecret, {
         payment_method: {
           card: cardRef,
@@ -70,12 +70,12 @@ function payWithCard() {
       .then(function(result) {
         if (result.error) {
           // return the error message
-          console.log(result.error.message);
           return result.error.message;
         } else {
-          // the payment succeeded!
-          console.log('payment suceeded');
+          // the payment succeeded
           return 'success';
         }
       });
+
+    return message;
 };
