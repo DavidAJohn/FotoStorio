@@ -46,6 +46,17 @@ namespace FotoStorio.Server.Controllers
                 return BadRequest();
             }
 
+            if (string.IsNullOrWhiteSpace(order.SendToAddress.PostCode) ||
+                string.IsNullOrWhiteSpace(order.SendToAddress.City) ||
+                string.IsNullOrWhiteSpace(order.SendToAddress.County) ||
+                string.IsNullOrWhiteSpace(order.SendToAddress.Street) ||
+                string.IsNullOrWhiteSpace(order.SendToAddress.FirstName) ||
+                string.IsNullOrWhiteSpace(order.SendToAddress.LastName)
+                )
+            {
+                return BadRequest();
+            }
+
             try
             {
                 var email = _httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
