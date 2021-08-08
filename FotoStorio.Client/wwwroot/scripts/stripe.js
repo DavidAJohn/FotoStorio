@@ -29,7 +29,7 @@ const setupCard = (publishable_key) => {
         }
     };
 
-    let card = elements.create('card', { style: style });
+    let card = elements.create('card', { style: style, hidePostalCode: true });
     cardRef = card;
 
     mountCard(card);
