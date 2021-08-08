@@ -170,6 +170,9 @@
 
 @code {
     [CascadingParameter]
+    public Error Error { get; set; }
+
+    [CascadingParameter]
     public BasketState basketState { get; set; }
 
     private List<BasketItem> basketItems { get; set; }
@@ -192,13 +195,23 @@
     {
         if (firstRender)
         {
-            // initialise the stripe js file 
             ShowPaymentOptions = true;
-            await JsRuntime.InvokeVoidAsync("setupStripe", config["Stripe_PublishableKey"]); // wwwroot/scripts/stripe.js     
-            firstRender = false;
 
-            // get a payment intent from stripe
-            await GetPaymentIntentResultAsync();
+            try
+            {
+                // initialise the stripe js file 
+                await JsRuntime.InvokeVoidAsync("setupStripe", config["Stripe_PublishableKey"]); // wwwroot/scripts/stripe.js
+
+                // get a payment intent from stripe
+                await GetPaymentIntentResultAsync(); 
+            }
+            catch (JSException ex)
+            {
+                Error.ProcessError(ex, "Pages/Checkout/OrderSummary.OnAfterRenderAsync()");
+                ErrorMessage = "Could not set up payment options. Try reloading the page and/or logging in again";
+            }
+
+            firstRender = false;
 
             if (basketItems == null)
             {
@@ -261,10 +274,19 @@
         if (newOrder != null)
         {
             SubmitSpinnerHidden = "hidden";
+            string paymentResult = "";
 
-            // invoke js method to submit payment
-            string paymentResult = await JsRuntime.InvokeAsync<string>("payWithCard");
-
+            try
+            {
+                // invoke js method to submit payment
+                paymentResult = await JsRuntime.InvokeAsync<string>("payWithCard");
+            }
+            catch (JSException ex)
+            {
+                Error.ProcessError(ex, "Pages/Checkout/OrderSummary.PlaceOrder()");
+                paymentResult = "There was a problem sending your payment details";
+            }
+            
             if (paymentResult != "success")
             {
                 ShowErrors = true;
