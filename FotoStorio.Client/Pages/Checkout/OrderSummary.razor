@@ -55,44 +55,44 @@
                                 Delivery Address
                             </div>
                             <div class="flex justify-center px-4 md:px-8 py-2">
-                                <EditForm Model="Address" OnValidSubmit="PlaceOrder">
+                                <EditForm id="@AddressFormID" name="@AddressFormID" Model="@addressDTO" OnValidSubmit="PlaceOrder">
                                     <DataAnnotationsValidator />
                                     <div class="w-full inline-flex">
                                         <div class="inline mb-2 w-1/2 text-left mr-2">
                                             <label class="text-sm font-semibold mb-1 ml-0">First Name</label>
-                                            <InputText Id="firstName" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.FirstName" />
-                                            <ValidationMessage For="@(() => Address.FirstName)" />
+                                            <InputText id="firstName" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="addressDTO.FirstName" />
+                                            <ValidationMessage For="@(() => addressDTO.FirstName)" />
                                         </div>
                                         <div class="inline mb-2 w-1/2 text-left">
                                             <label class="text-sm font-semibold mb-1 ml-0">Last Name</label>
-                                            <InputText Id="lastName" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.LastName" />
-                                            <ValidationMessage For="@(() => Address.LastName)" />
+                                            <InputText id="lastName" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="addressDTO.LastName" />
+                                            <ValidationMessage For="@(() => addressDTO.LastName)" />
                                         </div>
                                     </div>
                                     <div class="mb-2 w-full text-left">
                                         <label class="text-sm font-semibold mb-1 ml-0">Street</label>
-                                        <InputText Id="street" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.Street" />
-                                        <ValidationMessage For="@(() => Address.Street)" />
+                                        <InputText id="street" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="addressDTO.Street" />
+                                        <ValidationMessage For="@(() => addressDTO.Street)" />
                                     </div>
                                     <div class="mb-2 w-full text-left">
                                         <label class="text-sm font-semibold mb-1 ml-0">Village/Area (optional)</label>
-                                        <InputText Id="secondLine" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.SecondLine" />
-                                        <ValidationMessage For="@(() => Address.SecondLine)" />
+                                        <InputText id="secondLine" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="addressDTO.SecondLine" />
+                                        <ValidationMessage For="@(() => addressDTO.SecondLine)" />
                                     </div>
                                     <div class="mb-2 w-full text-left">
                                         <label class="text-sm font-semibold mb-1 ml-0">City</label>
-                                        <InputText Id="city" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.City" />
-                                        <ValidationMessage For="@(() => Address.City)" />
+                                        <InputText id="city" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="addressDTO.City" />
+                                        <ValidationMessage For="@(() => addressDTO.City)" />
                                     </div>
                                     <div class="mb-2 w-full text-left">
                                         <label class="text-sm font-semibold mb-1 ml-0">County</label>
-                                        <InputText Id="county" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.County" />
-                                        <ValidationMessage For="@(() => Address.County)" />
+                                        <InputText id="county" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="addressDTO.County" />
+                                        <ValidationMessage For="@(() => addressDTO.County)" />
                                     </div>
                                     <div class="mb-2 w-full text-left">
                                         <label class="text-sm font-semibold mb-1 ml-0">Post Code</label>
-                                        <InputText Id="postCode" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="Address.PostCode" />
-                                        <ValidationMessage For="@(() => Address.PostCode)" />
+                                        <InputText id="postCode" class="px-2 py-1 text-sm rounded-sm focus:border-blue-700 border-3 outline-none w-full" @bind-Value="addressDTO.PostCode" />
+                                        <ValidationMessage For="@(() => addressDTO.PostCode)" />
                                     </div>
                                 </EditForm>
                             </div>
@@ -118,7 +118,7 @@
                             </div>
                         </div>
                         <div class="mt-4 w-full flex justify-center">
-                            <button type="button" id="btnPlaceOrder" class="flex justify-center align-items-center py-2 px-4 my-3 bg-fotofuchsia text-white text-md font-semibold rounded-sm hover:opacity-90 fotofuchsia-ripple" @onclick="() => PlaceOrder()">
+                            <button type="submit" form="@AddressFormID" id="btnPlaceOrder" class="flex justify-center align-items-center py-2 px-4 my-3 bg-fotofuchsia text-white text-md font-semibold rounded-sm hover:opacity-90 fotofuchsia-ripple">
                                 <svg version="1.1" id="order-spinner" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                     class="h-5 w-5 @SubmitSpinnerHidden" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
                                     <path fill="currentColor" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
@@ -174,11 +174,12 @@
 
     private List<BasketItem> basketItems { get; set; }
 
-    private AddressDTO Address = new();
+    private AddressDTO addressDTO = new();
     private bool ShowErrors;
     private string ErrorMessage;
     private bool ShowPaymentOptions;
     private string SubmitSpinnerHidden = "hidden";
+    private string AddressFormID = "address-form";
 
     protected override async Task OnParametersSetAsync()
     {
@@ -199,7 +200,7 @@
             // get a payment intent from stripe
             await GetPaymentIntentResultAsync();
 
-            if (basketItems == null) 
+            if (basketItems == null)
             {
                 ShowPaymentOptions = false;
             }
@@ -240,13 +241,13 @@
         SubmitSpinnerHidden = "";
 
         var address = new Address {
-            FirstName = Address.FirstName,
-            LastName = Address.LastName,
-            Street = Address.Street,
-            SecondLine = Address.SecondLine,
-            City = Address.City,
-            County = Address.County,
-            PostCode = Address.PostCode
+            FirstName = addressDTO.FirstName,
+            LastName = addressDTO.LastName,
+            Street = addressDTO.Street,
+            SecondLine = addressDTO.SecondLine,
+            City = addressDTO.City,
+            County = addressDTO.County,
+            PostCode = addressDTO.PostCode
         };
 
         var orderToCreate = new OrderCreateDTO {
@@ -259,10 +260,10 @@
 
         if (newOrder != null)
         {
+            SubmitSpinnerHidden = "hidden";
+
             // invoke js method to submit payment
             string paymentResult = await JsRuntime.InvokeAsync<string>("payWithCard");
-
-            SubmitSpinnerHidden = "hidden";
 
             if (paymentResult != "success")
             {
@@ -270,7 +271,7 @@
                 ErrorMessage = paymentResult;
                 toastService.ShowError(paymentResult, "Payment Failed");
             }
-            else 
+            else
             {
                 ShowErrors = false;
 
@@ -292,7 +293,7 @@
         else
         {
             ShowErrors = true;
-            ErrorMessage = "Sorry, there was an error placing your order";
+            ErrorMessage = "Sorry, there was a problem creating your order";
             SubmitSpinnerHidden = "hidden";
         }
     }
