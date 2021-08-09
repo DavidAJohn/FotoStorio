@@ -101,30 +101,17 @@ namespace FotoStorio.Server.Services
             return null;
         }
 
-        public async Task<Order> UpdateOrderPaymentSucceeded(string paymentIntentId)
-        {
-            var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
-            var order = await _orderRepository.GetEntityWithSpecification(spec);
+        public async Task<Order> UpdateOrderPaymentStatus(string paymentIntentId, OrderStatus status)         
+        {             
+            var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);             
+            var order = await _orderRepository.GetEntityWithSpecification(spec);             
 
-            if (order == null) return null;
+            if (order == null) return null;                          
 
-            order.Status = OrderStatus.PaymentReceived;
-            await _orderRepository.Save();
+            order.Status = status;             
+            await _orderRepository.Update(order);             
 
-            return order;
-        }
-
-        public async Task<Order> UpdateOrderPaymentFailed(string paymentIntentId)
-        {
-            var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
-            var order = await _orderRepository.GetEntityWithSpecification(spec);
-
-            if (order == null) return null;
-
-            order.Status = OrderStatus.PaymentFailed;
-            await _orderRepository.Save();
-
-            return order;
+            return order;         
         }
     }
 }

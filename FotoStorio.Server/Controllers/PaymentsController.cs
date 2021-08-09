@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Stripe;
 using Order = FotoStorio.Shared.Models.Orders.Order;
+using FotoStorio.Shared.Models.Orders;
 
 namespace FotoStorio.Server.Controllers
 {
@@ -45,7 +46,7 @@ namespace FotoStorio.Server.Controllers
             var stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], WhSecret);
 
             PaymentIntent intent; // Stripe class
-            Order order; // custom class from FotoStorio.Shared.Models.Orders.Order
+            Order order; // application class from FotoStorio.Shared.Models.Orders.Order
 
             switch (stripeEvent.Type)
             {
@@ -53,14 +54,15 @@ namespace FotoStorio.Server.Controllers
                     intent = (PaymentIntent)stripeEvent.Data.Object;
                     _logger.LogInformation("Payment Succeeded: {Id}", intent.Id);
 
-                    order = await _paymentService.UpdateOrderPaymentSucceeded(intent.Id);
+                    order = await _paymentService.UpdateOrderPaymentStatus(intent.Id, OrderStatus.PaymentReceived);
                     _logger.LogInformation("Order updated to payment succeeded: {Id}", order.Id);
                     break;
+
                 case "payment_intent.payment_failed":
                     intent = (PaymentIntent)stripeEvent.Data.Object;
                     _logger.LogInformation("Payment Failed: {Id}", intent.Id);
 
-                    order = await _paymentService.UpdateOrderPaymentFailed(intent.Id);
+                    order = await _paymentService.UpdateOrderPaymentStatus(intent.Id, OrderStatus.PaymentFailed);
                     _logger.LogInformation("Order updated to payment failed: {Id}", order.Id);
                     break;
             }

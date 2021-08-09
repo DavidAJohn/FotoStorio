@@ -8,7 +8,6 @@ namespace FotoStorio.Server.Contracts
     public interface IPaymentService
     {
         Task<PaymentIntentResult> CreateOrUpdatePaymentIntent(PaymentIntentCreateDTO paymentIntentCreateDTO);
-        Task<Order> UpdateOrderPaymentSucceeded(string paymentIntentId);
-        Task<Order> UpdateOrderPaymentFailed(string paymentIntentId);
+        Task<Order> UpdateOrderPaymentStatus(string paymentIntentId, OrderStatus status);
     }
 }
