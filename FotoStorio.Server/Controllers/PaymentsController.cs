@@ -1,17 +1,27 @@
+using System.IO;
 using System.Threading.Tasks;
 using FotoStorio.Server.Contracts;
 using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Stripe;
+using Order = FotoStorio.Shared.Models.Orders.Order;
 
 namespace FotoStorio.Server.Controllers
 {
     public class PaymentsController : BaseApiController
     {
         private readonly IPaymentService _paymentService;
-        public PaymentsController(IPaymentService paymentService)
+        private readonly ILogger<PaymentsController> _logger;
+        private readonly IConfiguration _config;
+
+        public PaymentsController(IPaymentService paymentService, ILogger<PaymentsController> logger, IConfiguration config)
         {
+            _config = config;
+            _logger = logger;
             _paymentService = paymentService;
         }
 
@@ -24,6 +34,38 @@ namespace FotoStorio.Server.Controllers
             if (result == null) return BadRequest();
 
             return Ok(result);
+        }
+
+        [HttpPost("webhook")]
+        public async Task<ActionResult> StripeWebhook()
+        {
+            string WhSecret = _config["Stripe:WhSecret"];
+
+            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            var stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], WhSecret);
+
+            PaymentIntent intent; // Stripe class
+            Order order; // custom class from FotoStorio.Shared.Models.Orders.Order
+
+            switch (stripeEvent.Type)
+            {
+                case "payment_intent.succeeded":
+                    intent = (PaymentIntent)stripeEvent.Data.Object;
+                    _logger.LogInformation("Payment Succeeded: ", intent.Id);
+
+                    order = await _paymentService.UpdateOrderPaymentSucceeded(intent.Id);
+                    _logger.LogInformation("Order updated to payment received: ", order.Id);
+                    break;
+                case "payment_intent.payment_failed":
+                    intent = (PaymentIntent)stripeEvent.Data.Object;
+                    _logger.LogInformation("Payment Failed: ", intent.Id);
+
+                    order = await _paymentService.UpdateOrderPaymentFailed(intent.Id);
+                    _logger.LogInformation("Payment failed: ", order.Id);
+                    break;
+            }
+
+            return new EmptyResult(); // confirms to Stripe that response has been received
         }
     }
 }

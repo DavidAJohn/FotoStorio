@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FotoStorio.Server.Contracts;
+using FotoStorio.Server.Specifications;
 using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Entities;
+using FotoStorio.Shared.Models.Orders;
 using Microsoft.Extensions.Configuration;
 using Stripe;
+using Order = FotoStorio.Shared.Models.Orders.Order;
 
 namespace FotoStorio.Server.Services
 {
@@ -12,9 +15,11 @@ namespace FotoStorio.Server.Services
     {
         private readonly IConfiguration _config;
         private readonly IProductRepository _productRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public PaymentService(IConfiguration config, IProductRepository productRepository)
+        public PaymentService(IConfiguration config, IProductRepository productRepository, IOrderRepository orderRepository)
         {
+            _orderRepository = orderRepository;
             _config = config;
             _productRepository = productRepository;
         }
@@ -94,6 +99,32 @@ namespace FotoStorio.Server.Services
             }
 
             return null;
+        }
+
+        public async Task<Order> UpdateOrderPaymentSucceeded(string paymentIntentId)
+        {
+            var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
+            var order = await _orderRepository.GetEntityWithSpecification(spec);
+
+            if (order == null) return null;
+
+            order.Status = OrderStatus.PaymentReceived;
+            await _orderRepository.Save();
+
+            return order;
+        }
+
+        public async Task<Order> UpdateOrderPaymentFailed(string paymentIntentId)
+        {
+            var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
+            var order = await _orderRepository.GetEntityWithSpecification(spec);
+
+            if (order == null) return null;
+
+            order.Status = OrderStatus.PaymentFailed;
+            await _orderRepository.Save();
+
+            return order;
         }
     }
 }
