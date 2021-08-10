@@ -39,7 +39,7 @@
         "Name": "Fujifilm X-T4",
         "Description": "Making a camera that suitable for both photography and videography is no simple task. The X-T4 is our most powerful X Series camera to date with no compromises for stills or video. Using the 4th generation X-Trans CMOS 4 sensor, X-Processor 4, a newly developed compact in-body image stabilization (IBIS) system, new Film Simulation mode “ETERNA Bleach Bypass” and various other features that have evolved based on user feedback, this camera delivers image quality that can satisfy the demands of professional photographers and videographers.",
         "Price": 1929,
-        "ImageUrl": "https://i.ibb.co/5hh4vXZ/fuji-x-t4.png",
+        "ImageUrl": "https://i.ibb.co/LRfc5XS/fujifilm-x-t4.jpg",
         "BrandId": 4,
         "CategoryId": 2,
         "SalePrice": 1929
@@ -57,7 +57,7 @@
         "Name": "Fujifilm X-T30",
         "Description": "The new FUJIFILM X-T30, offers similar performance to the FUJIFILM X-T3, in a smaller and lighter body. It has the same phase-detection AF system with almost 100% frame coverage, blackout-free high-speed continuous shooting of up to 30fps, monochrome adjustment function, Color Chrome effect and Sports Viewfinder mode while also offering functions that cater to the less professional photographer, such as the Advanced SR Auto function.",
         "Price": 899,
-        "ImageUrl": "https://i.ibb.co/8XJJtfy/fuji-X-T30.jpg",
+        "ImageUrl": "https://i.ibb.co/r3g0yZQ/fujifilm-x-t30.jpg",
         "BrandId": 4,
         "CategoryId": 2,
         "SalePrice": 899
@@ -66,7 +66,7 @@
         "Name": "Fujifilm X-E3",
         "Description": "The FUJIFILM X-E3 is a rangefinder style, ultra-compact mirror less camera which boasts outstanding image quality and enhanced handling. Utilising the X-Processor pro for best in class colour reproduction in both stills and 4K movies, it’s made for photographers who want to seamlessly upload photos directly to their smartphone or tablet.",
         "Price": 699,
-        "ImageUrl": "https://i.ibb.co/s2LwZcd/fuji-x-e3.jpg",
+        "ImageUrl": "https://i.ibb.co/ZYQrCGX/fuji-x-e3.png",
         "BrandId": 4,
         "CategoryId": 2,
         "SalePrice": 699
@@ -75,7 +75,7 @@
         "Name": "Sony a6600",
         "Description": "Introducing the Sony a6600 Digital Camera - With this body, it is all about incorporating beautiful detail and high resolution images combined with super-fast and powerful processing, all in a compact shell. The A6600 hits the brief with ease. This system caters to the needs to enthusiasts and professional alike, and in both photography and videography because of the pure quality of its capture. Its compact nature makes it perfect for travel documentaries as well as vlogging.",
         "Price": 1249,
-        "ImageUrl": "https://i.ibb.co/0t4YKPT/sony-a6600.png",
+        "ImageUrl": "https://i.ibb.co/pPxc6PY/sony-a6600.jpg",
         "BrandId": 3,
         "CategoryId": 2,
         "SalePrice": 1249
@@ -165,7 +165,7 @@
         "Name": "Canon EF 50mm f/1.8 STM",
         "Description": "Тhе Саnоn ЕF 50mm f1.8 ЅТМ lеnѕ іѕ thе ѕuссеѕѕоr tо thе іnсrеdіblу рорulаr 50mm f1.8 ІІ. Ехtrеmеlу соmрасt аnd lіghtwеіght (160g), thе lеnѕ fеаturеѕ аn іmрrоvеd орtісаl dеѕіgn аnd ѕtерріng mоtоr (ЅТМ) tесhnоlоgу. Іtѕ wіdе f/1.8 mахіmum ареrturе аnd ѕtаndаrd 50mm fосаl lеngth mаkеѕ іt іdеаl fоr а wіdе vаrіеtу оf рhоtоgrарhіс gеnrеѕ, іnсludіng trаvеl, роrtrаіturе, аnd еvеrуdау сrеаtіvе ѕnарѕhоtѕ.",
         "Price": 139,
-        "ImageUrl": "https://i.ibb.co/BPHwnzN/canon-ef-50mm-f1-8.png",
+        "ImageUrl": "https://i.ibb.co/MDkY3Kw/canon-ef-50mm-f1-8.jpg",
         "BrandId": 1,
         "CategoryId": 3,
         "SalePrice": 119
@@ -174,7 +174,7 @@
         "Name": "Canon EF 24-70mm f/2.8L",
         "Description": "Тhе аll-рurроѕе Саnоn ЕF 24-70mm f/2.8L ІІ UЅМ lеnѕ іѕ а fаѕt ареrturе zооm ѕuіtаblе fоr аll аrеаѕ оf рhоtоgrарhу, whісh fеаturеѕ аn орtісаl ѕуѕtеm thаt іnсludеѕ 2 ultrа-lоw dіѕреrѕіоn (UD) аnd ѕuреr UD аѕрhеrіс еlеmеntѕ tо mіnіmіѕе соlоur аbеrrаtіоn аnd еnѕurе ехсерtіоnаl ѕhаrрnеѕѕ. f/2.8 ареrturе аnd UЅМ (Ultrаѕоnіс Моtоr) аllоwѕ fоr fаѕt, lоw lіght ѕhооtіng аnd nеаr-ѕіlеnt fосuѕіng.",
         "Price": 1929,
-        "ImageUrl": "https://i.ibb.co/DRDgFcM/canon-ef-24-70mm-f2-8.jpg",
+        "ImageUrl": "https://i.ibb.co/KKCpt5h/canon-ef-24-70mm-f2-8.png",
         "BrandId": 1,
         "CategoryId": 3,
         "SalePrice": 1799
@@ -201,7 +201,7 @@
         "Name": "Sony 85mm f/1.8 FE",
         "Description": "This compact, easy-to-handle lens offers fine prime lens performance with high corner-to-corner resolution. A precision optical design includes one ED (Extra-low Dispersion) glass element to effectively minimise chromatic aberration, while spherical aberration is tightly controlled for high overall sharpness with smooth bokeh when required.",
         "Price": 449,
-        "ImageUrl": "https://i.ibb.co/zJBCB0y/sony-85mm-f1-8.jpg",
+        "ImageUrl": "https://i.ibb.co/RDLtx74/sony-85mm-f1-8.png",
         "BrandId": 3,
         "CategoryId": 3,
         "SalePrice": 449
@@ -210,7 +210,7 @@
         "Name": "Sony FE 24-70mm f/2.8 GM",
         "Description": "Robust design and technology result in a reliable F2.8 zoom lens that can fully utilise current and future high-resolution camera bodies. This peerless standard zoom covers a 24mm to 70mm range, making it ideal for portraits, scenery, snapshots and any time ultimate image quality is required.",
         "Price": 1699,
-        "ImageUrl": "https://i.ibb.co/c6TWNd3/sony-24-70mm-f2-8.jpg",
+        "ImageUrl": "https://i.ibb.co/XzF0YrK/sony-24-70mm-f2-8.png",
         "BrandId": 3,
         "CategoryId": 3,
         "SalePrice": 1699
