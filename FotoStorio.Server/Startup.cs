@@ -48,6 +48,8 @@ namespace FotoStorio.Server
 
             services.AddHttpContextAccessor();
 
+            services.AddResponseCaching();
+
             services.AddSwaggerDocumentation();
 
             services.AddAutoMapper(typeof(AutoMapperProfiles));
@@ -66,6 +68,8 @@ namespace FotoStorio.Server
 
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
+
+            app.UseResponseCaching();
 
             app.UseRouting();
 

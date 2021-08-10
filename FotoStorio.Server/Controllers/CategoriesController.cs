@@ -21,6 +21,7 @@ namespace FotoStorio.Server.Controllers
 
         // GET api/categories
         [HttpGet]
+        [ResponseCache(Duration = 300)]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             try
@@ -39,6 +40,7 @@ namespace FotoStorio.Server.Controllers
 
         // GET api/categories/{id}
         [HttpGet("{id}")]
+        [ResponseCache(Duration = 300, VaryByQueryKeys = new[] {"id"})]
         public async Task<ActionResult> GetCategoryById(int id)
         {
             try

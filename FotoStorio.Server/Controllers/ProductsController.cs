@@ -69,6 +69,7 @@ namespace FotoStorio.Server.Controllers
         /// <param name="id"></param>
         /// <returns>ProductDTO</returns>
         [HttpGet("{id}", Name="GetProductById")]
+        [ResponseCache(Duration = 60, VaryByQueryKeys = new[] {"id"})]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
