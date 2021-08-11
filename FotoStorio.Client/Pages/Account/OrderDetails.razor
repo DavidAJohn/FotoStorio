@@ -1,0 +1,111 @@
+﻿@page "/account/orders/{id:int}"
+
+@using FotoStorio.Shared.DTOs
+@using FotoStorio.Client.Contracts
+@using FotoStorio.Client.Extensions
+
+@inject IOrderService orderService
+
+@attribute [Authorize]
+
+<div class="h-screen">
+    <div class="px-0 md:container md:max-w-7xl md:mt-4">
+        <div class="mb-4">
+            <button class="p-2 my-3 bg-fotofuchsia text-white rounded-sm text-sm hover:opacity-90 fotofuchsia-ripple">
+                <a href="/account/orders" class="hover:text-white">Go Back</a>
+            </button>
+        </div>
+        <div class="w-full px-12 pt-4 pb-8 rounded-md shadow-md bg-white focus:outline-none z-10">
+            <div class="text-lg text-center md:text-xl lg:text-2xl font-bold mb-4">
+                <h3>Order Details for #@Id</h3>
+            </div>
+            @if (errorMessage != "")
+            {
+                <div class="mx-2 animate-pulse">
+                    <div class="alert-box text-center" role="alert">
+                        <span class="block sm:inline">@errorMessage</span>
+                    </div>
+                </div>
+            }
+            else if (orderDetails != null && orderItems != null)
+            {
+                <div class="flex flex-col md:flex-row justify-center align-top w-full px-4 py-2 mb-2">
+                    <div class="w-full md:w-1/2">
+                        <div class="px-4 font-bold text-md lg:text-lg text-right">Order Date: @orderDetails.OrderDate.ToUKStandardDate()</div>
+                    </div>
+                    <div class="w-full md:w-1/2 inline-block">
+                        <div class="px-4 font-bold text-md lg:text-lg text-left ">Status: @orderDetails.Status</div>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row justify-center align-top w-full p-4 bg-gray-50 rounded-md">
+                    <div class="w-full md:w-1/2">
+                        <div class="px-4 font-bold text-lg text-right">Items Ordered</div>
+                        <div class="p-4 text-right">
+                            @foreach (OrderItemDTO item in orderItems)
+                            {
+                                <div class="font-semibold text-md flex items-center justify-end">
+                                    <div class="inline-block w-12 h-auto mr-2"><img src="@item.ImageUrl" /></div>
+                                    <div class="inline-block flex-shrink-0">@item.Quantity &nbsp;x&nbsp; @item.ProductName &nbsp;=</div>
+                                    <div class="ml-2 font-bold">£@(item.Quantity * item.Price)</div>
+                                </div>
+                            }
+                        </div>
+                        <div class="mt-2 px-4 text-right text-md font-semibold">
+                            Order Total:&nbsp; <span class="inline font-bold">£@orderDetails.Total</span>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="px-4 font-bold text-lg">Delivery Address</div>
+                        <div class="p-4 text-left font-medium" >
+                            <div>@orderDetails.SendToAddress.FirstName @orderDetails.SendToAddress.LastName</div>
+                            <div>@orderDetails.SendToAddress.Street</div>
+                            <div class="@(string.IsNullOrWhiteSpace(orderDetails.SendToAddress.SecondLine) ? "hidden" : "")">@orderDetails.SendToAddress.SecondLine</div>
+                            <div>@orderDetails.SendToAddress.City</div>
+                            <div>@orderDetails.SendToAddress.County</div>
+                            <div>@orderDetails.SendToAddress.PostCode</div>
+                            <div>United Kingdom</div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else 
+            {
+                <div class="p-4 text-center font-semibold">
+                    This order could not be found
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    [CascadingParameter]
+    public Error Error { get; set; }
+
+    private OrderDetailsDTO orderDetails;
+    private List<OrderItemDTO> orderItems;
+    private string errorMessage = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetOrder();
+    }
+    
+    private async Task GetOrder()
+    {
+        try
+        {
+            orderDetails = await orderService.GetOrderByIdAsync(Id);
+            orderItems = orderDetails.OrderItems;
+            errorMessage = "";
+        }
+        catch (Exception ex)
+        {
+            Error.ProcessError(ex, "Pages/Account/OrderDetails.GetOrder()");
+            errorMessage = "Could not retrieve this order";
+        }
+    }
+}

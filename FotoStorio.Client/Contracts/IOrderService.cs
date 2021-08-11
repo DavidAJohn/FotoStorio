@@ -8,5 +8,6 @@ namespace FotoStorio.Client.Contracts
     {
         Task<OrderDetailsDTO> CreateOrderAsync(OrderCreateDTO order);
         Task<List<OrderDetailsDTO>> GetOrdersForUserAsync();
+        Task<OrderDetailsDTO> GetOrderByIdAsync(int orderId);
     }
 }

@@ -88,5 +88,29 @@ namespace FotoStorio.Client.Services
                 throw new HttpRequestException(ex.Message, ex.InnerException, ex.StatusCode);
             }
         }
+
+        public async Task<OrderDetailsDTO> GetOrderByIdAsync(int orderId)
+        {
+            var storedToken = await _localStorage.GetItemAsync<string>("authToken");
+
+            if (string.IsNullOrWhiteSpace(storedToken))
+            {
+                return null;
+            }
+
+            try
+            {
+                var client = _httpClient.CreateClient("FotoStorioAPI");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", storedToken);
+
+                var order = await client.GetFromJsonAsync<OrderDetailsDTO>($"orders/{orderId}");
+
+                return order;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException(ex.Message, ex.InnerException, ex.StatusCode);
+            }
+        }
     }
 }
