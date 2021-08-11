@@ -11,9 +11,10 @@
 <div class="h-screen">
     <div class="px-0 md:container md:max-w-7xl md:mt-4">
         <div class="mb-4">
-            <button class="p-2 my-3 bg-fotofuchsia text-white rounded-sm text-sm hover:opacity-90 fotofuchsia-ripple">
-                <a href="/account/orders" class="hover:text-white">Go Back</a>
-            </button>
+            <NavButton
+                Href="/account/orders"
+                ButtonText="Go Back"
+            />
         </div>
         <div class="w-full px-12 pt-4 pb-8 rounded-md shadow-md bg-white focus:outline-none z-10">
             <div class="text-lg text-center md:text-xl lg:text-2xl font-bold mb-4">
@@ -39,7 +40,7 @@
                 </div>
                 <div class="flex flex-col md:flex-row justify-center align-top w-full p-4 bg-gray-50 rounded-md">
                     <div class="w-full md:w-1/2">
-                        <div class="px-4 font-bold text-lg text-right">Items Ordered</div>
+                        <div class="px-4 font-bold text-lg lg:text-right text-fotoblue">Items Ordered</div>
                         <div class="p-4 text-right">
                             @foreach (OrderItemDTO item in orderItems)
                             {
@@ -55,7 +56,7 @@
                         </div>
                     </div>
                     <div class="w-full md:w-1/2">
-                        <div class="px-4 font-bold text-lg">Delivery Address</div>
+                        <div class="px-4 font-bold text-lg text-fotoblue">Delivery Address</div>
                         <div class="p-4 text-left font-medium" >
                             <div>@orderDetails.SendToAddress.FirstName @orderDetails.SendToAddress.LastName</div>
                             <div>@orderDetails.SendToAddress.Street</div>
