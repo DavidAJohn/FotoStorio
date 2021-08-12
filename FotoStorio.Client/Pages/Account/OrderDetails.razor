@@ -32,10 +32,28 @@
             {
                 <div class="flex flex-col md:flex-row justify-center align-top w-full px-4 py-2 mb-2">
                     <div class="w-full md:w-1/2">
-                        <div class="px-4 font-bold text-md lg:text-lg text-center md:text-right">Order Date: @orderDetails.OrderDate.ToUKStandardDate()</div>
+                        <div class="px-4 font-bold text-md lg:text-lg place-content-center md:text-right">Order Date: @orderDetails.OrderDate.ToUKStandardDate()</div>
                     </div>
-                    <div class="w-full md:w-1/2 inline-block">
-                        <div class="px-4 font-bold text-md lg:text-lg text-center md:text-left">Status: @orderDetails.Status</div>
+                    <div class="w-full md:w-1/2 flex flex-row items-center">
+                        <div class="px-4 font-bold text-md lg:text-lg place-content-center md:text-left">Status: @orderDetails.Status</div>
+                        @if (@orderDetails.Status == "Payment Received")
+                        {
+                            <div class="text-green-600 -ml-3">
+                                <!-- heroicons: check-circle (solid) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        }
+                        @if (@orderDetails.Status == "Payment Failed")
+                        {
+                            <div class="text-red-600 -ml-3">
+                                <!-- heroicons: exclamation-circle (solid) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div class="flex flex-col md:flex-row justify-center align-top w-full p-4 bg-gray-50 rounded-md">
@@ -47,7 +65,7 @@
                                 <div class="font-semibold text-md flex items-center justify-end">
                                     <div class="hidden md:inline-block w-12 h-auto mr-2"><img src="@item.ImageUrl" /></div>
                                     <div class="inline-block flex-shrink-0">@item.Quantity &nbsp;x&nbsp; @item.ProductName</div>
-                                    <div class="hidden md:block ml-2 font-bold"> = £@(item.Quantity * item.Price)</div>
+                                    <div class="hidden lg:block ml-2 font-bold"> = £@(item.Quantity * item.Price)</div>
                                 </div>
                             }
                         </div>
