@@ -10,8 +10,10 @@
 <div class="container mt-8">
     @if (errorMessage != "")
     {
-        <div class="alert alert-danger" role="alert">
-            <h4>@errorMessage</h4>
+        <div class="mx-2 animate-pulse">
+            <div class="alert-box text-center" role="alert">
+                <span class="block sm:inline">@errorMessage</span>
+            </div>
         </div>
     }
     else if (products == null)
@@ -22,26 +24,26 @@
     {
         @if (products.Count() > 0)
         {
-            <div class="flex flex-row justify-between items-center mb-16">
-                <div class="inline">
-                    <span class="w-64">
+            <div class="flex flex-col lg:flex-row flex-wrap justify-items-center items-center lg:justify-between ">
+                <div class="inline-flex justify-center items-center">
+                    <div class="w-full lg:w-72 justify-items-center">
                         <TypeSearch OnSearchChanged="SearchChanged"
                             ClearSearch=@ClearSearch
                             Placeholder="Search for a product..." 
                         />
-                    </span>
-                    <span class="ml-1">
+                    </div>
+                    <div class="ml-1">
                         <button class="p-2 bg-blue-900 text-white rounded-sm text-md font-semibold hover:opacity-90 fotoblue-ripple" @onclick="async () => await ResetSearch()">
-                            Clear Search
+                            Clear
                         </button>
-                    </span>
+                    </div>
                 </div>
                 <div class="relative inline-block">
                     <!-- Sort By dropdown -->
-                    <div class="text-left">
+                    <div class="text-center mt-8 lg:mt-0 lg:text-left">
                         <div class="text-gray-700 mr-2 py-2 text-md font-medium inline">Sort Products By:</div>
                         <div class="inline-block">
-                            <button type="button" class="inline-flex justify-center w-72 rounded-sm border border-gray-700 shadow-sm px-4 py-2 bg-white text-md font-medium text-gray-700 hover:bg-gray-50 focus:outline-none" 
+                            <button type="button" class="inline-flex md:flex-grow justify-center w-72 rounded-sm border border-gray-700 shadow-sm px-4 py-2 bg-white text-md font-medium text-gray-700 hover:bg-gray-50 focus:outline-none" 
                                 id="menu-button"
                                 @onclick="ToggleDropdown"
                             >
@@ -74,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-4xl font-bold text-center">
+            <div class="text-3xl md:text-4xl font-bold text-center mt-12">
                 Special Offers
             </div>
 
@@ -112,7 +114,7 @@
                             </span>
                             <span class="text-gray-50 text-md ml-3" @onclick="() => AddProductToBasket(product.Id)">Add to Basket</span>
                         </button>
-                        <div class="text-base mb-2 text-justify">@product.Description</div>
+                        <div class="text-sm md:text-base mb-2 text-justify">@product.Description</div>
                     </div>
                 </div>
             }
@@ -226,10 +228,10 @@
     private void SetSortByDropdownOptions()
     {
         dropdownOptions.Add(new DropdownItem{ Id = 1, OptionName = "Name (A-Z)", OptionRef = "nameAsc" });
-        dropdownOptions.Add(new DropdownItem{ Id = 1, OptionName = "Amount Saved (Highest First)", OptionRef = "savingDesc" });
-        dropdownOptions.Add(new DropdownItem{ Id = 2, OptionName = "Price (Highest to Lowest)", OptionRef = "priceDesc" });
-        dropdownOptions.Add(new DropdownItem{ Id = 3, OptionName = "Price (Lowest to Highest)", OptionRef = "priceAsc" });
-        dropdownOptions.Add(new DropdownItem{ Id = 4, OptionName = "Name (Z-A)", OptionRef = "nameDesc" });
+        dropdownOptions.Add(new DropdownItem{ Id = 2, OptionName = "Amount Saved (Highest First)", OptionRef = "savingDesc" });
+        dropdownOptions.Add(new DropdownItem{ Id = 3, OptionName = "Price (Highest to Lowest)", OptionRef = "priceDesc" });
+        dropdownOptions.Add(new DropdownItem{ Id = 4, OptionName = "Price (Lowest to Highest)", OptionRef = "priceAsc" });
+        dropdownOptions.Add(new DropdownItem{ Id = 5, OptionName = "Name (Z-A)", OptionRef = "nameDesc" });
     }
 
     private void GoToHomePage()
