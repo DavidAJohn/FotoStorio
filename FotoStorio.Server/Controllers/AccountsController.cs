@@ -137,5 +137,26 @@ namespace FotoStorio.Server.Controllers
             return Ok(_mapper.Map<Address, AddressDTO>(user.Address));
         }
 
+        /// PUT api/accounts/address
+        /// <summary>
+        /// Updates the authenticated user's default address
+        /// </summary>
+        /// <returns>AddressDTO object</returns>
+        [Authorize]
+        [HttpPut("address")]
+        public async Task<ActionResult<AddressDTO>> UpdateUserAddress(AddressDTO addressDTO)
+        {
+            var user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(HttpContext.User);
+            user.Address = _mapper.Map<AddressDTO, Address>(addressDTO);
+            
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return Ok(_mapper.Map<Address, AddressDTO>(user.Address));
+            }
+
+            return BadRequest("There was a problem updating this user");
+        }
     }
 }

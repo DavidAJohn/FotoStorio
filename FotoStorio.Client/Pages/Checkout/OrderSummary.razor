@@ -197,6 +197,7 @@
         basketItems = basketState.Basket.BasketItems;
         ShowPaymentOptions = true;
 
+        // populate the address form with the user's default address (if they have one)
         addressDTO = await accountService.GetUserAddressAsync();
     }
 
@@ -212,7 +213,7 @@
                 await JsRuntime.InvokeVoidAsync("setupStripe", config["Stripe_PublishableKey"]); // wwwroot/scripts/stripe.js
 
                 // get a payment intent from stripe
-                //await GetPaymentIntentResultAsync(); 
+                await GetPaymentIntentResultAsync(); 
             }
             catch (JSException ex)
             {
@@ -295,7 +296,7 @@
                 Error.ProcessError(ex, "Pages/Checkout/OrderSummary.PlaceOrder()");
                 paymentResult = "There was a problem sending your payment details";
             }
-            
+
             if (paymentResult != "success")
             {
                 ShowErrors = true;
@@ -316,6 +317,9 @@
 
                 // toast message
                 toastService.ShowSuccess("Thanks, your order has been placed!", "Order Placed");
+
+                // save the address to the user's account
+                await accountService.SaveUserAddressAsync(addressDTO);
 
                 // navigate away to confirmation page
                 navigationManager.NavigateTo("/checkout/success");

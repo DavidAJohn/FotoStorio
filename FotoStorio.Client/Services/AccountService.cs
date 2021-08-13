@@ -1,6 +1,8 @@
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Blazored.LocalStorage;
 using FotoStorio.Client.Contracts;
@@ -49,33 +51,43 @@ namespace FotoStorio.Client.Services
             }
         }
         
-        public async Task<Address> SaveUserAddressAsync(Address address)
+        public async Task<AddressDTO> SaveUserAddressAsync(AddressDTO addressDTO)
         {
-            // var savedToken = await _localStorage.GetItemAsync<string>("authToken");
+            var storedToken = await _localStorage.GetItemAsync<string>("authToken");
 
-            // if (string.IsNullOrWhiteSpace(savedToken))
-            // {
-            //     return null;
-            // }
+            if (string.IsNullOrWhiteSpace(storedToken))
+            {
+                return null;
+            }
 
-            // var client = _httpClient.CreateClient("FotoStorioAPI");
-            // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", savedToken);
+            try 
+            {
+                var client = _httpClient.CreateClient("FotoStorioAPI");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", storedToken);
 
-            // string json = JsonConvert.SerializeObject(address);
-            // StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                HttpContent serializedContent = new StringContent(JsonSerializer.Serialize(addressDTO));
+                serializedContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            // var response = await _httpClient.PutAsync(GetApiEndpoint("address"), httpContent);
+                HttpResponseMessage response = await client.PutAsync("accounts/address", serializedContent);
 
-            // if (response.IsSuccessStatusCode)
-            // {
-            //     var newAddress = JsonConvert.DeserializeObject<Address>(
-            //         await response.Content.ReadAsStringAsync()
-            //     );
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
 
-            //     return newAddress;
-            // }
+                    var updatedAddress = JsonSerializer.Deserialize<AddressDTO>(
+                        responseContent, 
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+                    );
 
-            return null;
+                    return updatedAddress;
+                }
+
+                return null;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException(ex.Message, ex.InnerException, ex.StatusCode);
+            }
         }
     }
 }

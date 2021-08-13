@@ -7,6 +7,6 @@ namespace FotoStorio.Client.Contracts
     public interface IAccountService
     {
         Task<AddressDTO> GetUserAddressAsync();
-        Task<Address> SaveUserAddressAsync(Address address);
+        Task<AddressDTO> SaveUserAddressAsync(AddressDTO address);
     }
 }
