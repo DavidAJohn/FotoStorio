@@ -1,9 +1,12 @@
+using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using FotoStorio.Server.Data.Identity;
 using FotoStorio.Shared.Auth;
 using FotoStorio.Shared.Models.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -39,6 +42,15 @@ namespace FotoStorio.Server.Extensions
             services.AddAuthorization(opt => {
                 opt.AddPolicy(Policies.IsAdmin, Policies.IsAdminPolicy());
                 opt.AddPolicy(Policies.IsUser, Policies.IsUserPolicy());
+            });
+
+            services.AddMvc(options => 
+            {
+                var noContentFormatter = options.OutputFormatters.OfType<HttpNoContentOutputFormatter>().FirstOrDefault();
+                if (noContentFormatter != null)
+                {
+                    noContentFormatter.TreatNullValueAsNoContent = false;
+                }
             });
 
             return services;

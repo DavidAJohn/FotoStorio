@@ -15,6 +15,7 @@
 @inject IConfiguration config
 @inject IPaymentService paymentService
 @inject NavigationManager navigationManager
+@inject IAccountService accountService
 
 <div class="h-auto">
     <div class="container max-w-7xl md:mt-8">
@@ -95,6 +96,12 @@
                                         <ValidationMessage For="@(() => addressDTO.PostCode)" />
                                     </div>
                                 </EditForm>
+                            </div>
+                            <div class="place-content-center">
+                                <button type="button" class="p-2 my-3 bg-fotofuchsia text-white rounded-sm text-sm font-semibold hover:opacity-90 fotofuchsia-ripple" 
+                                    @onclick="ClearAddress">
+                                    Clear Address
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -189,6 +196,8 @@
         await Task.Run(()=> System.Threading.Thread.Sleep(1)); // forces the page to wait before getting the basket
         basketItems = basketState.Basket.BasketItems;
         ShowPaymentOptions = true;
+
+        addressDTO = await accountService.GetUserAddressAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -203,7 +212,7 @@
                 await JsRuntime.InvokeVoidAsync("setupStripe", config["Stripe_PublishableKey"]); // wwwroot/scripts/stripe.js
 
                 // get a payment intent from stripe
-                await GetPaymentIntentResultAsync(); 
+                //await GetPaymentIntentResultAsync(); 
             }
             catch (JSException ex)
             {
@@ -253,7 +262,7 @@
         ShowErrors = false;
         SubmitSpinnerHidden = "";
 
-        var address = new Address {
+        var orderAddress = new Address {
             FirstName = addressDTO.FirstName,
             LastName = addressDTO.LastName,
             Street = addressDTO.Street,
@@ -265,7 +274,7 @@
 
         var orderToCreate = new OrderCreateDTO {
             Items = basketItems,
-            SendToAddress = address,
+            SendToAddress = orderAddress,
             PaymentIntentId = basketState.Basket.PaymentIntentId
         };
 
@@ -318,5 +327,10 @@
             ErrorMessage = "Sorry, there was a problem creating your order";
             SubmitSpinnerHidden = "hidden";
         }
+    }
+
+    private void ClearAddress()
+    {
+        addressDTO = new AddressDTO {};
     }
 }

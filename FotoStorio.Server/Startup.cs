@@ -53,6 +53,9 @@ namespace FotoStorio.Server
             services.AddSwaggerDocumentation();
 
             services.AddAutoMapper(typeof(AutoMapperProfiles));
+
+            services.AddControllers().AddNewtonsoftJson(o =>
+                o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

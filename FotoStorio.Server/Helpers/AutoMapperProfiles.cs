@@ -24,6 +24,9 @@ namespace FotoStorio.Server.Helpers
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ItemOrdered.ProductItemId))
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ItemOrdered.ProductName))
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ItemOrdered.ImageUrl));
+
+            CreateMap<FotoStorio.Shared.Models.Identity.Address, AddressDTO>().ReverseMap();
+            CreateMap<AddressDTO, FotoStorio.Shared.Models.Orders.Address>();
         }
     }
 }

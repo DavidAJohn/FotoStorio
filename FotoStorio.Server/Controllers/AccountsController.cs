@@ -1,7 +1,13 @@
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using FotoStorio.Server.Contracts;
+using FotoStorio.Server.Extensions;
 using FotoStorio.Shared.Auth;
+using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Models.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,15 +19,17 @@ namespace FotoStorio.Server.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
+        private readonly IMapper _mapper;
 
-        public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService)
+        public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
         {
+            _mapper = mapper;
             _tokenService = tokenService;
             _signInManager = signInManager;
             _userManager = userManager;
         }
 
-        /// GET api/login
+        /// GET api/accounts/login
         /// <summary>
         /// Authenticates a user
         /// </summary>
@@ -55,7 +63,7 @@ namespace FotoStorio.Server.Controllers
             ); 
         }
 
-        /// GET api/register
+        /// GET api/accounts/register
         /// <summary>
         /// Creates a new user account
         /// </summary>
@@ -109,5 +117,25 @@ namespace FotoStorio.Server.Controllers
         {
             return await _userManager.FindByEmailAsync(email) != null;
         }
+
+        /// GET api/accounts/address
+        /// <summary>
+        /// Returns the authenticated user's default address
+        /// </summary>
+        /// <returns>AddressDTO object</returns>
+        [Authorize]
+        [HttpGet("address")]
+        public async Task<ActionResult<AddressDTO>> GetUserAddress()
+        {
+            var user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(HttpContext.User);
+
+            if (user == null)
+            {
+                return new AddressDTO {};
+            }
+
+            return Ok(_mapper.Map<Address, AddressDTO>(user.Address));
+        }
+
     }
 }
