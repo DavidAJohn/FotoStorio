@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Blazored.LocalStorage;
 using FotoStorio.Client.Contracts;
 using FotoStorio.Shared.DTOs;
+using Newtonsoft.Json;
 
 namespace FotoStorio.Client.Services
 {
@@ -40,7 +41,7 @@ namespace FotoStorio.Client.Services
                 var client = _httpClient.CreateClient("FotoStorioAPI");
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", storedToken);
 
-                HttpContent serializedContent = new StringContent(JsonSerializer.Serialize(order));
+                HttpContent serializedContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(order));
                 serializedContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 HttpResponseMessage response = await client.PostAsync("orders", serializedContent);
@@ -49,10 +50,7 @@ namespace FotoStorio.Client.Services
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
 
-                    var createdOrder = JsonSerializer.Deserialize<OrderDetailsDTO>(
-                        responseContent, 
-                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
-                    );
+                    var createdOrder = JsonConvert.DeserializeObject<OrderDetailsDTO>(responseContent);
 
                     return createdOrder;
                 }

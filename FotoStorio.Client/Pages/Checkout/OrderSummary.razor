@@ -322,7 +322,7 @@
                 await accountService.SaveUserAddressAsync(addressDTO);
 
                 // navigate away to confirmation page
-                navigationManager.NavigateTo("/checkout/success");
+                navigationManager.NavigateTo($"/checkout/success/{newOrder.Id}");
             }
         }
         else
