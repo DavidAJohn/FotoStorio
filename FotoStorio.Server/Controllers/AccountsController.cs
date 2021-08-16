@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace FotoStorio.Server.Controllers
 {
@@ -20,9 +22,11 @@ namespace FotoStorio.Server.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly ILogger<AccountsController> _logger;
 
-        public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
+        public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper, ILogger<AccountsController> logger)
         {
+            _logger = logger;
             _mapper = mapper;
             _tokenService = tokenService;
             _signInManager = signInManager;
@@ -127,14 +131,23 @@ namespace FotoStorio.Server.Controllers
         [HttpGet("address")]
         public async Task<ActionResult<AddressDTO>> GetUserAddress()
         {
-            var user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(HttpContext.User);
-
-            if (user == null)
+            try
             {
+                var user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(HttpContext.User);
+
+                if (user == null)
+                {
+                    return new AddressDTO {};
+                }
+
+                return Ok(_mapper.Map<Address, AddressDTO>(user.Address));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in AccountsController.GetUserAddress: {ex.Message}");
+
                 return new AddressDTO {};
             }
-
-            return Ok(_mapper.Map<Address, AddressDTO>(user.Address));
         }
 
         /// PUT api/accounts/address
@@ -145,18 +158,30 @@ namespace FotoStorio.Server.Controllers
         [Authorize]
         [HttpPut("address")]
         public async Task<ActionResult<AddressDTO>> UpdateUserAddress(AddressDTO addressDTO)
-        {
-            var user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(HttpContext.User);
-            user.Address = _mapper.Map<AddressDTO, Address>(addressDTO);
-            
-            var result = await _userManager.UpdateAsync(user);
+        {   
+            AppUser user = null;
 
-            if (result.Succeeded)
+            try
             {
-                return Ok(_mapper.Map<Address, AddressDTO>(user.Address));
-            }
+                user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(HttpContext.User);
 
-            return BadRequest("There was a problem updating this user");
+                user.Address = _mapper.Map<AddressDTO, Address>(addressDTO);
+                
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return Ok(_mapper.Map<Address, AddressDTO>(user.Address));
+                }
+
+                return new AddressDTO {};
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in AccountsController.UpdateUserAddress for user '{user.Id}': {ex.Message}");
+
+                return new AddressDTO {};
+            }
         }
     }
 }
