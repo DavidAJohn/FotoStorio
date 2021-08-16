@@ -32,10 +32,10 @@
             {
                 <div class="flex flex-col md:flex-row justify-center align-top w-full px-4 py-2 mb-2">
                     <div class="w-full md:w-1/2">
-                        <div class="px-4 font-bold text-md lg:text-lg place-content-center md:text-right">Order Date: @orderDetails.OrderDate.ToUKStandardDate()</div>
+                        <div class="px-4 font-bold text-base lg:text-lg place-content-center md:text-right">Order Date: @orderDetails.OrderDate.ToUKStandardDate()</div>
                     </div>
                     <div class="w-full md:w-1/2 flex flex-row items-center">
-                        <div class="px-4 font-bold text-md lg:text-lg place-content-center md:text-left">Status: @orderDetails.Status</div>
+                        <div class="px-4 font-bold text-base lg:text-lg place-content-center md:text-left">Status: @orderDetails.Status</div>
                         @if (@orderDetails.Status == "Payment Received")
                         {
                             <div class="text-green-600 -ml-3">
@@ -62,14 +62,14 @@
                         <div class="p-4 text-right">
                             @foreach (OrderItemDTO item in orderItems)
                             {
-                                <div class="font-semibold text-md flex items-center justify-end">
+                                <div class="font-semibold text-base flex items-center justify-end">
                                     <div class="hidden md:inline-block w-12 h-auto mr-2"><img src="@item.ImageUrl" /></div>
                                     <div class="inline-block flex-shrink-0">@item.Quantity &nbsp;x&nbsp; @item.ProductName</div>
                                     <div class="hidden lg:block ml-2 font-bold"> = £@(item.Quantity * item.Price)</div>
                                 </div>
                             }
                         </div>
-                        <div class="-mt-1.5 md:mt-1.5 px-4 text-right text-md font-semibold">
+                        <div class="-mt-1.5 md:mt-1.5 px-4 text-right text-base font-semibold">
                             Order Total:&nbsp; <span class="inline font-bold">£@orderDetails.Total</span>
                         </div>
                     </div>
