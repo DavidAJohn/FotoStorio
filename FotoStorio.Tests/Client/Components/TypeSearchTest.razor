@@ -1,0 +1,14 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void TypeSearch_Correctly_Renders_Placeholder()
+    {
+        var cut = Render(@<TypeSearch Placeholder="Search..." />);
+
+        cut.MarkupMatches(@<div class="inline">
+                <input type="search" class="rounded-sm w-full border border-gray-700 shadow-sm px-4 py-2 bg-white focus:outline-none" placeholder="Search..." />
+            </div>
+        );
+    }
+}

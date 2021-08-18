@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FotoStorio.Server", "FotoSt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FotoStorio.Shared", "FotoStorio.Shared\FotoStorio.Shared.csproj", "{96368C62-F985-476D-AB63-D151A9FB865B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FotoStorio.Tests", "FotoStorio.Tests\FotoStorio.Tests.csproj", "{787715D8-525E-42AF-A540-6E587949FC37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FotoStorio.Tests", "FotoStorio.Tests\FotoStorio.Tests.csproj", "{787715D8-525E-42AF-A540-6E587949FC37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
