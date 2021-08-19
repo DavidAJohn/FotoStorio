@@ -6,9 +6,9 @@
     {
         var cut = Render(@<TypeSearch Placeholder="Search..." />);
 
-        cut.MarkupMatches(@<div class="inline">
-                <input type="search" class="rounded-sm w-full border border-gray-700 shadow-sm px-4 py-2 bg-white focus:outline-none" placeholder="Search..." />
-            </div>
+        cut.MarkupMatches(@<div class:ignore="inline">
+                               <input type="search" class:ignore="" placeholder="Search..." />
+                           </div>
         );
     }
 }
