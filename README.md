@@ -8,13 +8,12 @@ Foto Storio is a .NET e-commerce application that combines a Blazor WebAssembly 
 
 - Hosted Blazor WebAssembly frontend
 - Web API backend using Entity Framework and SQL Server
-- Implements the repository pattern along with the specification pattern
-- Authentication and authorisation using .NET Core Identity and JWT bearer tokens
-- API Response caching for improved performance
-
-- Responsive, model-first page layout throughout
-- Styling with Tailwind CSS
-- Basket functionality using Blazor's CascadingParameter
 - Full checkout functionality and payment integration with Stripe
+- Authentication and authorisation using .NET Core Identity and JWT bearer tokens
+- Implements the repository pattern along with the specification pattern
+- API Response caching for improved performance
+- Responsive, mobile-first page layout throughout
+- Styling with Tailwind CSS
+- Shopping cart/basket functionality using Blazor's CascadingParameters
 - Pagination, sorting and filtering of product data
 - Fluent Validation
