@@ -24,10 +24,20 @@ Foto Storio is a .NET e-commerce application that combines a Blazor WebAssembly 
 To run the application on your local machine, after cloning or downloading it from GitHub, you'll need the following:
 
 - The .NET 5 SDK installed locally
-- SQL Server installed locally, or in a Docker container
+- SQL Server installed locally, or in a Docker container (see below)
 - Node (if you want to customise the Tailwind CSS configuration)
 
-You'll then need to update the database connections strings in the **appsettings.Development.json** file in the Server folder.
+To use the official **Microsoft SQL Server Docker image**, either enter the following from a terminal:
+
+`docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=P@ssw0rd1234" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest`
+
+*or*
+
+you can make use of the **docker-compose.yml** file in the root directory of the application, and enter the following from a terminal window from within the application's root:
+
+`docker-compose up -d`
+
+The application is set up to use this Docker image by default, so if you use a local installation of SQL Server instead, you'll need to update the database connections strings in the **appsettings.Development.json** file in the **FotoStorio.Server** folder accordingly.
 
 The application is set up to run as a hosted Blazor Webassembly app. This effectively means everything runs from the Server folder.
 
