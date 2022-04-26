@@ -16,18 +16,23 @@ namespace FotoStorio.Server.Data
             var brandsData = await File.ReadAllTextAsync("./Data/SeedData/brands.json");
             var brands = JsonSerializer.Deserialize<List<Brand>>(brandsData);
 
-            using (var transaction = context.Database.BeginTransaction())
-            {
-                foreach (var brand in brands)
-                {
-                    context.Brands.Add(brand);
-                }
+            var strategy = context.Database.CreateExecutionStrategy();
 
-                context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT Brands ON;");
-                context.SaveChanges();
-                context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT Brands OFF");
-                transaction.Commit();
-            }
+            strategy.Execute(() =>
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    foreach (var brand in brands)
+                    {
+                        context.Brands.Add(brand);
+                    }
+
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT Brands ON;");
+                    context.SaveChanges();
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT Brands OFF");
+                    transaction.Commit();
+                }
+            });
         }
 
         public static async Task SeedCategoriesDataAsync(ApplicationDbContext context)
@@ -37,18 +42,23 @@ namespace FotoStorio.Server.Data
             var categoriesData = await File.ReadAllTextAsync("./Data/SeedData/categories.json");
             var categories = JsonSerializer.Deserialize<List<Category>>(categoriesData);
 
-            using (var transaction = context.Database.BeginTransaction())
-            {
-                foreach (var category in categories)
-                {
-                    context.Categories.Add(category);
-                }
+            var strategy = context.Database.CreateExecutionStrategy();
 
-                context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT Categories ON;");
-                context.SaveChanges();
-                context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT Categories OFF");
-                transaction.Commit();
-            }
+            strategy.Execute(() =>
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    foreach (var category in categories)
+                    {
+                        context.Categories.Add(category);
+                    }
+
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT Categories ON;");
+                    context.SaveChanges();
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT Categories OFF");
+                    transaction.Commit();
+                }
+            });
         }
 
         public static async Task SeedProductsDataAsync(ApplicationDbContext context)

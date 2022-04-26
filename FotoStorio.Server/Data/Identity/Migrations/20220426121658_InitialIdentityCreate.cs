@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace FotoStorio.Server.Data.Identity.Migrations
 {
-    public partial class IdentityInitial : Migration
+    public partial class InitialIdentityCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
