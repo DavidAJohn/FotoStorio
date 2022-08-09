@@ -35,8 +35,4 @@
     <ProjectReference Include="..\FotoStorio.Shared\FotoStorio.Shared.csproj" />
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if $(ConfigurationName) == Release gulp css:prod" />
-  </Target>
-
 </Project>

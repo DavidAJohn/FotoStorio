@@ -1,4 +1,11 @@
 module.exports = {
+    content: [
+      "./Pages/*.razor",
+      "./Pages/**/*.razor",
+      "./Shared/*.razor",
+      "./Components/*.razor",
+      "./App.razor"
+    ],
     theme: {
       container: {
         center: true,
@@ -22,11 +29,5 @@ module.exports = {
         }
       }
     },
-    variants: {
-      extend: {
-        backgroundColor: ['active'],
-        opacity: ['disabled'],
-        cursor: ['disabled']
-      }
-    },
+    plugins: [],
   }
