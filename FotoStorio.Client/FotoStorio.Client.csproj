@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
 	<ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>23e43222-9ce1-440a-970b-326d55ee675d</UserSecretsId>
   </PropertyGroup>
