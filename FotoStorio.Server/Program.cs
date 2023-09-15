@@ -3,6 +3,7 @@ using FotoStorio.Server.Data;
 using FotoStorio.Server.Data.Identity;
 using FotoStorio.Server.Extensions;
 using FotoStorio.Server.Helpers;
+using FotoStorio.Server.Middleware;
 using FotoStorio.Server.Services;
 using FotoStorio.Shared.Models.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -90,6 +91,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionMiddleware>(); // global exception handler
 
 app.UseEndpoints(endpoints =>
 {
