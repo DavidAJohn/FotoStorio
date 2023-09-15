@@ -94,12 +94,9 @@ app.UseAuthorization();
 
 app.UseMiddleware<ExceptionMiddleware>(); // global exception handler
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapRazorPages();
-    endpoints.MapFallbackToFile("index.html");
-});
+app.MapControllers();
+app.MapRazorPages();
+app.MapFallbackToFile("index.html");
 
 app.Run();
 
