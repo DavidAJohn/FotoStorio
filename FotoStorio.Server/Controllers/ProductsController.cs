@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using FotoStorio.Server.Contracts;
 using FotoStorio.Server.Extensions;
@@ -10,9 +7,7 @@ using FotoStorio.Shared.Auth;
 using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace FotoStorio.Server.Controllers
 {
@@ -38,28 +33,18 @@ namespace FotoStorio.Server.Controllers
         /// <returns>List of ProductDTO</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts([FromQuery] ProductSpecificationParams productParams)
         {
-            try
-            {
-                var spec = new ProductsWithBrandsAndCategoriesSpecification(productParams);
-                var countSpec = new ProductsWithFiltersForCountSpecification(productParams); // gets a count after filtering
-                var totalItems = await _productRepository.CountAsync(countSpec);
+            var spec = new ProductsWithBrandsAndCategoriesSpecification(productParams);
+            var countSpec = new ProductsWithFiltersForCountSpecification(productParams); // gets a count after filtering
+            var totalItems = await _productRepository.CountAsync(countSpec);
 
-                // add pagination response headers
-                _httpContextAccessor.HttpContext.AddPaginationResponseHeaders(totalItems, productParams.PageSize, productParams.PageIndex);
+            // add pagination response headers
+            _httpContextAccessor.HttpContext.AddPaginationResponseHeaders(totalItems, productParams.PageSize, productParams.PageIndex);
 
-                var products = await _productRepository.ListWithSpecificationAsync(spec);
+            var products = await _productRepository.ListWithSpecificationAsync(spec);
 
-                return Ok(_mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error in GetProducts : {ex.Message}");
-
-                return StatusCode(500, "Internal server error");
-            }
+            return Ok(_mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products));
         }
 
         // GET api/products/{id}
@@ -72,30 +57,20 @@ namespace FotoStorio.Server.Controllers
         [ResponseCache(Duration = 60, VaryByQueryKeys = new[] {"id"})]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ProductDTO>> GetProductById(int id)
         {
-            try
+            var spec = new ProductsWithBrandsAndCategoriesSpecification(id);
+            var product = await _productRepository.GetEntityWithSpecification(spec);
+
+            if (product == null)
             {
-                var spec = new ProductsWithBrandsAndCategoriesSpecification(id);
-                var product = await _productRepository.GetEntityWithSpecification(spec);
+                _logger.LogError("Product with id: {id} not found", id);
 
-                if (product == null)
-                {
-                    _logger.LogError($"Product with id: {id}, not found");
-
-                    return NotFound();
-                }
-                else
-                {
-                    return _mapper.Map<Product, ProductDTO>(product);
-                }
+                return NotFound();
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError($"Error in GetProductById, from id {id} : {ex.Message}");
-
-                return StatusCode(500, "Internal server error");
+                return Ok(_mapper.Map<Product, ProductDTO>(product));
             }
         }
 
@@ -108,7 +83,6 @@ namespace FotoStorio.Server.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ProductDTO>> CreateProduct([FromBody] ProductCreateDTO productCreateDTO)
         {
             if (productCreateDTO == null)
@@ -116,20 +90,11 @@ namespace FotoStorio.Server.Controllers
                 return BadRequest();
             }
 
-            try
-            {
-                var product = _mapper.Map<Product>(productCreateDTO);
-                await _productRepository.Create(product);
-                var productDTO = _mapper.Map<Product, ProductDTO>(product);
+            var product = _mapper.Map<Product>(productCreateDTO);
+            await _productRepository.Create(product);
+            var productDTO = _mapper.Map<Product, ProductDTO>(product);
 
-                return CreatedAtRoute(nameof(GetProductById), new {Id = productDTO.Id}, productDTO);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error in CreateProduct : {ex.Message}");
-
-                return BadRequest();
-            }
+            return CreatedAtRoute(nameof(GetProductById), new { Id = productDTO.Id }, productDTO);
         }
 
         // PUT api/products/{id}
@@ -142,7 +107,6 @@ namespace FotoStorio.Server.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdateProduct(int id, [FromBody] ProductUpdateDTO productUpdateDTO)
         {
             var product = await _productRepository.GetByIdAsync(id);
@@ -152,19 +116,10 @@ namespace FotoStorio.Server.Controllers
                 return NotFound();
             }
 
-            try
-            {
-                _mapper.Map(productUpdateDTO, product);
-                await _productRepository.Update(product);
+            _mapper.Map(productUpdateDTO, product);
+            await _productRepository.Update(product);
 
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error in UpdateProduct : {ex.Message}");
-
-                return BadRequest();
-            }
+            return NoContent();
         }
 
         // DELETE api/products/{id}
@@ -177,7 +132,6 @@ namespace FotoStorio.Server.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteProduct(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
@@ -187,16 +141,8 @@ namespace FotoStorio.Server.Controllers
                 return NotFound();
             }
 
-            try
-            {
-                await _productRepository.Delete(product);
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error in DeleteProduct : {ex.Message}");
-                return BadRequest();
-            }
+            await _productRepository.Delete(product);
+            return NoContent();
         }
     }
 }
