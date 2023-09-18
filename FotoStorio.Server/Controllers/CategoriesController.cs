@@ -1,70 +1,45 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using FotoStorio.Server.Contracts;
-using FotoStorio.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
-namespace FotoStorio.Server.Controllers
+namespace FotoStorio.Server.Controllers;
+
+public class CategoriesController : BaseApiController
 {
-    public class CategoriesController : BaseApiController
+    private readonly ILogger<CategoriesController> _logger;
+    private readonly ICategoryRepository _categoryRepository;
+
+    public CategoriesController(ILogger<CategoriesController> logger, ICategoryRepository categoryRepository)
     {
-        private readonly ILogger<CategoriesController> _logger;
-        private readonly ICategoryRepository _categoryRepository;
+        _logger = logger;
+        _categoryRepository = categoryRepository;
+    }
 
-        public CategoriesController(ILogger<CategoriesController> logger, ICategoryRepository categoryRepository)
+    // GET api/categories
+    [HttpGet]
+    [ResponseCache(Duration = 300)]
+    public async Task<IActionResult> GetCategories()
+    {
+        var categories = await _categoryRepository.ListAllAsync();
+
+        return Ok(categories);
+    }
+
+    // GET api/categories/{id}
+    [HttpGet("{id}")]
+    [ResponseCache(Duration = 300, VaryByQueryKeys = new[] {"id"})]
+    public async Task<IActionResult> GetCategoryById(int id)
+    {
+        var category = await _categoryRepository.GetByIdAsync(id);
+
+        if (category == null)
         {
-            _logger = logger;
-            _categoryRepository = categoryRepository;
-        }
+            _logger.LogError("Category with id: {id}, not found", id);
 
-        // GET api/categories
-        [HttpGet]
-        [ResponseCache(Duration = 300)]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+            return NotFound();
+        }
+        else
         {
-            try
-            {
-                var categories = await _categoryRepository.ListAllAsync();
-
-                return Ok(categories);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error in GetCategories : {ex.Message}");
-
-                return StatusCode(500, "Internal server error");
-            }
+            return Ok(category);
         }
-
-        // GET api/categories/{id}
-        [HttpGet("{id}")]
-        [ResponseCache(Duration = 300, VaryByQueryKeys = new[] {"id"})]
-        public async Task<ActionResult> GetCategoryById(int id)
-        {
-            try
-            {
-                var category = await _categoryRepository.GetByIdAsync(id);
-
-                if (category == null)
-                {
-                    _logger.LogError($"Category with id: {id}, not found");
-
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(category);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error in GetCategoryById : {ex.Message}");
-
-                return StatusCode(500, "Internal server error");
-            }
-        }
-
     }
 }
