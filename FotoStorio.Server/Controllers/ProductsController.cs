@@ -33,7 +33,7 @@ namespace FotoStorio.Server.Controllers
         /// <returns>List of ProductDTO</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts([FromQuery] ProductSpecificationParams productParams)
+        public async Task<IActionResult> GetProducts([FromQuery] ProductSpecificationParams productParams)
         {
             var spec = new ProductsWithBrandsAndCategoriesSpecification(productParams);
             var countSpec = new ProductsWithFiltersForCountSpecification(productParams); // gets a count after filtering
@@ -57,7 +57,7 @@ namespace FotoStorio.Server.Controllers
         [ResponseCache(Duration = 60, VaryByQueryKeys = new[] {"id"})]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ProductDTO>> GetProductById(int id)
+        public async Task<IActionResult> GetProductById(int id)
         {
             var spec = new ProductsWithBrandsAndCategoriesSpecification(id);
             var product = await _productRepository.GetEntityWithSpecification(spec);
@@ -83,7 +83,7 @@ namespace FotoStorio.Server.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ProductDTO>> CreateProduct([FromBody] ProductCreateDTO productCreateDTO)
+        public async Task<IActionResult> CreateProduct([FromBody] ProductCreateDTO productCreateDTO)
         {
             if (productCreateDTO == null)
             {
@@ -91,10 +91,16 @@ namespace FotoStorio.Server.Controllers
             }
 
             var product = _mapper.Map<Product>(productCreateDTO);
-            await _productRepository.Create(product);
+            var createdProduct = await _productRepository.Create(product);
+
+            if (createdProduct == null)
+            {
+                return BadRequest();
+            }
+
             var productDTO = _mapper.Map<Product, ProductDTO>(product);
 
-            return CreatedAtRoute(nameof(GetProductById), new { Id = productDTO.Id }, productDTO);
+            return CreatedAtAction(nameof(GetProductById), new { Id = productDTO.Id }, productDTO);
         }
 
         // PUT api/products/{id}
@@ -107,8 +113,14 @@ namespace FotoStorio.Server.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> UpdateProduct(int id, [FromBody] ProductUpdateDTO productUpdateDTO)
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductUpdateDTO productUpdateDTO)
         {
+            if (productUpdateDTO == null)
+            {
+                _logger.LogWarning("Product Updated Failed: Attempt to update a product when supplied ProductUpdateDTO was null");
+                return BadRequest();
+            }
+
             var product = await _productRepository.GetByIdAsync(id);
 
             if (product == null)
@@ -117,7 +129,14 @@ namespace FotoStorio.Server.Controllers
             }
 
             _mapper.Map(productUpdateDTO, product);
-            await _productRepository.Update(product);
+
+            var updated = await _productRepository.Update(product);
+
+            if (!updated)
+            {
+                _logger.LogWarning("Product Update Failed: Supplied product could not be updated. Id: {id}", id);
+                return BadRequest();
+            }
 
             return NoContent();
         }
@@ -132,7 +151,7 @@ namespace FotoStorio.Server.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
 
@@ -141,7 +160,14 @@ namespace FotoStorio.Server.Controllers
                 return NotFound();
             }
 
-            await _productRepository.Delete(product);
+            var deleted = await _productRepository.Delete(product);
+
+            if (!deleted)
+            {
+                _logger.LogWarning("Product Deletion Failed: Supplied product could not be deleted. Id: {id}", id);
+                return BadRequest();
+            }
+
             return NoContent();
         }
     }
