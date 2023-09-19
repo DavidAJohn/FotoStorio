@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FotoStorio.Server.Contracts;
 using FotoStorio.Server.Specifications;
 using FotoStorio.Shared.DTOs;
