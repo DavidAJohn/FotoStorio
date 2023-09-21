@@ -70,14 +70,17 @@ builder.Logging.AddConsole()
 
 var app = builder.Build();
 
-await SeedInitialData(app);
-
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseWebAssemblyDebugging();
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FotoStorio.API v1"));
+
+    if (configuration.GetValue<bool>("InitialDataSeeding"))
+    {
+        await SeedInitialData(app);
+    }
 }
 
 app.UseHttpsRedirection();
