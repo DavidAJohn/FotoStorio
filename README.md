@@ -9,7 +9,7 @@ Foto Storio is a .NET e-commerce application that combines a Blazor WebAssembly 
 
 - Hosted Blazor WebAssembly frontend
 - Web API backend using Entity Framework and SQL Server
-- Full checkout functionality and payment integration with Stripe
+- Full checkout functionality and payment integration using Stripe Elements
 - Authentication and authorisation using .NET Core Identity and JWT bearer tokens
 - Implements the repository pattern along with the specification pattern
 - API Response Caching for improved performance
@@ -23,13 +23,13 @@ Foto Storio is a .NET e-commerce application that combines a Blazor WebAssembly 
 
 To run the application on your local machine, after cloning or downloading it from GitHub, you'll need the following:
 
-- The .NET 6 SDK installed locally
+- The .NET 7 SDK installed locally
 - SQL Server installed locally, or in a Docker container (see below)
 - Node (if you want to customise the Tailwind CSS configuration)
 
-If you're using Visual Studio (not VS Code) as your code editor, you will need to be running the 2022 version (or higher). The Community Edition is fine.
+If you're using Visual Studio as your code editor, you will need to be running the 2022 version (or higher).
 
-Assuming that you have Docker Desktop installed and running, to create a container using the official **Microsoft SQL Server Docker image**, either enter the following from a terminal:
+Assuming that you have Docker Desktop installed and running, to create a container using the official **Microsoft SQL Server 2017 Docker image**, either enter the following from a terminal:
 
 `docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=P@ssw0rd1234" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest`
 
@@ -49,6 +49,6 @@ So, in a **Visual Studio Code** terminal, you can simply '`cd`' into the **FotoS
 
 In **Visual Studio 2022**, you should set the Server project as the default startup project from the right click menu, then press F5 to run it.
 
-The first time the application runs, it will seed sample product, brand and category data into your database.
+The application can optionally seed sample product, brand and category data into your database at startup. To enable/disable this, update the **"InitialDataSeeding"** value in the **appsettings.Development.json** file as required, then start the application. By default. this is set to **false** and will only run if the application environment is set to **Development**.
 
-The images used throughout the site are publicly available at **imgbb.com** for the sake of convenience. Each product has its image URL stored in the Products table in the database.
+The images used throughout the site are publicly available at **imgbb.com** for the sake of convenience.
