@@ -9,9 +9,9 @@ variables:
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Using .NET 6 sdk'
+  displayName: 'Using .NET 7 sdk'
   inputs:
-    version: 6.x
+    version: 7.x
     includePreviewVersions: false
 
 - task: DotNetCoreCLI@2
