@@ -68,12 +68,23 @@ namespace FotoStorio.Server.Data
             var productsData = await File.ReadAllTextAsync("./Data/SeedData/products.json");
             var products = JsonSerializer.Deserialize<List<Product>>(productsData);
 
-            foreach (var product in products)
-            {
-                context.Products.Add(product);
-            }
+            var strategy = context.Database.CreateExecutionStrategy();
 
-            await context.SaveChangesAsync();
+            strategy.Execute(() =>
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    foreach (var product in products)
+                    {
+                        context.Products.Add(product);
+                    }
+
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT Products ON;");
+                    context.SaveChanges();
+                    context.Database.ExecuteSqlInterpolated($"SET IDENTITY_INSERT Products OFF");
+                    transaction.Commit();
+                }
+            });
         }
     }
 }
