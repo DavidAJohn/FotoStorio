@@ -27,7 +27,7 @@
                 <div class="mb-4 font-semibold text-sm lg:text-base text-gray-400">
                     <a href="/login" class="hover:text-blue-800">Already have an account? Click here to log in</a>
                 </div>
-                <div class="px-2 md:px-4 py-2">
+                <div class="px-2 md:px-4">
                     <EditForm Model="RegisterModel" OnValidSubmit="HandleRegistration">
                         <FluentValidationValidator />
                         <div class="mb-3 w-full text-left">
@@ -59,7 +59,7 @@
                 {
                     <div class="mx-2 animate-pulse">
                         <div class="alert-box" role="alert">
-                            <span class="block sm:inline">@Errors</span>
+                            <span class="block sm:inline">@ErrorMessage</span>
                         </div>
                     </div>
                 }
@@ -71,7 +71,7 @@
 @code {
     private RegisterModel RegisterModel = new RegisterModel();
     private bool ShowErrors;
-    private IEnumerable<string> Errors;
+    private string ErrorMessage;
 
     private async Task HandleRegistration()
     {
@@ -86,7 +86,7 @@
         }
         else
         {
-            Errors = result.Errors;
+            ErrorMessage = result.Error;
             ShowErrors = true;
         }
     }
