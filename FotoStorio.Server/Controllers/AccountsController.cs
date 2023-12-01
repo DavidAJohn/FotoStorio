@@ -17,14 +17,16 @@ public class AccountsController : BaseApiController
     private readonly ITokenService _tokenService;
     private readonly IMapper _mapper;
     private readonly ILogger<AccountsController> _logger;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper, ILogger<AccountsController> logger)
+    public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper, ILogger<AccountsController> logger, IHttpContextAccessor httpContextAccessor)
     {
         _logger = logger;
         _mapper = mapper;
         _tokenService = tokenService;
         _signInManager = signInManager;
         _userManager = userManager;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     /// GET api/accounts/login
@@ -156,15 +158,25 @@ public class AccountsController : BaseApiController
     /// <returns>AddressDTO object</returns>
     [Authorize]
     [HttpGet("address")]
-    public async Task<ActionResult<AddressDTO>> GetUserAddress()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> GetUserAddress()
     {
         try
         {
-            var user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(HttpContext.User);
+            var httpContext = _httpContextAccessor.HttpContext;
+            var user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(httpContext.User);
 
             if (user == null)
             {
-                return new AddressDTO {};
+                return new NotFoundObjectResult(
+                    new AddressDTO { }
+                );
+            }
+
+            if (user.Address == null)
+            {
+                return Ok(new AddressDTO { });
             }
 
             return Ok(_mapper.Map<Address, AddressDTO>(user.Address));
@@ -173,7 +185,9 @@ public class AccountsController : BaseApiController
         {
             _logger.LogError("Error in AccountsController.GetUserAddress: {message}", ex.Message);
 
-            return new AddressDTO {};
+            return new NotFoundObjectResult(
+                new AddressDTO { }
+            );
         }
     }
 
@@ -190,7 +204,8 @@ public class AccountsController : BaseApiController
 
         try
         {
-            user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(HttpContext.User);
+            var httpContext = _httpContextAccessor.HttpContext;
+            user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(httpContext.User);
 
             user.Address = _mapper.Map<AddressDTO, Address>(addressDTO);
             
