@@ -1,28 +1,18 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using FotoStorio.Server.Contracts;
 using FotoStorio.Server.Specifications;
 using FotoStorio.Shared.DTOs;
 using FotoStorio.Shared.Entities;
 using FotoStorio.Shared.Models.Orders;
-using Microsoft.Extensions.Configuration;
 using Stripe;
 using Order = FotoStorio.Shared.Models.Orders.Order;
 
 namespace FotoStorio.Server.Services
 {
-    public class PaymentService : IPaymentService
+    public class PaymentService(IConfiguration config, IProductRepository productRepository, IOrderRepository orderRepository) : IPaymentService
     {
-        private readonly IConfiguration _config;
-        private readonly IProductRepository _productRepository;
-        private readonly IOrderRepository _orderRepository;
-
-        public PaymentService(IConfiguration config, IProductRepository productRepository, IOrderRepository orderRepository)
-        {
-            _orderRepository = orderRepository;
-            _config = config;
-            _productRepository = productRepository;
-        }
+        private readonly IConfiguration _config = config;
+        private readonly IProductRepository _productRepository = productRepository;
+        private readonly IOrderRepository _orderRepository = orderRepository;
 
         public async Task<PaymentIntentResult> CreateOrUpdatePaymentIntent(PaymentIntentCreateDTO paymentIntentCreateDTO)
         {
