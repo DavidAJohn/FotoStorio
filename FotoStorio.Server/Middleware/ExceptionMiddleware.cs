@@ -25,10 +25,14 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
                 _ => (int)HttpStatusCode.InternalServerError, // unhandled error
             };
 
-            var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-            var result = JsonSerializer.Serialize(new { message = error?.Message }, options);
+            var result = JsonSerializer.Serialize(new { message = error?.Message }, _jsonSerializerOptions);
 
             await response.WriteAsync(result);
         }
     }
+
+    private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    };
 }
