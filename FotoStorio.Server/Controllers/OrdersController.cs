@@ -9,20 +9,12 @@ using System.Security.Claims;
 namespace FotoStorio.Server.Controllers;
 
 [Authorize]
-public class OrdersController : BaseApiController
+public class OrdersController(IOrderService orderService, ILogger<OrdersController> logger, IMapper mapper, IHttpContextAccessor httpContextAccessor) : BaseApiController
 {
-    private readonly IOrderService _orderService;
-    private readonly ILogger<OrdersController> _logger;
-    private readonly IMapper _mapper;
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public OrdersController(IOrderService orderService, ILogger<OrdersController> logger, IMapper mapper, IHttpContextAccessor httpContextAccessor)
-    {
-        _httpContextAccessor = httpContextAccessor;
-        _mapper = mapper;
-        _logger = logger;
-        _orderService = orderService;
-    }
+    private readonly IOrderService _orderService = orderService;
+    private readonly ILogger<OrdersController> _logger = logger;
+    private readonly IMapper _mapper = mapper;
+    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
     /// POST api/orders
     /// <summary>

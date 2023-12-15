@@ -9,20 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FotoStorio.Server.Controllers;
 
-public class OffersController : BaseApiController
+public class OffersController(ILogger<OffersController> logger, IProductRepository productRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor) : BaseApiController
 {
-    private readonly ILogger<OffersController> _logger;
-    private readonly IProductRepository _productRepository;
-    private readonly IMapper _mapper;
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public OffersController(ILogger<OffersController> logger, IProductRepository productRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
-    {
-        _logger = logger;
-        _productRepository = productRepository;
-        _mapper = mapper;
-        _httpContextAccessor = httpContextAccessor;
-    }
+    private readonly ILogger<OffersController> _logger = logger;
+    private readonly IProductRepository _productRepository = productRepository;
+    private readonly IMapper _mapper = mapper;
+    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
     // GET api/offers
     /// <summary>
