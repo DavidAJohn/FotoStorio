@@ -23,7 +23,7 @@ Foto Storio is a .NET e-commerce application that combines a Blazor WebAssembly 
 
 To run the application on your local machine, after cloning or downloading it from GitHub, you'll need the following:
 
-- The .NET 7 SDK installed locally
+- The .NET 8 SDK installed locally
 - SQL Server installed locally, or in a Docker container (see below)
 - Node (if you want to customise the Tailwind CSS configuration)
 
