@@ -1,10 +1,13 @@
 using AutoMapper;
+using FotoStorio.Server.Extensions;
 using FotoStorio.Shared.Auth;
 using FotoStorio.Shared.Models.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NSubstitute.ExceptionExtensions;
+using System.Security.Claims;
 
 namespace FotoStorio.Server.Controllers;
 
@@ -13,30 +16,61 @@ public class AccountsControllerTests
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly AppUser _user;
+    private readonly AppUser _noAddressUser;
     private readonly ITokenService _tokenService;
     private readonly IMapper _mapper;
     private readonly ILogger<AccountsController> _logger;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly DefaultHttpContext _context;
     private readonly AccountsController _accountsController;
+    private readonly IUserManagerExtensionsWrapper _userManagerExtensionsWrapper;
 
     public AccountsControllerTests()
     {
         _user = new AppUser { Email = "test@test.com", DisplayName = "Test User" };
+        _user.Address = new Address
+        {
+            FirstName = "Test",
+            LastName = "User",
+            Street = "123 Test Street",
+            SecondLine = "Test Village",
+            City = "Test City",
+            County = "Test County",
+            PostCode = "TE57 1NG"
+        };
+
+        _noAddressUser = new AppUser { Email = "test@test.com", DisplayName = "Test User With No Address" };
+
+        _httpContextAccessor = Substitute.For<IHttpContextAccessor>();
 
         var store = Substitute.For<IUserStore<AppUser>>();
         _userManager = Substitute.For<UserManager<AppUser>>(store, null, null, null, null, null, null, null, null);
-        _signInManager = Substitute.For<SignInManager<AppUser>>(_userManager, Substitute.For<IHttpContextAccessor>(), Substitute.For<IUserClaimsPrincipalFactory<AppUser>>(), null, null, null, null);
+        _signInManager = Substitute.For<SignInManager<AppUser>>(_userManager, _httpContextAccessor, Substitute.For<IUserClaimsPrincipalFactory<AppUser>>(), null, null, null, null);
 
         _tokenService = Substitute.For<ITokenService>();
-        _mapper = Substitute.For<IMapper>();
+        _mapper = BuildMap();
         _logger = Substitute.For<ILogger<AccountsController>>();
-
+        _userManagerExtensionsWrapper = Substitute.For<IUserManagerExtensionsWrapper>();        
+        
         _accountsController = new AccountsController(
             _userManager,
             _signInManager,
             _tokenService,
             _mapper,
-            _logger
+            _logger,
+            _httpContextAccessor,
+            _userManagerExtensionsWrapper
         );
+    }
+
+    protected static IMapper BuildMap()
+    {
+        var config = new MapperConfiguration(options =>
+        {
+            options.AddProfile(new AutoMapperProfiles());
+        });
+
+        return config.CreateMapper();
     }
 
     [Fact]
@@ -243,5 +277,316 @@ public class AccountsControllerTests
         result.StatusCode.Should().Be(200);
         result.Value.Should().BeOfType<RegisterResult>();
         ((RegisterResult)result.Value).Successful.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task GetUserAddress_ShouldReturnUserAddressDTO_WhenUserIsAuthenticated()
+    {
+        // Arrange
+        IHttpContextAccessor httpContextAccessor = Substitute.For<IHttpContextAccessor>();
+        httpContextAccessor.HttpContext = new DefaultHttpContext();
+        httpContextAccessor.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+        {
+            new Claim(ClaimTypes.Email, "test@test.com")
+        }));
+
+        var store = Substitute.For<IUserStore<AppUser>>();
+        var userManager = Substitute.For<UserManager<AppUser>>(store, null, null, null, null, null, null, null, null);
+        var signInManager = Substitute.For<SignInManager<AppUser>>(userManager, httpContextAccessor, Substitute.For<IUserClaimsPrincipalFactory<AppUser>>(), null, null, null, null);
+
+        var sut = new AccountsController(
+            userManager,
+            signInManager,
+            _tokenService,
+            _mapper,
+            _logger,
+            httpContextAccessor,
+            _userManagerExtensionsWrapper
+        );
+
+        _userManagerExtensionsWrapper
+            .FindUserByClaimsPrincipalWithAddressAsync(Arg.Any<UserManager<AppUser>>(), Arg.Any<ClaimsPrincipal>())
+            .Returns(_user);
+
+        // Act
+        var result = (OkObjectResult)await sut.GetUserAddress();
+
+        // Assert
+        result.StatusCode.Should().Be(200);
+        result.Value.Should().BeOfType<AddressDTO>();
+        result.Value.Should().BeEquivalentTo(_mapper.Map<Address, AddressDTO>(_user.Address));
+    }
+
+    [Fact]
+    public async Task GetUserAddress_ShouldReturnEmptyAddressDTO_WhenUserIsAuthenticatedAndHasNoAddress()
+    {
+        // Arrange
+        IHttpContextAccessor httpContextAccessor = Substitute.For<IHttpContextAccessor>();
+        httpContextAccessor.HttpContext = new DefaultHttpContext();
+        httpContextAccessor.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+        {
+            new Claim(ClaimTypes.Email, "test@test.com")
+        }));
+
+        var store = Substitute.For<IUserStore<AppUser>>();
+        var userManager = Substitute.For<UserManager<AppUser>>(store, null, null, null, null, null, null, null, null);
+        var signInManager = Substitute.For<SignInManager<AppUser>>(userManager, httpContextAccessor, Substitute.For<IUserClaimsPrincipalFactory<AppUser>>(), null, null, null, null);
+        
+        var sut = new AccountsController(
+            userManager,
+            signInManager,
+            _tokenService,
+            _mapper,
+            _logger,
+            httpContextAccessor,
+            _userManagerExtensionsWrapper
+        );
+
+        _userManagerExtensionsWrapper
+            .FindUserByClaimsPrincipalWithAddressAsync(Arg.Any<UserManager<AppUser>>(), Arg.Any<ClaimsPrincipal>())
+            .Returns(_noAddressUser);
+
+        // Act
+        var result = (OkObjectResult)await sut.GetUserAddress();
+
+        // Assert
+        result.StatusCode.Should().Be(200);
+        result.Value.Should().BeOfType<AddressDTO>();
+    }
+
+    [Fact]
+    public async Task GetUserAddress_ShouldReturnNotFound_WhenUserIsNotAuthenticated()
+    {
+        // Arrange
+        _httpContextAccessor.HttpContext = new DefaultHttpContext();
+        _httpContextAccessor.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
+
+        var sut = new AccountsController(
+            _userManager,
+            _signInManager,
+            _tokenService,
+            _mapper,
+            _logger,
+            _httpContextAccessor,
+            _userManagerExtensionsWrapper
+        );
+
+        // Act
+        var result = (NotFoundObjectResult)await sut.GetUserAddress();
+
+        // Assert
+        result.StatusCode.Should().Be(404);
+    }
+
+    [Fact]
+    public async Task GetUserAddress_ShouldReturnEmptyAddressDTO_WhenUserIsNotFound()
+    {
+        // Arrange
+        _httpContextAccessor.HttpContext = new DefaultHttpContext();
+        _httpContextAccessor.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+        {
+            new Claim(ClaimTypes.Email, "")
+        }));
+
+        var sut = new AccountsController(
+            _userManager,
+            _signInManager,
+            _tokenService,
+            _mapper,
+            _logger,
+            _httpContextAccessor,
+            _userManagerExtensionsWrapper
+        );
+
+        //_userManagerExtensionsWrapper.FindUserByClaimsPrincipalWithAddressAsync();
+
+        // Act
+        var result = (NotFoundObjectResult)await sut.GetUserAddress();
+
+        // Assert
+        result.StatusCode.Should().Be(404);
+    }
+
+    [Fact]
+    public async Task GetUserAddress_ShouldReturnNotFoundWithEmptyAddressDTO_WhenExceptionIsThrown()
+    {
+        // Arrange
+        _httpContextAccessor.HttpContext = new DefaultHttpContext();
+        _httpContextAccessor.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
+
+        var sut = new AccountsController(
+            _userManager,
+            _signInManager,
+            _tokenService,
+            _mapper,
+            _logger,
+            _httpContextAccessor,
+            _userManagerExtensionsWrapper
+        );
+
+        _userManagerExtensionsWrapper
+            .FindUserByClaimsPrincipalWithAddressAsync(Arg.Any<UserManager<AppUser>>(), Arg.Any<ClaimsPrincipal>())
+            .ThrowsAsync(new Exception("Simulated exception"));
+
+        // Act
+        var result = (NotFoundObjectResult)await sut.GetUserAddress();
+
+        // Assert
+        result.StatusCode.Should().Be(404);
+        result.Value.Should().BeOfType<AddressDTO>();
+        result.Value.Should().BeEquivalentTo(new AddressDTO());
+    }
+
+    [Fact]
+    public async Task UpdateUserAddress_ShouldUpdateUserAddress_WhenAddressUpdateIsSuccessful()
+    {
+        // Arrange
+        IHttpContextAccessor httpContextAccessor = Substitute.For<IHttpContextAccessor>();
+        httpContextAccessor.HttpContext = new DefaultHttpContext();
+        httpContextAccessor.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+        {
+            new Claim(ClaimTypes.Email, "test@test.com")
+        }));
+
+        var store = Substitute.For<IUserStore<AppUser>>();
+        var userManager = Substitute.For<UserManager<AppUser>>(store, null, null, null, null, null, null, null, null);
+        var signInManager = Substitute.For<SignInManager<AppUser>>(userManager, httpContextAccessor, Substitute.For<IUserClaimsPrincipalFactory<AppUser>>(), null, null, null, null);
+
+        var sut = new AccountsController(
+            userManager,
+            signInManager,
+            _tokenService,
+            _mapper,
+            _logger,
+            httpContextAccessor,
+            _userManagerExtensionsWrapper
+        );
+
+        var updatedAddressDTO = new AddressDTO
+        {
+            FirstName = "Updated Test",
+            LastName = "User",
+            Street = "Updated Street",
+            SecondLine = "Test Village",
+            City = "Test City",
+            County = "Test County",
+            PostCode = "TE57 1NG"
+        };
+
+        _userManagerExtensionsWrapper
+            .FindUserByClaimsPrincipalWithAddressAsync(userManager, Arg.Any<ClaimsPrincipal>())
+            .Returns(_user);
+
+        userManager.UpdateAsync(_user).Returns(IdentityResult.Success);
+
+        // Act
+        var result = (OkObjectResult)await sut.UpdateUserAddress(updatedAddressDTO);
+
+        // Assert
+        result.StatusCode.Should().Be(200);
+        result.Value.Should().BeOfType<AddressDTO>();
+        result.Value.Should().BeEquivalentTo(updatedAddressDTO);
+    }
+
+    [Fact]
+    public async Task UpdateUserAddress_ShouldUpdateUserAddress_WhenAddressUpdateIsNotSuccessful()
+    {
+        // Arrange
+        IHttpContextAccessor httpContextAccessor = Substitute.For<IHttpContextAccessor>();
+        httpContextAccessor.HttpContext = new DefaultHttpContext();
+        httpContextAccessor.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+        {
+            new Claim(ClaimTypes.Email, "test@test.com")
+        }));
+
+        var store = Substitute.For<IUserStore<AppUser>>();
+        var userManager = Substitute.For<UserManager<AppUser>>(store, null, null, null, null, null, null, null, null);
+        var signInManager = Substitute.For<SignInManager<AppUser>>(userManager, httpContextAccessor, Substitute.For<IUserClaimsPrincipalFactory<AppUser>>(), null, null, null, null);
+
+        var sut = new AccountsController(
+            userManager,
+            signInManager,
+            _tokenService,
+            _mapper,
+            _logger,
+            httpContextAccessor,
+            _userManagerExtensionsWrapper
+        );
+
+        var updatedAddressDTO = new AddressDTO
+        {
+            FirstName = "Updated Test",
+            LastName = "User",
+            Street = "Updated Street",
+            SecondLine = "Test Village",
+            City = "Test City",
+            County = "Test County",
+            PostCode = "TE57 1NG"
+        };
+
+        _userManagerExtensionsWrapper
+            .FindUserByClaimsPrincipalWithAddressAsync(userManager, Arg.Any<ClaimsPrincipal>())
+            .Returns(_user);
+
+        userManager.UpdateAsync(_user).Returns(IdentityResult.Failed(Array.Empty<IdentityError>()));
+
+        // Act
+        var result = (OkObjectResult)await sut.UpdateUserAddress(updatedAddressDTO);
+
+        // Assert
+        result.StatusCode.Should().Be(200);
+        result.Value.Should().BeOfType<AddressDTO>();
+        result.Value.Should().BeEquivalentTo(new AddressDTO());
+    }
+
+    [Fact]
+    public async Task UpdateUserAddress_ShouldReturnEmptyAddressDTO_WhenExceptionIsThrown()
+    {
+        // Arrange
+        IHttpContextAccessor httpContextAccessor = Substitute.For<IHttpContextAccessor>();
+        httpContextAccessor.HttpContext = new DefaultHttpContext();
+        httpContextAccessor.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+        {
+            new Claim(ClaimTypes.Email, "test@test.com")
+        }));
+
+        var store = Substitute.For<IUserStore<AppUser>>();
+        var userManager = Substitute.For<UserManager<AppUser>>(store, null, null, null, null, null, null, null, null);
+        var signInManager = Substitute.For<SignInManager<AppUser>>(userManager, httpContextAccessor, Substitute.For<IUserClaimsPrincipalFactory<AppUser>>(), null, null, null, null);
+
+        var sut = new AccountsController(
+            userManager,
+            signInManager,
+            _tokenService,
+            _mapper,
+            _logger,
+            httpContextAccessor,
+            _userManagerExtensionsWrapper
+        );
+
+        var updatedAddressDTO = new AddressDTO
+        {
+            FirstName = "Updated Test",
+            LastName = "User",
+            Street = "Updated Street",
+            SecondLine = "Test Village",
+            City = "Test City",
+            County = "Test County",
+            PostCode = "TE57 1NG"
+        };
+
+        _userManagerExtensionsWrapper
+            .FindUserByClaimsPrincipalWithAddressAsync(userManager, Arg.Any<ClaimsPrincipal>())
+            .ThrowsAsync(new Exception("Simulated exception"));
+
+        userManager.UpdateAsync(_user).Returns(IdentityResult.Success);
+
+        // Act
+        var result = (OkObjectResult)await sut.UpdateUserAddress(updatedAddressDTO);
+
+        // Assert
+        result.StatusCode.Should().Be(200);
+        result.Value.Should().BeOfType<AddressDTO>();
+        result.Value.Should().BeEquivalentTo(new AddressDTO());
     }
 }
