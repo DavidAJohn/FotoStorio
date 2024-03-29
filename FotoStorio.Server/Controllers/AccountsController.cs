@@ -18,8 +18,9 @@ public class AccountsController : BaseApiController
     private readonly IMapper _mapper;
     private readonly ILogger<AccountsController> _logger;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IUserManagerExtensionsWrapper _userManagerExtensionsWrapper;
 
-    public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper, ILogger<AccountsController> logger, IHttpContextAccessor httpContextAccessor)
+    public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper, ILogger<AccountsController> logger, IHttpContextAccessor httpContextAccessor, IUserManagerExtensionsWrapper userManagerExtensionsWrapper)
     {
         _logger = logger;
         _mapper = mapper;
@@ -27,6 +28,7 @@ public class AccountsController : BaseApiController
         _signInManager = signInManager;
         _userManager = userManager;
         _httpContextAccessor = httpContextAccessor;
+        _userManagerExtensionsWrapper = userManagerExtensionsWrapper;
     }
 
     /// GET api/accounts/login
@@ -165,7 +167,7 @@ public class AccountsController : BaseApiController
         try
         {
             var httpContext = _httpContextAccessor.HttpContext;
-            var user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(httpContext.User);
+            var user = await _userManagerExtensionsWrapper.FindUserByClaimsPrincipalWithAddressAsync(_userManager, httpContext.User);
 
             if (user == null)
             {
@@ -198,14 +200,12 @@ public class AccountsController : BaseApiController
     /// <returns>AddressDTO object</returns>
     [Authorize]
     [HttpPut("address")]
-    public async Task<ActionResult<AddressDTO>> UpdateUserAddress(AddressDTO addressDTO)
+    public async Task<ActionResult> UpdateUserAddress(AddressDTO addressDTO)
     {   
-        AppUser user = null;
-
         try
         {
             var httpContext = _httpContextAccessor.HttpContext;
-            user = await _userManager.FindUserByClaimsPrincipalWithAddressAsync(httpContext.User);
+            AppUser user = await _userManagerExtensionsWrapper.FindUserByClaimsPrincipalWithAddressAsync(_userManager, httpContext.User);
 
             user.Address = _mapper.Map<AddressDTO, Address>(addressDTO);
             
@@ -216,13 +216,13 @@ public class AccountsController : BaseApiController
                 return Ok(_mapper.Map<Address, AddressDTO>(user.Address));
             }
 
-            return new AddressDTO {};
+            return Ok(new AddressDTO {});
         }
         catch (Exception ex)
         {
-            _logger.LogError("Error in AccountsController.UpdateUserAddress for user '{userId}': {message}", user.Id, ex.Message);
+            _logger.LogError("Error in AccountsController.UpdateUserAddress : {message}", ex.Message);
 
-            return new AddressDTO {};
+            return Ok(new AddressDTO { });
         }
     }
 }

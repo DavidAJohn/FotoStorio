@@ -50,6 +50,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 
+builder.Services.AddScoped<IUserManagerExtensionsWrapper, UserManagerExtensionsWrapper>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddResponseCaching();
