@@ -1,6 +1,7 @@
 using FotoStorio.Shared.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace FotoStorio.Server.Services;
 
@@ -39,5 +40,26 @@ public class TokenServiceTests
         // Assert
         token.Should().NotBeNullOrEmpty();
         token.Should().BeOfType<string>();
+    }
+
+    [Fact]
+    public async Task CreateToken_ShouldReturnTokenWithClaims()
+    {
+        // Arrange
+        _userManager.GetRolesAsync(_user).Returns(_roles);
+
+        // Act
+        var token = await _tokenService.CreateToken(_user);
+
+        // Assert
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var securityToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
+
+        securityToken.Should().NotBeNull();
+        securityToken.Issuer.Should().Be(_config["JwtIssuer"]);
+        securityToken.Audiences.Should().Contain(_config["JwtAudience"]);
+        securityToken.Claims.Should().NotBeEmpty();
+        securityToken.Claims.Should().Contain(claim => claim.Type == JwtRegisteredClaimNames.Email && claim.Value == _user.Email);
+        securityToken.Claims.Should().Contain(claim => claim.Type == JwtRegisteredClaimNames.GivenName && claim.Value == _user.DisplayName);
     }
 }
