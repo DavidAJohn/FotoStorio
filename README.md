@@ -51,4 +51,4 @@ In **Visual Studio 2022**, you should set the Server project as the default star
 
 The application can optionally seed sample product, brand and category data into your database at startup. To enable/disable this, update the **"InitialDataSeeding"** value in the **appsettings.Development.json** file as required, then start the application. By default. this is set to **false** and will only run if the application environment is set to **Development**.
 
-The images used throughout the site are publicly available at **imgbb.com** for the sake of convenience.
+The images used throughout the application can be downloaded as a single (5Mb) zip file [here](https://1drv.ms/u/s!At8F4UY7yLDf-mOTqdyhqFn2KSFe?e=JboIZ2).
