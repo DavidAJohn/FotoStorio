@@ -28,7 +28,8 @@ builder.Services.AddHttpClient("FotoStorioAPI", c => c.BaseAddress =
             UseJitter = true,
             OnRetry = static args =>
             {
-                Log.Warning("Retry no. {attemptNumber} at {operationKey}", args.AttemptNumber, args.Context.OperationKey);
+                Log.Warning("Retry no. {attemptNumber} at {operationKey} due to {exception}",
+                    args.AttemptNumber, args.Context.OperationKey, args.Outcome.Exception);
 
                 return default;
             }
