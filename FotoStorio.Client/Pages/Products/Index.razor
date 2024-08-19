@@ -187,3 +187,8 @@
         }
     }
 </div>
+
+@code {
+    // included here instead of in partial class so style classes are visibe to Tailwind
+    private string DropdownTransformClass => collapseDropdown ? "transform opacity-0 scale-90" : null;
+}

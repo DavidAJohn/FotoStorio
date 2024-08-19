@@ -26,8 +26,6 @@ public partial class Index
 
     private bool collapseDropdown = true;
 
-    private string DropdownTransformClass => collapseDropdown ? "transform opacity-0 scale-90" : null;
-
     private void ToggleDropdown()
     {
         collapseDropdown = !collapseDropdown;
