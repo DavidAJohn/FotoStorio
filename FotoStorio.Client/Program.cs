@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Http.Resilience;
 using Polly;
-using Serilog;
 using FotoStorio.Client;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -25,14 +24,7 @@ builder.Services.AddHttpClient("FotoStorioAPI", c => c.BaseAddress =
             MaxRetryAttempts = 5,
             Delay = TimeSpan.FromSeconds(2),
             BackoffType = DelayBackoffType.Exponential,
-            UseJitter = true,
-            OnRetry = static args =>
-            {
-                Log.Warning("Retry no. {attemptNumber} at {operationKey} due to {exception}",
-                    args.AttemptNumber, args.Context.OperationKey, args.Outcome.Exception);
-
-                return default;
-            }
+            UseJitter = true
         });
 
         builder.AddCircuitBreaker(new HttpCircuitBreakerStrategyOptions 
