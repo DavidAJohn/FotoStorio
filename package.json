@@ -15,7 +15,7 @@
     "autoprefixer": "^10.4.8",
     "gulp": "^5.0.0",
     "gulp-clean-css": "^4.3.0",
-    "gulp-postcss": "^9.0.0",
+    "gulp-postcss": "^9.0.1",
     "gulp-purgecss": "^4.0.3",
     "postcss": "^8.4.32",
     "precss": "^4.0.0",
